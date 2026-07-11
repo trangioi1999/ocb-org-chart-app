@@ -1,12 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { OrgChartComponent } from './org-chart/org-chart.component';
+import { DetailPanelComponent } from './detail-panel/detail-panel.component';
 import { OrgDataService } from './services/org-data.service';
 import { OrgNode } from './models/org-node.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [OrgChartComponent],
+  imports: [OrgChartComponent, DetailPanelComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -16,6 +17,7 @@ export class App implements OnInit {
   protected readonly orgData = this.orgDataService.data;
   protected readonly isLoading = this.orgDataService.isLoading;
   protected readonly hasError = this.orgDataService.hasError;
+  protected readonly selectedNode = signal<OrgNode | null>(null);
 
   ngOnInit(): void {
     this.orgDataService.load();
@@ -26,7 +28,6 @@ export class App implements OnInit {
   }
 
   protected onNodeClick(node: OrgNode): void {
-    // Xử lý ở Task 12 (detail panel).
-    console.log('Node clicked:', node);
+    this.selectedNode.set(node);
   }
 }

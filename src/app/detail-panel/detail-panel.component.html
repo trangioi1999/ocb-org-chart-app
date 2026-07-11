@@ -1,0 +1,15 @@
+@if (node(); as n) {
+  <aside class="detail-panel" role="complementary" aria-label="Chi tiết nhân sự">
+    <button type="button" class="detail-panel__close" aria-label="Đóng" (click)="close()">✕</button>
+    <h2 class="detail-panel__name">
+      {{ n.name }}
+      @if (n.isDummy) {
+        <span class="detail-panel__dummy">(dummy)</span>
+      }
+    </h2>
+    <p class="detail-panel__title">{{ n.title }}</p>
+    @if (n.department) {
+      <p class="detail-panel__department">{{ n.department }}</p>
+    }
+  </aside>
+}

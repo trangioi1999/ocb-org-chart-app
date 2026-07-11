@@ -48,4 +48,29 @@ describe('App', () => {
     (compiled.querySelector('.app-status--error button') as HTMLButtonElement).click();
     httpMock.expectOne('data/org-chart.json').flush([]);
   });
+
+  it('opens the detail panel when a node is clicked and closes it on close', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    httpMock.expectOne('data/org-chart.json').flush([
+      { id: 'a', parentId: null, name: 'Alice', title: 'Chủ tịch', tag: 'regular' },
+    ]);
+    fixture.detectChanges();
+
+    fixture.componentInstance['onNodeClick']({
+      id: 'a',
+      parentId: null,
+      name: 'Alice',
+      title: 'Chủ tịch',
+      tag: 'regular',
+    });
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.detail-panel')).toBeTruthy();
+
+    compiled.querySelector<HTMLButtonElement>('.detail-panel__close')!.click();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.detail-panel')).toBeNull();
+  });
 });

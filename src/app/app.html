@@ -15,7 +15,10 @@
         <button type="button" (click)="reload()">Thử lại</button>
       </div>
     } @else {
-      <app-org-chart [data]="orgData()" (nodeClick)="onNodeClick($event)" />
+      <div class="app-main__content">
+        <app-org-chart [data]="orgData()" (nodeClick)="onNodeClick($event)" />
+        <app-detail-panel [node]="selectedNode()" (closed)="selectedNode.set(null)" />
+      </div>
     }
   </main>
 </div>

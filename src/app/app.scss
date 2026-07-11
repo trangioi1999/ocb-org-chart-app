@@ -68,3 +68,13 @@
     font-size: 11px;
   }
 }
+
+.app-main__content {
+  display: flex;
+  height: 100%;
+}
+
+.app-main__content app-org-chart {
+  flex: 1 1 auto;
+  min-width: 0;
+}

@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-header {
+  padding: 14px 20px;
+  background: #0b3d68;
+  color: #fff;
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.app-subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #cfe0f2;
+}
+
+.app-main {
+  flex: 1 1 auto;
+  min-height: 0;
+}

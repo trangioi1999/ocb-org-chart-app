@@ -5,6 +5,7 @@ import {
   OnDestroy,
   ViewEncapsulation,
   afterNextRender,
+  computed,
   effect,
   inject,
   input,
@@ -40,6 +41,8 @@ export class OrgChartComponent implements OnDestroy {
 
   protected readonly matches = signal<OrgNode[]>([]);
   protected readonly matchIndex = signal(0);
+  readonly matchCount = computed(() => this.matches().length);
+  readonly matchPosition = computed(() => (this.matches().length ? this.matchIndex() + 1 : 0));
   protected readonly initError = signal(false);
   readonly layoutDirection = signal<'top' | 'left'>('top');
 
@@ -104,6 +107,28 @@ export class OrgChartComponent implements OnDestroy {
     this.matches.set(results);
     this.matchIndex.set(0);
     this.highlightCurrentMatch();
+  }
+
+  nextMatch(): void {
+    const total = this.matches().length;
+    if (!total) {
+      return;
+    }
+    this.matchIndex.set((this.matchIndex() + 1) % total);
+    this.highlightCurrentMatch();
+  }
+
+  prevMatch(): void {
+    const total = this.matches().length;
+    if (!total) {
+      return;
+    }
+    this.matchIndex.set((this.matchIndex() - 1 + total) % total);
+    this.highlightCurrentMatch();
+  }
+
+  exportImage(): void {
+    this.zone.runOutsideAngular(() => this.chart?.exportImg({ save: true }));
   }
 
   private highlightCurrentMatch(): void {

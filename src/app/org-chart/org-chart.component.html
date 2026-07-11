@@ -9,6 +9,11 @@
       aria-label="Tìm theo tên hoặc chức danh"
       (input)="onSearchInput($event)"
     />
+    @if (matchCount() > 0) {
+      <span class="org-chart-match-counter" aria-live="polite">{{ matchPosition() }}/{{ matchCount() }}</span>
+      <button type="button" (click)="prevMatch()" aria-label="Kết quả trước">‹</button>
+      <button type="button" (click)="nextMatch()" aria-label="Kết quả tiếp theo">›</button>
+    }
     <button type="button" (click)="expandAll()" aria-label="Mở rộng tất cả các nhánh">Mở rộng tất cả</button>
     <button type="button" (click)="collapseAll()" aria-label="Thu gọn tất cả các nhánh">Thu gọn tất cả</button>
     <button type="button" (click)="fit()" aria-label="Đưa sơ đồ vừa khung nhìn">Fit màn hình</button>
@@ -17,6 +22,7 @@
     <button type="button" (click)="toggleLayout()" aria-label="Đổi hướng sơ đồ (dọc/ngang)">
       Đổi hướng: {{ layoutDirection() === 'top' ? 'Dọc' : 'Ngang' }}
     </button>
+    <button type="button" (click)="exportImage()" aria-label="Xuất ảnh sơ đồ">Xuất ảnh</button>
   </div>
 
   <div class="org-chart-legend" role="list" aria-label="Chú giải màu sắc">

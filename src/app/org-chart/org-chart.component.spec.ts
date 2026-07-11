@@ -114,4 +114,36 @@ describe('OrgChartComponent', () => {
     fixture.componentInstance.toggleLayout();
     expect(fixture.componentInstance.layoutDirection()).toBe('top');
   });
+
+  it('cycles through multiple search matches with nextMatch/prevMatch', () => {
+    const THREE_MATCH_NODES: OrgNode[] = [
+      ...NODES,
+      { id: 'other', parentId: 'root', name: 'Nguyễn Văn B', title: 'Phó Tổng Giám đốc', tag: 'executive' },
+    ];
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', THREE_MATCH_NODES);
+    TestBed.inject(OrgDataService).setData(THREE_MATCH_NODES);
+    fixture.detectChanges();
+
+    fixture.componentInstance.highlight('giám đốc');
+    expect(fixture.componentInstance.matchCount()).toBe(2);
+    expect(fixture.componentInstance.matchPosition()).toBe(1);
+
+    fixture.componentInstance.nextMatch();
+    expect(fixture.componentInstance.matchPosition()).toBe(2);
+
+    fixture.componentInstance.nextMatch();
+    expect(fixture.componentInstance.matchPosition()).toBe(1);
+
+    fixture.componentInstance.prevMatch();
+    expect(fixture.componentInstance.matchPosition()).toBe(2);
+  });
+
+  it('exportImage() delegates to the underlying chart instance without throwing', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    expect(() => fixture.componentInstance.exportImage()).not.toThrow();
+  });
 });

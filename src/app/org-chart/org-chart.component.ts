@@ -43,6 +43,7 @@ export class OrgChartComponent implements OnDestroy {
   protected readonly initError = signal(false);
 
   private chart: OrgChart<OrgNode> | null = null;
+  private listenerAttached = false;
 
   constructor(private readonly zone: NgZone) {
     // d3-org-chart thao tác DOM trực tiếp (không qua Angular renderer),
@@ -143,6 +144,7 @@ export class OrgChartComponent implements OnDestroy {
         })
         .render();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
+      this.listenerAttached = true;
     } catch (err) {
       console.error('Không thể khởi tạo sơ đồ tổ chức:', err);
       this.zone.run(() => this.initError.set(true));
@@ -184,11 +186,8 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    try {
-      this.containerRef()?.nativeElement.removeEventListener('keydown', this.handleCardKeydown);
-    } catch {
-      // containerRef có thể không truy cập được (ví dụ khi khởi tạo thất bại);
-      // bỏ qua vì không có listener nào cần gỡ trong trường hợp đó.
+    if (this.listenerAttached) {
+      this.containerRef().nativeElement.removeEventListener('keydown', this.handleCardKeydown);
     }
     this.chart = null;
   }

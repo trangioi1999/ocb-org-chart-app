@@ -70,7 +70,7 @@ describe('OrgChartComponent', () => {
     expect(instance.initError()).toBe(true);
   });
 
-  it('emits nodeClick when Enter is pressed on a focused card', () => {
+  it('emits nodeClick when Enter is pressed on a focused card inside the real container', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);
     fixture.detectChanges();
@@ -78,19 +78,19 @@ describe('OrgChartComponent', () => {
     const emitted: OrgNode[] = [];
     fixture.componentInstance.nodeClick.subscribe((n: OrgNode) => emitted.push(n));
 
+    const container = (
+      fixture.componentInstance as unknown as {
+        containerRef: () => { nativeElement: HTMLElement };
+      }
+    )['containerRef']().nativeElement;
     const card = document.createElement('div');
     card.className = 'org-card';
     card.setAttribute('data-node-id', 'child');
-    document.body.appendChild(card);
+    container.appendChild(card);
 
     const event = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
     card.dispatchEvent(event);
 
-    (fixture.componentInstance as unknown as { handleCardKeydown: (e: KeyboardEvent) => void })[
-      'handleCardKeydown'
-    ](event);
-
     expect(emitted).toEqual([NODES[1]]);
-    document.body.removeChild(card);
   });
 });

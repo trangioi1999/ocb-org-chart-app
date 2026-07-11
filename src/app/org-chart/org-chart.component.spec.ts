@@ -34,6 +34,34 @@ describe('OrgChartComponent', () => {
     expect(html).not.toContain('org-card__dummy');
   });
 
+  it('renders the default OCB legend when legendItems is not provided', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const items = Array.from(compiled.querySelectorAll('.legend-item')).map((el) =>
+      el.textContent?.trim()
+    );
+    expect(items).toEqual(['HĐQT / Ban Kiểm soát', 'Thành viên độc lập', 'Ban điều hành']);
+  });
+
+  it('renders custom legend items from the legendItems input', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.componentRef.setInput('legendItems', [
+      { tagClass: 'executive', label: 'Quản lý' },
+      { tagClass: 'regular', label: 'Nhân viên' },
+    ]);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const items = Array.from(compiled.querySelectorAll('.legend-item')).map((el) =>
+      el.textContent?.trim()
+    );
+    expect(items).toEqual(['Quản lý', 'Nhân viên']);
+  });
+
   it('highlight() filters matches from its own data() input', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);

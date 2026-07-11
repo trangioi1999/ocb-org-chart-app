@@ -13,7 +13,18 @@ import {
   viewChild,
 } from '@angular/core';
 import { OrgChart } from 'd3-org-chart';
-import { OrgNode } from '../models/org-node.model';
+import { OrgNode, OrgNodeTag } from '../models/org-node.model';
+
+export interface LegendItem {
+  tagClass: OrgNodeTag;
+  label: string;
+}
+
+const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
+  { tagClass: 'regular', label: 'HĐQT / Ban Kiểm soát' },
+  { tagClass: 'independent', label: 'Thành viên độc lập' },
+  { tagClass: 'executive', label: 'Ban điều hành' },
+];
 
 @Component({
   selector: 'app-org-chart',
@@ -28,6 +39,9 @@ import { OrgNode } from '../models/org-node.model';
 export class OrgChartComponent implements OnDestroy {
   /** Dữ liệu phẳng {id, parentId, ...}. */
   readonly data = input.required<OrgNode[]>();
+
+  /** Chú giải màu sắc hiển thị dưới toolbar; mặc định là legend của OCB. */
+  readonly legendItems = input<LegendItem[]>(DEFAULT_LEGEND_ITEMS);
 
   /** Bắn ra khi người dùng click 1 node trên chart. */
   readonly nodeClick = output<OrgNode>();

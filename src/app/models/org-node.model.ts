@@ -13,4 +13,5 @@ export interface OrgNode {
   department?: string;
   imageUrl?: string;
   tag?: OrgNodeTag;
+  isDummy?: boolean;
 }

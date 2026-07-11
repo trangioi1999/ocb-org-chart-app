@@ -115,8 +115,7 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   private renderCard(node: OrgNode): string {
-    const displayName = node.name.replace('[Dummy] ', '');
-    const initials = displayName
+    const initials = node.name
       .split(' ')
       .filter(Boolean)
       .slice(-2)
@@ -124,14 +123,13 @@ export class OrgChartComponent implements OnDestroy {
       .join('')
       .toUpperCase();
     const tagClass = `org-card--${node.tag ?? 'regular'}`;
-    const isDummy = node.name.startsWith('[Dummy]');
 
     return `
-      <div class="org-card ${tagClass}">
+      <div class="org-card ${tagClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${this.escape(node.name)}, ${this.escape(node.title)}">
         <div class="org-card__avatar">${initials}</div>
         <div class="org-card__body">
-          <div class="org-card__name">${this.escape(displayName)}${
-      isDummy ? ' <span class="org-card__dummy">(dummy)</span>' : ''
+          <div class="org-card__name">${this.escape(node.name)}${
+      node.isDummy ? ' <span class="org-card__dummy">(dummy)</span>' : ''
     }</div>
           <div class="org-card__title">${this.escape(node.title)}</div>
           ${

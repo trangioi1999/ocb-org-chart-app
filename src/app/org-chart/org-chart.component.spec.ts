@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { OrgChartComponent } from './org-chart.component';
 import { OrgNode } from '../models/org-node.model';
 
@@ -8,6 +10,12 @@ const NODES: OrgNode[] = [
 ];
 
 describe('OrgChartComponent', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+  });
+
   it('marks dummy nodes in the rendered card without a name prefix', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);
@@ -32,5 +40,15 @@ describe('OrgChartComponent', () => {
     ](NODES[0]);
 
     expect(html).not.toContain('org-card__dummy');
+  });
+
+  it('highlight() delegates matching to OrgDataService.search()', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    fixture.componentInstance.highlight('tổng giám đốc');
+
+    expect(fixture.componentInstance['matches']()).toEqual([NODES[1]]);
   });
 });

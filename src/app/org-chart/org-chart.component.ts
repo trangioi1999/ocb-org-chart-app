@@ -6,12 +6,15 @@ import {
   ViewEncapsulation,
   afterNextRender,
   effect,
+  inject,
   input,
   output,
+  signal,
   viewChild,
 } from '@angular/core';
 import { OrgChart } from 'd3-org-chart';
 import { OrgNode } from '../models/org-node.model';
+import { OrgDataService } from '../services/org-data.service';
 
 @Component({
   selector: 'app-org-chart',
@@ -33,6 +36,11 @@ export class OrgChartComponent implements OnDestroy {
   private readonly containerRef =
     viewChild.required<ElementRef<HTMLDivElement>>('chartContainer');
 
+  private readonly orgDataService = inject(OrgDataService);
+
+  protected readonly matches = signal<OrgNode[]>([]);
+  protected readonly matchIndex = signal(0);
+
   private chart: OrgChart<OrgNode> | null = null;
 
   constructor(private readonly zone: NgZone) {
@@ -43,8 +51,10 @@ export class OrgChartComponent implements OnDestroy {
     });
 
     // Re-render khi input data đổi, không destroy/recreate instance.
+    // Đồng bộ vào OrgDataService để search() luôn khớp với dữ liệu đang hiển thị.
     effect(() => {
       const nodes = this.data();
+      this.orgDataService.setData(nodes);
       if (this.chart) {
         this.zone.runOutsideAngular(() => {
           this.chart!.data(nodes).render();
@@ -65,27 +75,25 @@ export class OrgChartComponent implements OnDestroy {
     this.zone.runOutsideAngular(() => this.chart?.fit());
   }
 
-  /** Highlight node đầu tiên khớp tên/chức danh; xoá highlight nếu rỗng. */
+  /** Lọc node khớp tên/chức danh qua OrgDataService, highlight kết quả đang chọn. */
   highlight(term: string): void {
+    const results = this.orgDataService.search(term);
+    this.matches.set(results);
+    this.matchIndex.set(0);
+    this.highlightCurrentMatch();
+  }
+
+  private highlightCurrentMatch(): void {
     if (!this.chart) {
       return;
     }
     this.zone.runOutsideAngular(() => {
       this.chart!.clearHighlighting();
-      const keyword = term.trim().toLowerCase();
-      if (!keyword) {
-        this.chart!.render();
-        return;
-      }
-      const match = this.data().find(
-        (node) =>
-          node.name.toLowerCase().includes(keyword) ||
-          node.title.toLowerCase().includes(keyword)
-      );
+      const match = this.matches()[this.matchIndex()];
       if (match) {
         this.chart!.setUpToTheRootHighlighted(match.id);
-        this.chart!.render();
       }
+      this.chart!.render();
     });
   }
 

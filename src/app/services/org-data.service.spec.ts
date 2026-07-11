@@ -47,11 +47,4 @@ describe('OrgDataService', () => {
     expect(service.hasError()).toBe(true);
     expect(service.data()).toEqual([]);
   });
-
-  it('search() matches by name or title, case-insensitive', () => {
-    service.setData(SAMPLE);
-    expect(service.search('cntt')).toEqual([SAMPLE[1]]);
-    expect(service.search('nguyen')).toEqual([SAMPLE[0]]);
-    expect(service.search('')).toEqual([]);
-  });
 });

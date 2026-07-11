@@ -41,16 +41,4 @@ export class OrgDataService {
     this._data.set(nodes);
     this._status.set('loaded');
   }
-
-  /** Tìm node theo tên hoặc chức danh (không phân biệt hoa/thường). */
-  search(term: string): OrgNode[] {
-    const keyword = term.trim().toLowerCase();
-    if (!keyword) {
-      return [];
-    }
-    return this._data().filter(
-      (node) =>
-        node.name.toLowerCase().includes(keyword) || node.title.toLowerCase().includes(keyword)
-    );
-  }
 }

@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { OrgChartComponent } from './org-chart.component';
 import { OrgNode } from '../models/org-node.model';
-import { OrgDataService } from '../services/org-data.service';
 
 const NODES: OrgNode[] = [
   { id: 'root', parentId: null, name: 'Trịnh Văn Tuấn', title: 'Chủ tịch', tag: 'regular' },
@@ -11,12 +8,6 @@ const NODES: OrgNode[] = [
 ];
 
 describe('OrgChartComponent', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()],
-    });
-  });
-
   it('marks dummy nodes in the rendered card without a name prefix', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);
@@ -43,10 +34,9 @@ describe('OrgChartComponent', () => {
     expect(html).not.toContain('org-card__dummy');
   });
 
-  it('highlight() delegates matching to OrgDataService.search()', () => {
+  it('highlight() filters matches from its own data() input', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);
-    TestBed.inject(OrgDataService).setData(NODES);
     fixture.detectChanges();
 
     fixture.componentInstance.highlight('tổng giám đốc');
@@ -122,7 +112,6 @@ describe('OrgChartComponent', () => {
     ];
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', THREE_MATCH_NODES);
-    TestBed.inject(OrgDataService).setData(THREE_MATCH_NODES);
     fixture.detectChanges();
 
     fixture.componentInstance.highlight('giám đốc');

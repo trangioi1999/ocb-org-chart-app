@@ -7,7 +7,6 @@ import {
   afterNextRender,
   computed,
   effect,
-  inject,
   input,
   output,
   signal,
@@ -15,7 +14,6 @@ import {
 } from '@angular/core';
 import { OrgChart } from 'd3-org-chart';
 import { OrgNode } from '../models/org-node.model';
-import { OrgDataService } from '../services/org-data.service';
 
 @Component({
   selector: 'app-org-chart',
@@ -36,8 +34,6 @@ export class OrgChartComponent implements OnDestroy {
 
   private readonly containerRef =
     viewChild.required<ElementRef<HTMLDivElement>>('chartContainer');
-
-  private readonly orgDataService = inject(OrgDataService);
 
   protected readonly matches = signal<OrgNode[]>([]);
   protected readonly matchIndex = signal(0);
@@ -101,9 +97,15 @@ export class OrgChartComponent implements OnDestroy {
     });
   }
 
-  /** Lọc node khớp tên/chức danh qua OrgDataService, highlight kết quả đang chọn. */
+  /** Lọc node khớp tên/chức danh trong data hiện tại, highlight kết quả đang chọn. */
   highlight(term: string): void {
-    const results = this.orgDataService.search(term);
+    const keyword = term.trim().toLowerCase();
+    const results = keyword
+      ? this.data().filter(
+          (node) =>
+            node.name.toLowerCase().includes(keyword) || node.title.toLowerCase().includes(keyword)
+        )
+      : [];
     this.matches.set(results);
     this.matchIndex.set(0);
     this.highlightCurrentMatch();

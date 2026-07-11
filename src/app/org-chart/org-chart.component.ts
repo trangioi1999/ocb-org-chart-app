@@ -40,6 +40,7 @@ export class OrgChartComponent implements OnDestroy {
 
   protected readonly matches = signal<OrgNode[]>([]);
   protected readonly matchIndex = signal(0);
+  protected readonly initError = signal(false);
 
   private chart: OrgChart<OrgNode> | null = null;
 
@@ -55,7 +56,12 @@ export class OrgChartComponent implements OnDestroy {
       const nodes = this.data();
       if (this.chart) {
         this.zone.runOutsideAngular(() => {
-          this.chart!.data(nodes).render();
+          try {
+            this.chart!.data(nodes).render();
+          } catch (err) {
+            console.error('Không thể cập nhật sơ đồ tổ chức:', err);
+            this.zone.run(() => this.initError.set(true));
+          }
         });
       }
     });
@@ -101,23 +107,28 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   private initChart(): void {
-    this.chart = new OrgChart<OrgNode>()
-      .container(this.containerRef().nativeElement)
-      .data(this.data())
-      .nodeId((d) => d.id)
-      .parentNodeId((d) => d.parentId ?? undefined)
-      .compact(false)
-      .initialExpandLevel(2)
-      .nodeWidth(() => 260)
-      .nodeHeight(() => 118)
-      .childrenMargin(() => 50)
-      .siblingsMargin(() => 30)
-      .nodeContent((d) => this.renderCard(d.data))
-      .onNodeClick((d) => {
-        const node: OrgNode = 'data' in d ? d.data : d;
-        this.zone.run(() => this.nodeClick.emit(node));
-      })
-      .render();
+    try {
+      this.chart = new OrgChart<OrgNode>()
+        .container(this.containerRef().nativeElement)
+        .data(this.data())
+        .nodeId((d) => d.id)
+        .parentNodeId((d) => d.parentId ?? undefined)
+        .compact(false)
+        .initialExpandLevel(2)
+        .nodeWidth(() => 260)
+        .nodeHeight(() => 118)
+        .childrenMargin(() => 50)
+        .siblingsMargin(() => 30)
+        .nodeContent((d) => this.renderCard(d.data))
+        .onNodeClick((d) => {
+          const node: OrgNode = 'data' in d ? d.data : d;
+          this.zone.run(() => this.nodeClick.emit(node));
+        })
+        .render();
+    } catch (err) {
+      console.error('Không thể khởi tạo sơ đồ tổ chức:', err);
+      this.zone.run(() => this.initError.set(true));
+    }
   }
 
   private renderCard(node: OrgNode): string {

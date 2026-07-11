@@ -53,4 +53,20 @@ describe('OrgChartComponent', () => {
 
     expect(fixture.componentInstance['matches']()).toEqual([NODES[1]]);
   });
+
+  it('sets initError when chart initialization throws', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+
+    const instance = fixture.componentInstance as unknown as { initChart: () => void; initError: () => boolean };
+    // Force a throw by nulling the container's nativeElement access path.
+    Object.defineProperty(fixture.componentInstance, 'containerRef', {
+      value: () => {
+        throw new Error('container missing');
+      },
+    });
+
+    instance.initChart();
+    expect(instance.initError()).toBe(true);
+  });
 });

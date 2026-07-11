@@ -165,6 +165,16 @@
   }
 }
 
+.org-chart-error {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b91c1c;
+  font-size: 14px;
+  background: #fef2f2;
+}
+
 .org-card--executive {
   background: #0b3d68;
   border-color: #0b3d68;

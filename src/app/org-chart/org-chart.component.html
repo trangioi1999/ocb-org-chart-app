@@ -17,5 +17,11 @@
     <span class="legend-item"><i class="legend-dot legend-dot--executive"></i>Ban điều hành</span>
   </div>
 
-  <div #chartContainer class="org-chart-container"></div>
+  @if (initError()) {
+    <div class="org-chart-error" role="alert">
+      Không thể hiển thị sơ đồ tổ chức. Vui lòng tải lại trang.
+    </div>
+  } @else {
+    <div #chartContainer class="org-chart-container"></div>
+  }
 </div>

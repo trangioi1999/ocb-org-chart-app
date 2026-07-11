@@ -12,9 +12,9 @@ npm install
 
 ## Dữ liệu
 
-- File dữ liệu: `src/app/data/ocb-org-data.ts`.
-- Khối **Hội đồng quản trị**: dữ liệu thật, lấy từ https://ocb.com.vn/vi/ve-ocb/co-cau-quan-ly (nhiệm kỳ 2025–2030, 8 thành viên).
-- Khối **Ban điều hành** và các **Khối/Phòng ban**: dữ liệu dàn dựng (dummy, đánh dấu `[Dummy]`) vì trang OCB tải phần này bằng JavaScript nên không lấy được qua fetch tĩnh. Sửa thẳng file này để thay bằng dữ liệu thật.
+- File dữ liệu: `public/data/org-chart.json`, tải qua `HttpClient` trong `OrgDataService`.
+- Toàn bộ dữ liệu (Hội đồng quản trị, Ban Kiểm soát, Ban điều hành) lấy từ https://ocb.com.vn/vi/ve-ocb/co-cau-quan-ly.
+- Ban điều hành hiện chỉ có danh sách phẳng theo đúng trang OCB (không có cấp phòng ban bên dưới vì trang nguồn không công bố). Sửa thẳng file JSON này khi cần cập nhật.
 
 ## Cấu trúc chính
 

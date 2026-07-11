@@ -14,22 +14,59 @@
   padding: 10px 16px;
   border-bottom: 1px solid #e2e6ed;
   background: #fff;
+}
 
-  button {
-    border: 1px solid #0b5fa5;
-    background: #fff;
-    color: #0b5fa5;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
+.org-chart-actions {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-    &:hover {
-      background: #0b5fa5;
-      color: #fff;
-    }
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #0b5fa5;
+  background: #fff;
+  color: #0b5fa5;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
   }
+
+  &:hover {
+    background: #0b5fa5;
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #0b5fa5;
+    outline-offset: 2px;
+  }
+}
+
+.icon-btn--ghost {
+  width: 28px;
+  height: 28px;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.icon-btn--rotated svg {
+  transform: rotate(90deg);
 }
 
 @media (max-width: 640px) {
@@ -102,6 +139,12 @@
   min-height: 0;
   width: 100%;
   position: relative;
+  overflow: hidden;
+}
+
+.org-chart-canvas {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   background: #f4f6f9;
   background-image: radial-gradient(#dfe4ea 1px, transparent 1px);

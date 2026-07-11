@@ -16,18 +16,9 @@
       />
       @if (matchCount() > 0) {
         <span class="org-chart-match-counter" aria-live="polite">{{ matchPosition() }}/{{ matchCount() }}</span>
-        <button type="button" (click)="prevMatch()" aria-label="Kết quả trước">‹</button>
-        <button type="button" (click)="nextMatch()" aria-label="Kết quả tiếp theo">›</button>
+        <button type="button" class="icon-btn icon-btn--ghost" (click)="prevMatch()" aria-label="Kết quả trước" title="Kết quả trước">‹</button>
+        <button type="button" class="icon-btn icon-btn--ghost" (click)="nextMatch()" aria-label="Kết quả tiếp theo" title="Kết quả tiếp theo">›</button>
       }
-      <button type="button" (click)="expandAll()" aria-label="Mở rộng tất cả các nhánh">Mở rộng tất cả</button>
-      <button type="button" (click)="collapseAll()" aria-label="Thu gọn tất cả các nhánh">Thu gọn tất cả</button>
-      <button type="button" (click)="fit()" aria-label="Đưa sơ đồ vừa khung nhìn">Fit màn hình</button>
-      <button type="button" (click)="zoomIn()" aria-label="Phóng to">Phóng to</button>
-      <button type="button" (click)="zoomOut()" aria-label="Thu nhỏ">Thu nhỏ</button>
-      <button type="button" (click)="toggleLayout()" aria-label="Đổi hướng sơ đồ (dọc/ngang)">
-        Đổi hướng: {{ layoutDirection() === 'top' ? 'Dọc' : 'Ngang' }}
-      </button>
-      <button type="button" (click)="exportImage()" aria-label="Xuất ảnh sơ đồ">Xuất ảnh</button>
     </div>
 
     <div class="org-chart-legend" role="list" aria-label="Chú giải màu sắc">
@@ -36,6 +27,67 @@
       <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--executive"></i>Ban điều hành</span>
     </div>
 
-    <div #chartContainer class="org-chart-container"></div>
+    <div class="org-chart-container">
+      <div #chartContainer class="org-chart-canvas"></div>
+
+      <div class="org-chart-actions" role="group" aria-label="Thao tác sơ đồ">
+        <button type="button" class="icon-btn" (click)="expandAll()" aria-label="Mở rộng tất cả các nhánh" title="Mở rộng tất cả">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 3l4 4 4-4" />
+            <path d="M8 21l4-4 4 4" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" (click)="collapseAll()" aria-label="Thu gọn tất cả các nhánh" title="Thu gọn tất cả">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 7l4 4 4-4" />
+            <path d="M8 17l4-4 4 4" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" (click)="fit()" aria-label="Đưa sơ đồ vừa khung nhìn" title="Fit màn hình">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+            <path d="M16 3h3a2 2 0 0 1 2 2v3" />
+            <path d="M8 21H5a2 2 0 0 1-2-2v-3" />
+            <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" (click)="zoomIn()" aria-label="Phóng to" title="Phóng to">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="6" />
+            <path d="M10 7v6M7 10h6" />
+            <path d="M20 20l-4.35-4.35" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" (click)="zoomOut()" aria-label="Thu nhỏ" title="Thu nhỏ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="6" />
+            <path d="M7 10h6" />
+            <path d="M20 20l-4.35-4.35" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="icon-btn"
+          [class.icon-btn--rotated]="layoutDirection() === 'left'"
+          (click)="toggleLayout()"
+          [attr.aria-label]="'Đổi hướng sơ đồ, hiện đang: ' + (layoutDirection() === 'top' ? 'dọc' : 'ngang')"
+          [attr.title]="'Đổi hướng sơ đồ (hiện đang ' + (layoutDirection() === 'top' ? 'dọc' : 'ngang') + ')'"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4v5h5" />
+            <path d="M20 20v-5h-5" />
+            <path d="M4.5 15a8 8 0 0 0 14.9 2.5" />
+            <path d="M19.5 9a8 8 0 0 0-14.9-2.5" />
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" (click)="exportImage()" aria-label="Xuất ảnh sơ đồ" title="Xuất ảnh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12" />
+            <path d="M7 10l5 5 5-5" />
+            <path d="M5 21h14" />
+          </svg>
+        </button>
+      </div>
+    </div>
   }
 </div>

@@ -93,4 +93,13 @@ describe('OrgChartComponent', () => {
 
     expect(emitted).toEqual([NODES[1]]);
   });
+
+  it('zoomIn/zoomOut delegate to the underlying chart instance without throwing', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    expect(() => fixture.componentInstance.zoomIn()).not.toThrow();
+    expect(() => fixture.componentInstance.zoomOut()).not.toThrow();
+  });
 });

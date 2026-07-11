@@ -81,6 +81,14 @@ export class OrgChartComponent implements OnDestroy {
     this.zone.runOutsideAngular(() => this.chart?.fit());
   }
 
+  zoomIn(): void {
+    this.zone.runOutsideAngular(() => this.chart?.zoomIn());
+  }
+
+  zoomOut(): void {
+    this.zone.runOutsideAngular(() => this.chart?.zoomOut());
+  }
+
   /** Lọc node khớp tên/chức danh qua OrgDataService, highlight kết quả đang chọn. */
   highlight(term: string): void {
     const results = this.orgDataService.search(term);

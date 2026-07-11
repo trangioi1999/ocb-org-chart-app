@@ -14,6 +14,9 @@
     <button type="button" (click)="fit()" aria-label="Đưa sơ đồ vừa khung nhìn">Fit màn hình</button>
     <button type="button" (click)="zoomIn()" aria-label="Phóng to">Phóng to</button>
     <button type="button" (click)="zoomOut()" aria-label="Thu nhỏ">Thu nhỏ</button>
+    <button type="button" (click)="toggleLayout()" aria-label="Đổi hướng sơ đồ (dọc/ngang)">
+      Đổi hướng: {{ layoutDirection() === 'top' ? 'Dọc' : 'Ngang' }}
+    </button>
   </div>
 
   <div class="org-chart-legend" role="list" aria-label="Chú giải màu sắc">

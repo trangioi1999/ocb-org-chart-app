@@ -41,6 +41,7 @@ export class OrgChartComponent implements OnDestroy {
   protected readonly matches = signal<OrgNode[]>([]);
   protected readonly matchIndex = signal(0);
   protected readonly initError = signal(false);
+  readonly layoutDirection = signal<'top' | 'left'>('top');
 
   private chart: OrgChart<OrgNode> | null = null;
   private listenerAttached = false;
@@ -87,6 +88,14 @@ export class OrgChartComponent implements OnDestroy {
 
   zoomOut(): void {
     this.zone.runOutsideAngular(() => this.chart?.zoomOut());
+  }
+
+  toggleLayout(): void {
+    const next = this.layoutDirection() === 'top' ? 'left' : 'top';
+    this.layoutDirection.set(next);
+    this.zone.runOutsideAngular(() => {
+      this.chart?.layout(next).render();
+    });
   }
 
   /** Lọc node khớp tên/chức danh qua OrgDataService, highlight kết quả đang chọn. */
@@ -141,6 +150,7 @@ export class OrgChartComponent implements OnDestroy {
         .nodeId((d) => d.id)
         .parentNodeId((d) => d.parentId ?? undefined)
         .compact(false)
+        .layout(this.layoutDirection())
         .initialExpandLevel(2)
         .nodeWidth(() => 260)
         .nodeHeight(() => 118)

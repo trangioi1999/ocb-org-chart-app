@@ -102,4 +102,16 @@ describe('OrgChartComponent', () => {
     expect(() => fixture.componentInstance.zoomIn()).not.toThrow();
     expect(() => fixture.componentInstance.zoomOut()).not.toThrow();
   });
+
+  it('toggleLayout() flips between top and left layout', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.layoutDirection()).toBe('top');
+    fixture.componentInstance.toggleLayout();
+    expect(fixture.componentInstance.layoutDirection()).toBe('left');
+    fixture.componentInstance.toggleLayout();
+    expect(fixture.componentInstance.layoutDirection()).toBe('top');
+  });
 });

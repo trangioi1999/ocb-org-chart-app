@@ -107,8 +107,8 @@ export class OrgChartComponent implements OnDestroy {
       .childrenMargin(() => 50)
       .siblingsMargin(() => 30)
       .nodeContent((d) => this.renderCard(d.data))
-      .onNodeClick((d: any) => {
-        const node: OrgNode = d?.data ?? d;
+      .onNodeClick((d) => {
+        const node: OrgNode = 'data' in d ? d.data : d;
         this.zone.run(() => this.nodeClick.emit(node));
       })
       .render();

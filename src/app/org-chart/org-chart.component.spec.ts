@@ -3,6 +3,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { OrgChartComponent } from './org-chart.component';
 import { OrgNode } from '../models/org-node.model';
+import { OrgDataService } from '../services/org-data.service';
 
 const NODES: OrgNode[] = [
   { id: 'root', parentId: null, name: 'Trịnh Văn Tuấn', title: 'Chủ tịch', tag: 'regular' },
@@ -45,6 +46,7 @@ describe('OrgChartComponent', () => {
   it('highlight() delegates matching to OrgDataService.search()', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);
+    TestBed.inject(OrgDataService).setData(NODES);
     fixture.detectChanges();
 
     fixture.componentInstance.highlight('tổng giám đốc');

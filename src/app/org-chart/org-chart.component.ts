@@ -51,10 +51,8 @@ export class OrgChartComponent implements OnDestroy {
     });
 
     // Re-render khi input data đổi, không destroy/recreate instance.
-    // Đồng bộ vào OrgDataService để search() luôn khớp với dữ liệu đang hiển thị.
     effect(() => {
       const nodes = this.data();
-      this.orgDataService.setData(nodes);
       if (this.chart) {
         this.zone.runOutsideAngular(() => {
           this.chart!.data(nodes).render();

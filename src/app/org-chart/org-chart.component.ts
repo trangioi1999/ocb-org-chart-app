@@ -106,6 +106,23 @@ export class OrgChartComponent implements OnDestroy {
     this.highlight(value);
   }
 
+  private readonly handleCardKeydown = (event: KeyboardEvent): void => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+    const target = event.target as HTMLElement;
+    const card = target.closest<HTMLElement>('.org-card[data-node-id]');
+    if (!card) {
+      return;
+    }
+    event.preventDefault();
+    const id = card.dataset['nodeId'];
+    const node = this.data().find((n) => n.id === id);
+    if (node) {
+      this.zone.run(() => this.nodeClick.emit(node));
+    }
+  };
+
   private initChart(): void {
     try {
       this.chart = new OrgChart<OrgNode>()
@@ -125,6 +142,7 @@ export class OrgChartComponent implements OnDestroy {
           this.zone.run(() => this.nodeClick.emit(node));
         })
         .render();
+      this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
     } catch (err) {
       console.error('Không thể khởi tạo sơ đồ tổ chức:', err);
       this.zone.run(() => this.initError.set(true));
@@ -166,6 +184,12 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    try {
+      this.containerRef()?.nativeElement.removeEventListener('keydown', this.handleCardKeydown);
+    } catch {
+      // containerRef có thể không truy cập được (ví dụ khi khởi tạo thất bại);
+      // bỏ qua vì không có listener nào cần gỡ trong trường hợp đó.
+    }
     this.chart = null;
   }
 }

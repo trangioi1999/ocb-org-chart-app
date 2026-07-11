@@ -1,20 +1,23 @@
 <div class="org-chart-shell">
-  <div class="org-chart-toolbar">
+  <div class="org-chart-toolbar" role="toolbar" aria-label="Điều khiển sơ đồ tổ chức">
+    <label class="sr-only" for="org-chart-search">Tìm theo tên hoặc chức danh</label>
     <input
+      id="org-chart-search"
       type="text"
       class="org-chart-search"
       placeholder="Tìm theo tên hoặc chức danh..."
+      aria-label="Tìm theo tên hoặc chức danh"
       (input)="onSearchInput($event)"
     />
-    <button type="button" (click)="expandAll()">Mở rộng tất cả</button>
-    <button type="button" (click)="collapseAll()">Thu gọn tất cả</button>
-    <button type="button" (click)="fit()">Fit màn hình</button>
+    <button type="button" (click)="expandAll()" aria-label="Mở rộng tất cả các nhánh">Mở rộng tất cả</button>
+    <button type="button" (click)="collapseAll()" aria-label="Thu gọn tất cả các nhánh">Thu gọn tất cả</button>
+    <button type="button" (click)="fit()" aria-label="Đưa sơ đồ vừa khung nhìn">Fit màn hình</button>
   </div>
 
-  <div class="org-chart-legend">
-    <span class="legend-item"><i class="legend-dot legend-dot--regular"></i>HĐQT / Phòng ban</span>
-    <span class="legend-item"><i class="legend-dot legend-dot--independent"></i>Thành viên độc lập</span>
-    <span class="legend-item"><i class="legend-dot legend-dot--executive"></i>Ban điều hành</span>
+  <div class="org-chart-legend" role="list" aria-label="Chú giải màu sắc">
+    <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--regular"></i>HĐQT / Phòng ban</span>
+    <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--independent"></i>Thành viên độc lập</span>
+    <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--executive"></i>Ban điều hành</span>
   </div>
 
   @if (initError()) {

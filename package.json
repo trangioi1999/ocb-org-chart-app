@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "lint": "eslint .",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -27,9 +28,13 @@
     "@angular/build": "^22.0.6",
     "@angular/cli": "^22.0.6",
     "@angular/compiler-cli": "^22.0.0",
+    "@eslint/js": "^9.39.5",
+    "angular-eslint": "^19.8.1",
+    "eslint": "^9.39.5",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
     "typescript": "~6.0.2",
+    "typescript-eslint": "^8.63.0",
     "vitest": "^4.0.8"
   }
 }

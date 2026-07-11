@@ -19,7 +19,6 @@ export class App {
 
   protected onNodeClick(node: OrgNode): void {
     // Chỗ này sau này có thể mở panel chi tiết / điều hướng.
-    // eslint-disable-next-line no-console
     console.log('Node clicked:', node);
   }
 }

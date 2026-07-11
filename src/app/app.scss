@@ -31,3 +31,26 @@
   flex: 1 1 auto;
   min-height: 0;
 }
+
+.app-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  color: #4a5568;
+  font-size: 14px;
+
+  &--error {
+    color: #b91c1c;
+  }
+
+  button {
+    border: 1px solid #0b5fa5;
+    background: #fff;
+    color: #0b5fa5;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}

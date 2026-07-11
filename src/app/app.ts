@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { OrgChartComponent } from './org-chart/org-chart.component';
 import { OrgDataService } from './services/org-data.service';
 import { OrgNode } from './models/org-node.model';
@@ -10,15 +10,23 @@ import { OrgNode } from './models/org-node.model';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected readonly orgData;
+export class App implements OnInit {
+  private readonly orgDataService = inject(OrgDataService);
 
-  constructor(private readonly orgDataService: OrgDataService) {
-    this.orgData = this.orgDataService.data;
+  protected readonly orgData = this.orgDataService.data;
+  protected readonly isLoading = this.orgDataService.isLoading;
+  protected readonly hasError = this.orgDataService.hasError;
+
+  ngOnInit(): void {
+    this.orgDataService.load();
+  }
+
+  protected reload(): void {
+    this.orgDataService.load();
   }
 
   protected onNodeClick(node: OrgNode): void {
-    // Chỗ này sau này có thể mở panel chi tiết / điều hướng.
+    // Xử lý ở Task 12 (detail panel).
     console.log('Node clicked:', node);
   }
 }

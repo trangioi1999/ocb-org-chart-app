@@ -7,6 +7,15 @@
   </header>
 
   <main class="app-main">
-    <app-org-chart [data]="orgData()" (nodeClick)="onNodeClick($event)" />
+    @if (isLoading()) {
+      <div class="app-status" role="status">Đang tải dữ liệu sơ đồ tổ chức...</div>
+    } @else if (hasError()) {
+      <div class="app-status app-status--error" role="alert">
+        Không tải được dữ liệu.
+        <button type="button" (click)="reload()">Thử lại</button>
+      </div>
+    } @else {
+      <app-org-chart [data]="orgData()" (nodeClick)="onNodeClick($event)" />
+    }
   </main>
 </div>

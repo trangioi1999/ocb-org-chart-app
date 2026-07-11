@@ -10,6 +10,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
   padding: 10px 16px;
   border-bottom: 1px solid #e2e6ed;
   background: #fff;
@@ -28,6 +29,22 @@
       background: #0b5fa5;
       color: #fff;
     }
+  }
+}
+
+@media (max-width: 640px) {
+  .org-chart-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .org-chart-search {
+    flex: 1 1 auto;
+  }
+
+  .org-chart-legend {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 }
 

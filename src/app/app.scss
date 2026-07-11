@@ -54,3 +54,17 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: 10px 14px;
+
+    h1 {
+      font-size: 16px;
+    }
+  }
+
+  .app-subtitle {
+    font-size: 11px;
+  }
+}

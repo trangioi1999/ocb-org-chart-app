@@ -44,6 +44,7 @@ export class OrgChartComponent implements OnDestroy {
 
   private chart: OrgChart<OrgNode> | null = null;
   private listenerAttached = false;
+  private resizeObserver: ResizeObserver | null = null;
 
   constructor(private readonly zone: NgZone) {
     // d3-org-chart thao tác DOM trực tiếp (không qua Angular renderer),
@@ -145,6 +146,13 @@ export class OrgChartComponent implements OnDestroy {
         .render();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
       this.listenerAttached = true;
+
+      if (typeof ResizeObserver !== 'undefined') {
+        this.resizeObserver = new ResizeObserver(() => {
+          this.zone.runOutsideAngular(() => this.chart?.fit());
+        });
+        this.resizeObserver.observe(this.containerRef().nativeElement);
+      }
     } catch (err) {
       console.error('Không thể khởi tạo sơ đồ tổ chức:', err);
       this.zone.run(() => this.initError.set(true));
@@ -189,6 +197,7 @@ export class OrgChartComponent implements OnDestroy {
     if (this.listenerAttached) {
       this.containerRef().nativeElement.removeEventListener('keydown', this.handleCardKeydown);
     }
+    this.resizeObserver?.disconnect();
     this.chart = null;
   }
 }

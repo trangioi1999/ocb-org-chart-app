@@ -21,9 +21,8 @@ export interface LegendItem {
 }
 
 const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
-  { tagClass: 'regular', label: 'HĐQT / Ban Kiểm soát' },
-  { tagClass: 'independent', label: 'Thành viên độc lập' },
-  { tagClass: 'executive', label: 'Ban điều hành' },
+  { tagClass: 'regular', label: 'Cơ quan quản trị / điều hành' },
+  { tagClass: 'executive', label: 'Khối / Trung tâm / Phòng' },
 ];
 
 @Component({
@@ -219,23 +218,19 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   private renderCard(node: OrgNode): string {
-    const initials = node.name
-      .split(' ')
-      .filter(Boolean)
-      .slice(-2)
-      .map((part) => part[0])
-      .join('')
-      .toUpperCase();
+    const badgeMatch = node.id.match(/^khoi-(\d+)$/);
+    const avatarContent = badgeMatch ? String(parseInt(badgeMatch[1], 10)) : this.initials(node.name);
     const tagClass = `org-card--${node.tag ?? 'regular'}`;
+    const ariaLabel = node.title ? `${this.escape(node.name)}, ${this.escape(node.title)}` : this.escape(node.name);
 
     return `
-      <div class="org-card ${tagClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${this.escape(node.name)}, ${this.escape(node.title)}">
-        <div class="org-card__avatar">${initials}</div>
+      <div class="org-card ${tagClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${ariaLabel}">
+        <div class="org-card__avatar">${avatarContent}</div>
         <div class="org-card__body">
           <div class="org-card__name">${this.escape(node.name)}${
       node.isDummy ? ' <span class="org-card__dummy">(dummy)</span>' : ''
     }</div>
-          <div class="org-card__title">${this.escape(node.title)}</div>
+          ${node.title ? `<div class="org-card__title">${this.escape(node.title)}</div>` : ''}
           ${
             node.department
               ? `<div class="org-card__dept">${this.escape(node.department)}</div>`
@@ -244,6 +239,16 @@ export class OrgChartComponent implements OnDestroy {
         </div>
       </div>
     `;
+  }
+
+  private initials(name: string): string {
+    return name
+      .split(' ')
+      .filter(Boolean)
+      .slice(-2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase();
   }
 
   private escape(text: string): string {

@@ -14,4 +14,8 @@ export interface OrgNode {
   imageUrl?: string;
   tag?: OrgNodeTag;
   isDummy?: boolean;
+  /** Tên các cá nhân thuộc đơn vị này (VD: 8 thành viên HĐQT), hiển thị ở detail panel. */
+  members?: string[];
+  /** Ghi chú dài (VD: danh sách các cơ quan trực thuộc), hiển thị ở detail panel. */
+  note?: string;
 }

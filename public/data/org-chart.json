@@ -1,27 +1,190 @@
 [
-  { "id": "hdqt-chairman", "parentId": null, "name": "Trịnh Văn Tuấn", "title": "Chủ tịch Hội đồng quản trị", "department": "Hội đồng quản trị", "tag": "regular" },
-  { "id": "hdqt-01", "parentId": "hdqt-chairman", "name": "Ngô Hà Bắc", "title": "Thành viên HĐQT", "department": "Hội đồng quản trị", "tag": "regular" },
-  { "id": "hdqt-02", "parentId": "hdqt-chairman", "name": "Trịnh Thị Mai Anh", "title": "Thành viên HĐQT", "department": "Hội đồng quản trị", "tag": "regular" },
-  { "id": "hdqt-03", "parentId": "hdqt-chairman", "name": "Yoshizawa Toshiki", "title": "Thành viên HĐQT", "department": "Hội đồng quản trị", "tag": "regular" },
-  { "id": "hdqt-04", "parentId": "hdqt-chairman", "name": "Segawa Mitsuhiro", "title": "Thành viên HĐQT", "department": "Hội đồng quản trị", "tag": "regular" },
-  { "id": "hdqt-05", "parentId": "hdqt-chairman", "name": "Phan Trung", "title": "Thành viên HĐQT", "department": "Hội đồng quản trị", "tag": "regular" },
-  { "id": "hdqt-06", "parentId": "hdqt-chairman", "name": "Dương Kỳ Hiệp", "title": "Thành viên độc lập HĐQT", "department": "Hội đồng quản trị", "tag": "independent" },
-  { "id": "hdqt-07", "parentId": "hdqt-chairman", "name": "Lê Xuân Nghĩa", "title": "Thành viên độc lập HĐQT", "department": "Hội đồng quản trị", "tag": "independent" },
-
-  { "id": "bks-truong", "parentId": "hdqt-chairman", "name": "Đặng Thị Thanh Huyền", "title": "Trưởng Ban Kiểm soát", "department": "Ban Kiểm soát", "tag": "regular" },
-  { "id": "bks-01", "parentId": "bks-truong", "name": "Đặng Thị Quý", "title": "Thành viên Ban Kiểm soát", "department": "Ban Kiểm soát", "tag": "regular" },
-  { "id": "bks-02", "parentId": "bks-truong", "name": "Nguyễn Văn Hải", "title": "Thành viên Ban Kiểm soát", "department": "Ban Kiểm soát", "tag": "regular" },
-  { "id": "bks-03", "parentId": "bks-truong", "name": "Nguyễn Trọng Hải", "title": "Thành viên Ban Kiểm soát", "department": "Ban Kiểm soát", "tag": "regular" },
-  { "id": "bks-04", "parentId": "bks-truong", "name": "Phạm Quang Vinh", "title": "Thành viên Ban Kiểm soát", "department": "Ban Kiểm soát", "tag": "regular" },
-
-  { "id": "ceo", "parentId": "hdqt-chairman", "name": "Chris Shayan", "title": "Quyền Tổng Giám đốc", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-ngoc", "parentId": "ceo", "name": "Nguyễn Bá Ngọc", "title": "Phó Tổng Giám đốc phụ trách Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-tuanh", "parentId": "ceo", "name": "Đỗ Tú Anh", "title": "Phó Tổng Giám đốc phụ trách Khối Khách hàng Doanh nghiệp", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-huong", "parentId": "ceo", "name": "Nguyễn Quốc Hương", "title": "Giám đốc Điều hành", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-dang", "parentId": "ceo", "name": "Lương Nguyễn Minh Đăng", "title": "Giám đốc Khối Bán lẻ", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-luong", "parentId": "ceo", "name": "Nguyễn Vũ Lương", "title": "Giám đốc Khối Thị trường Tài chính", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-tuyen", "parentId": "ceo", "name": "Huỳnh Ngọc Tuyền", "title": "Giám đốc Khối Vận hành", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-thao", "parentId": "ceo", "name": "Lê Thị Bích Thảo", "title": "Giám đốc Khối Công nghệ và Chuyển đổi số", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-huy", "parentId": "ceo", "name": "Nguyễn Quang Huy", "title": "Quyền Giám đốc Khối Quản lý Rủi ro", "department": "Ban điều hành", "tag": "executive" },
-  { "id": "exec-vananh", "parentId": "ceo", "name": "Nguyễn Vân Anh", "title": "Kế toán trưởng", "department": "Ban điều hành", "tag": "executive" }
+  {
+    "id": "dhdcd",
+    "parentId": null,
+    "name": "Đại hội đồng cổ đông",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "bks",
+    "parentId": "dhdcd",
+    "name": "Ban Kiểm soát",
+    "title": "",
+    "tag": "regular",
+    "members": [
+      "Đặng Thị Thanh Huyền — Trưởng Ban Kiểm soát",
+      "Đặng Thị Quý — Thành viên Ban Kiểm soát",
+      "Nguyễn Văn Hải — Thành viên Ban Kiểm soát",
+      "Nguyễn Trọng Hải — Thành viên Ban Kiểm soát",
+      "Phạm Quang Vinh — Thành viên Ban Kiểm soát"
+    ]
+  },
+  {
+    "id": "ktnb",
+    "parentId": "bks",
+    "name": "Kiểm toán nội bộ",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "hdqt",
+    "parentId": "dhdcd",
+    "name": "Hội đồng quản trị",
+    "title": "",
+    "tag": "regular",
+    "members": [
+      "Trịnh Văn Tuấn — Chủ tịch Hội đồng quản trị",
+      "Ngô Hà Bắc — Thành viên HĐQT",
+      "Trịnh Thị Mai Anh — Thành viên HĐQT",
+      "Yoshizawa Toshiki — Thành viên HĐQT",
+      "Segawa Mitsuhiro — Thành viên HĐQT",
+      "Phan Trung — Thành viên HĐQT",
+      "Dương Kỳ Hiệp — Thành viên độc lập HĐQT",
+      "Lê Xuân Nghĩa — Thành viên độc lập HĐQT"
+    ]
+  },
+  {
+    "id": "cqt-hdqt",
+    "parentId": "hdqt",
+    "name": "Các cơ quan trực thuộc HĐQT",
+    "title": "",
+    "tag": "regular",
+    "note": "Ủy ban Nhân sự, Ủy ban Quản lý rủi ro, Ủy ban XLRR, Ban Chiến lược, Ban Hợp tác chiến lược, Ban PTBV, các cơ quan khác do HĐQT thành lập."
+  },
+  {
+    "id": "vp-hdqt",
+    "parentId": "hdqt",
+    "name": "Văn phòng HĐQT",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "tgd",
+    "parentId": "hdqt",
+    "name": "Tổng Giám đốc",
+    "title": "",
+    "tag": "regular",
+    "members": ["Chris Shayan — Quyền Tổng Giám đốc"]
+  },
+  {
+    "id": "cqt-tgd",
+    "parentId": "tgd",
+    "name": "Các cơ quan trực thuộc TGĐ",
+    "title": "",
+    "tag": "regular",
+    "note": "Hội đồng xét duyệt sản phẩm, Hội đồng rủi ro, Hội đồng quản lý vốn, Hội đồng ALCO, Hội đồng tín dụng, Hội đồng cơ cấu nợ, Hội đồng mua bán nợ, Hội đồng nhân sự, Phòng Quản lý chuyển đổi, các cơ quan khác do TGĐ thành lập."
+  },
+  {
+    "id": "khoi-01",
+    "parentId": "tgd",
+    "name": "Khối Bán lẻ",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-02",
+    "parentId": "tgd",
+    "name": "Khối Khách hàng Doanh nghiệp",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-03",
+    "parentId": "tgd",
+    "name": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-04",
+    "parentId": "tgd",
+    "name": "Khối Thị trường Tài chính",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-05",
+    "parentId": "tgd",
+    "name": "Trung tâm Quản lý Tài sản Nợ và Có",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-06",
+    "parentId": "tgd",
+    "name": "Trung tâm Ngân hàng số Liobank",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-07",
+    "parentId": "tgd",
+    "name": "Trung tâm Ngân hàng giao dịch",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-08",
+    "parentId": "tgd",
+    "name": "Khối Quản lý rủi ro",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-09",
+    "parentId": "tgd",
+    "name": "Khối Vận hành",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-10",
+    "parentId": "tgd",
+    "name": "Khối Công nghệ và Chuyển đổi số",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-11",
+    "parentId": "tgd",
+    "name": "Trung tâm Quản lý Tài chính",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-12",
+    "parentId": "tgd",
+    "name": "Trung tâm Nhân sự và Đào tạo",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-13",
+    "parentId": "tgd",
+    "name": "Trung tâm Pháp chế và Tuân thủ",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-14",
+    "parentId": "tgd",
+    "name": "Trung tâm Quản trị và Phân tích dữ liệu",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-15",
+    "parentId": "tgd",
+    "name": "Phòng Thương hiệu và Truyền thông",
+    "title": "",
+    "tag": "executive"
+  },
+  {
+    "id": "khoi-16",
+    "parentId": "tgd",
+    "name": "Phòng Phát triển bền vững",
+    "title": "",
+    "tag": "executive"
+  }
 ]

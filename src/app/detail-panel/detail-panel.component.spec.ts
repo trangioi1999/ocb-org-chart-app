@@ -46,4 +46,31 @@ describe('DetailPanelComponent', () => {
 
     expect(closed).toBe(true);
   });
+
+  it('renders members list and note when present', () => {
+    const node: OrgNode = {
+      id: 'hdqt',
+      parentId: 'dhdcd',
+      name: 'Hội đồng quản trị',
+      title: '',
+      members: ['Trịnh Văn Tuấn — Chủ tịch Hội đồng quản trị'],
+      note: 'Ủy ban Nhân sự, Ủy ban Quản lý rủi ro',
+    };
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', node);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.detail-panel__members')).toBeTruthy();
+    expect(compiled.textContent).toContain('Trịnh Văn Tuấn — Chủ tịch Hội đồng quản trị');
+    expect(compiled.querySelector('.detail-panel__note')?.textContent).toContain('Ủy ban Nhân sự');
+  });
+
+  it('omits the title element when title is empty', () => {
+    const node: OrgNode = { id: 'dhdcd', parentId: null, name: 'Đại hội đồng cổ đông', title: '' };
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', node);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.detail-panel__title')).toBeNull();
+  });
 });

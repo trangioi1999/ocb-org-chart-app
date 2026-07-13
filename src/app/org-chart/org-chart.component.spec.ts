@@ -34,6 +34,32 @@ describe('OrgChartComponent', () => {
     expect(html).not.toContain('org-card__dummy');
   });
 
+  it('omits the title element when title is empty', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    const node: OrgNode = { id: 'unit', parentId: null, name: 'Hội đồng quản trị', title: '' };
+    const html = (fixture.componentInstance as unknown as { renderCard: (n: OrgNode) => string })[
+      'renderCard'
+    ](node);
+
+    expect(html).not.toContain('org-card__title');
+  });
+
+  it('renders a numbered badge instead of initials for khoi-* leaf nodes', () => {
+    const fixture = TestBed.createComponent(OrgChartComponent);
+    fixture.componentRef.setInput('data', NODES);
+    fixture.detectChanges();
+
+    const node: OrgNode = { id: 'khoi-05', parentId: 'tgd', name: 'Trung tâm Quản lý Tài sản Nợ và Có', title: '' };
+    const html = (fixture.componentInstance as unknown as { renderCard: (n: OrgNode) => string })[
+      'renderCard'
+    ](node);
+
+    expect(html).toContain('<div class="org-card__avatar">5</div>');
+  });
+
   it('renders the default OCB legend when legendItems is not provided', () => {
     const fixture = TestBed.createComponent(OrgChartComponent);
     fixture.componentRef.setInput('data', NODES);
@@ -43,7 +69,7 @@ describe('OrgChartComponent', () => {
     const items = Array.from(compiled.querySelectorAll('.legend-item')).map((el) =>
       el.textContent?.trim()
     );
-    expect(items).toEqual(['HĐQT / Ban Kiểm soát', 'Thành viên độc lập', 'Ban điều hành']);
+    expect(items).toEqual(['Cơ quan quản trị / điều hành', 'Khối / Trung tâm / Phòng']);
   });
 
   it('renders custom legend items from the legendItems input', () => {

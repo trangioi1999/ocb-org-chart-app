@@ -7,9 +7,21 @@
         <span class="detail-panel__dummy">(dummy)</span>
       }
     </h2>
-    <p class="detail-panel__title">{{ n.title }}</p>
+    @if (n.title) {
+      <p class="detail-panel__title">{{ n.title }}</p>
+    }
     @if (n.department) {
       <p class="detail-panel__department">{{ n.department }}</p>
+    }
+    @if (n.members?.length) {
+      <ul class="detail-panel__members">
+        @for (member of n.members; track member) {
+          <li>{{ member }}</li>
+        }
+      </ul>
+    }
+    @if (n.note) {
+      <p class="detail-panel__note">{{ n.note }}</p>
     }
   </aside>
 }

@@ -1,0 +1,12 @@
+[
+  { "id": "cn-giamdoc", "parentId": null, "name": "Giám đốc Chi nhánh (Mẫu)", "title": "Giám đốc Chi nhánh", "department": "Chi nhánh Ví dụ", "tag": "executive" },
+  { "id": "pgd1-truong", "parentId": "cn-giamdoc", "name": "Trưởng PGD Số 1", "title": "Trưởng Phòng giao dịch", "department": "PGD Số 1", "tag": "executive" },
+  { "id": "pgd1-nv1", "parentId": "pgd1-truong", "name": "Nhân viên A - PGD Số 1", "title": "Giao dịch viên", "department": "PGD Số 1", "tag": "regular" },
+  { "id": "pgd1-nv2", "parentId": "pgd1-truong", "name": "Nhân viên B - PGD Số 1", "title": "Giao dịch viên", "department": "PGD Số 1", "tag": "regular" },
+  { "id": "pgd2-truong", "parentId": "cn-giamdoc", "name": "Trưởng PGD Số 2", "title": "Trưởng Phòng giao dịch", "department": "PGD Số 2", "tag": "executive" },
+  { "id": "pgd2-nv1", "parentId": "pgd2-truong", "name": "Nhân viên A - PGD Số 2", "title": "Giao dịch viên", "department": "PGD Số 2", "tag": "regular" },
+  { "id": "pgd2-nv2", "parentId": "pgd2-truong", "name": "Nhân viên B - PGD Số 2", "title": "Giao dịch viên", "department": "PGD Số 2", "tag": "regular" },
+  { "id": "pgd3-truong", "parentId": "cn-giamdoc", "name": "Trưởng PGD Số 3", "title": "Trưởng Phòng giao dịch", "department": "PGD Số 3", "tag": "executive" },
+  { "id": "pgd3-nv1", "parentId": "pgd3-truong", "name": "Nhân viên A - PGD Số 3", "title": "Giao dịch viên", "department": "PGD Số 3", "tag": "regular" },
+  { "id": "pgd3-nv2", "parentId": "pgd3-truong", "name": "Nhân viên B - PGD Số 3", "title": "Giao dịch viên", "department": "PGD Số 3", "tag": "regular" }
+]

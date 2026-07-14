@@ -75,29 +75,14 @@ export class OrgChartComponent implements OnDestroy {
       this.zone.runOutsideAngular(() => this.initChart());
     });
 
-    // Re-render khi input data đổi, không destroy/recreate instance.
+    // Render lại khi data hoặc node được chọn đổi (không destroy/recreate
+    // instance). Focus mode: khi có node được chọn, CHỈ render nhánh liên
+    // quan (tổ tiên + chính nó + con cháu) — chart tự sắp xếp lại gọn gàng
+    // thay vì ẩn tại chỗ để lại khoảng trống — kèm highlight đường về gốc
+    // và fit khung nhìn. Bỏ chọn thì render lại đầy đủ.
     effect(() => {
       const nodes = this.data();
-      if (this.chart) {
-        this.zone.runOutsideAngular(() => {
-          try {
-            this.chart!.data(nodes).render();
-          } catch (err) {
-            console.error('Không thể cập nhật sơ đồ tổ chức:', err);
-            this.zone.run(() => this.initError.set(true));
-          }
-        });
-      }
-    });
-
-    // Highlight node được chọn + đường nối về gốc, đồng thời ẩn tạm
-    // các nhánh không liên quan (focus mode). Đọc cả data() để gắn lại
-    // cờ highlight sau khi node bị thay object mới (sửa/xóa) — effect
-    // này chạy SAU effect data ở trên (cùng thứ tự khai báo) nên chart
-    // đã có dữ liệu mới trước khi highlight.
-    effect(() => {
       const id = this.selectedNodeId();
-      const nodes = this.data();
       if (!this.chart) {
         return;
       }
@@ -105,25 +90,20 @@ export class OrgChartComponent implements OnDestroy {
         try {
           this.chart!.clearHighlighting();
           const selected = id && nodes.some((n) => n.id === id) ? id : null;
-          // Node "liên quan" = tổ tiên + chính nó + toàn bộ con cháu;
-          // nodeUpdate/linkUpdate đọc set này để ẩn phần còn lại.
-          this.focusedIds = selected ? this.computeRelatedIds(selected, nodes) : null;
+          const related = selected ? this.computeRelatedIds(selected, nodes) : null;
+          const visible = related ? nodes.filter((n) => related.has(n.id)) : nodes;
+          this.chart!.data(visible);
           if (selected) {
             this.chart!.setUpToTheRootHighlighted(selected);
           }
-          this.chart!.render();
+          this.chart!.render().fit();
         } catch (err) {
-          console.error('Không thể highlight node được chọn:', err);
+          console.error('Không thể cập nhật sơ đồ tổ chức:', err);
+          this.zone.run(() => this.initError.set(true));
         }
       });
     });
   }
-
-  /**
-   * Focus mode: tập id của node được chọn + tổ tiên + con cháu.
-   * null = không focus (hiện tất cả).
-   */
-  private focusedIds: Set<string> | null = null;
 
   private computeRelatedIds(id: string, nodes: OrgNode[]): Set<string> {
     const byId = new Map(nodes.map((n) => [n.id, n]));
@@ -293,10 +273,6 @@ export class OrgChartComponent implements OnDestroy {
         // kết quả tìm kiếm sẽ có viền cam quanh card.
         .nodeUpdate((d, i, arr) => {
           const el = arr[i];
-          // Focus mode: ẩn tạm node không liên quan tới node đang chọn.
-          const hidden = this.focusedIds !== null && !this.focusedIds.has(d.data.id);
-          el.classList.toggle('chart-hidden', hidden);
-
           const rect = el.querySelector<SVGRectElement>('.node-rect');
           if (!rect) {
             return;
@@ -311,10 +287,6 @@ export class OrgChartComponent implements OnDestroy {
         // linkStyle 'functional' được vẽ nét đứt (quan hệ chức năng).
         .linkUpdate((d, i, arr) => {
           const el = arr[i];
-          // Link "thuộc về" node con d -> ẩn cùng node khi ngoài vùng focus.
-          const hidden = this.focusedIds !== null && !this.focusedIds.has(d.data.id);
-          el.classList.toggle('chart-hidden', hidden);
-
           const highlighted = Boolean(d.data._upToTheRootHighlighted);
           el.setAttribute('stroke', highlighted ? '#c57622' : '#c3cdda');
           el.setAttribute('stroke-width', highlighted ? '3' : '1.5');

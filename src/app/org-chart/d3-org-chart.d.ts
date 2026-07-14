@@ -36,6 +36,8 @@ declare module 'd3-org-chart' {
     siblingsMargin(fn: (d: D3OrgChartHierarchyNode<T>) => number): this;
     neighbourMargin(fn: (n1: D3OrgChartHierarchyNode<T>, n2: D3OrgChartHierarchyNode<T>) => number): this;
     compact(value: boolean): this;
+    compactMarginBetween(fn: (d?: unknown) => number): this;
+    compactMarginPair(fn: (d?: unknown) => number): this;
     layout(value: 'top' | 'bottom' | 'left' | 'right'): this;
     nodeContent(fn: (d: D3OrgChartHierarchyNode<T>) => string): this;
     onNodeClick(fn: (d: D3OrgChartHierarchyNode<T> | T) => void): this;

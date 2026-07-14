@@ -147,7 +147,8 @@ export class OrgChartComponent implements OnDestroy {
     const next = this.layoutDirection() === 'top' ? 'left' : 'top';
     this.layoutDirection.set(next);
     this.zone.runOutsideAngular(() => {
-      this.chart?.layout(next).render();
+      // Layout ngang tự thân đã xếp con theo cột dọc nên tắt compact.
+      this.chart?.layout(next).compact(next === 'top').render();
     });
   }
 
@@ -230,7 +231,12 @@ export class OrgChartComponent implements OnDestroy {
         .data(this.data())
         .nodeId((d) => d.id)
         .parentNodeId((d) => d.parentId ?? undefined)
-        .compact(false)
+        // Compact: các node LÁ của cùng 1 cấp trên xếp thành cột dọc thay
+        // vì dàn hàng ngang (đỡ tốn bề ngang với các khối nhiều phòng ban).
+        // Chỉ bật ở layout dọc; layout ngang ('left') tự thân đã xếp dọc.
+        .compact(this.layoutDirection() === 'top')
+        .compactMarginBetween(() => 14)
+        .compactMarginPair(() => 64)
         .layout(this.layoutDirection())
         .initialExpandLevel(2)
         .nodeWidth(() => 260)
@@ -270,8 +276,9 @@ export class OrgChartComponent implements OnDestroy {
         .onNodeClick((d) => {
           const node: OrgNode = 'data' in d ? d.data : d;
           this.zone.run(() => this.nodeClick.emit(node));
-        })
-        .render();
+        });
+      this.applySingleColumnCompact(this.chart);
+      this.chart.render();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
       this.listenerAttached = true;
 
@@ -285,6 +292,125 @@ export class OrgChartComponent implements OnDestroy {
       console.error('Không thể khởi tạo sơ đồ tổ chức:', err);
       this.zone.run(() => this.initError.set(true));
     }
+  }
+
+  /**
+   * d3-org-chart chỉ hỗ trợ compact 2 cột (hard-code i % 2 trong
+   * calculateCompactFlexDimensions/Positions). Ghi đè 2 hàm layout đó
+   * trên instance để các node lá xếp thành 1 CỘT DỌC, và chỉnh đường
+   * nối chạy theo rail bên trái cột — giống sơ đồ tổ chức truyền thống.
+   */
+  private applySingleColumnCompact(chart: OrgChart<OrgNode>): void {
+    interface FlexNode {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      row: number;
+      firstCompact: boolean | null;
+      compactEven: boolean | null;
+      flexCompactDim: [number, number] | null;
+      firstCompactNode: FlexNode | null;
+      children?: FlexNode[];
+    }
+    interface FlexRoot {
+      eachBefore(cb: (n: FlexNode) => void): void;
+    }
+    interface CompactState {
+      layout: 'top' | 'left' | 'right' | 'bottom';
+      layoutBindings: Record<
+        string,
+        {
+          compactDimension: {
+            sizeColumn(n: FlexNode): number;
+            sizeRow(n: FlexNode): number;
+          };
+          compactLinkMidX(n: FlexNode, s: CompactState): number;
+        }
+      >;
+      compactMarginBetween(n?: FlexNode): number;
+      compactMarginPair(n?: FlexNode): number;
+    }
+    // Các hàm/field nội bộ không có trong .d.ts công khai của thư viện.
+    const patched = chart as unknown as {
+      getChartState(): CompactState;
+      calculateCompactFlexDimensions(root: FlexRoot): void;
+      calculateCompactFlexPositions(root: FlexRoot): void;
+    };
+
+    patched.calculateCompactFlexDimensions = (root) => {
+      const attrs = patched.getChartState();
+      const dim = attrs.layoutBindings[attrs.layout].compactDimension;
+      root.eachBefore((node) => {
+        node.firstCompact = null;
+        node.compactEven = null;
+        node.flexCompactDim = null;
+        node.firstCompactNode = null;
+      });
+      root.eachBefore((node) => {
+        if (!node.children || node.children.length <= 1) {
+          return;
+        }
+        const leaves = node.children.filter((d) => !d.children);
+        if (leaves.length < 2) {
+          return;
+        }
+        leaves.forEach((child, i) => {
+          child.firstCompact = i === 0;
+          // false -> linkCompactXStart xuất phát từ mép TRÁI card.
+          child.compactEven = false;
+          child.row = i;
+        });
+        const columnSize = Math.max(...leaves.map((d) => dim.sizeColumn(d)));
+        const rowSize = leaves.reduce(
+          (sum, d) => sum + dim.sizeRow(d) + attrs.compactMarginBetween(d),
+          0
+        );
+        leaves.forEach((child) => {
+          child.firstCompactNode = leaves[0];
+          // Node đầu giữ kích thước slot của cả cột (flextree dùng nó để
+          // chừa chỗ), các node sau [0,0] để xếp chồng vào cùng slot.
+          child.flexCompactDim = child.firstCompact
+            ? [
+                columnSize + attrs.compactMarginPair(child),
+                rowSize - attrs.compactMarginBetween(child),
+              ]
+            : [0, 0];
+        });
+        node.flexCompactDim = null;
+      });
+    };
+
+    patched.calculateCompactFlexPositions = (root) => {
+      const attrs = patched.getChartState();
+      const dim = attrs.layoutBindings[attrs.layout].compactDimension;
+      root.eachBefore((node) => {
+        if (!node.children) {
+          return;
+        }
+        const leaves = node.children.filter((d) => d.flexCompactDim);
+        const first = leaves[0];
+        if (!first) {
+          return;
+        }
+        // Tâm cột = tâm slot flextree đã cấp; dịch cả cột về thẳng dưới
+        // node cha khi chỉ lệch nhẹ (giữ hành vi của bản gốc).
+        const centerX = first.x;
+        const offsetX = Math.abs(node.x - centerX) < 10 ? node.x - centerX : 0;
+        let y = first.y;
+        leaves.forEach((child) => {
+          child.x = centerX + offsetX;
+          child.y = y;
+          y += dim.sizeRow(child) + attrs.compactMarginBetween(child);
+        });
+      });
+    };
+
+    // Rail dọc của cụm compact nằm bên TRÁI cột (mặc định nằm giữa 2 cột).
+    patched.getChartState().layoutBindings['top'].compactLinkMidX = (node, state) => {
+      const first = node.firstCompactNode!;
+      return first.x - first.width / 2 - state.compactMarginPair(node) / 4;
+    };
   }
 
   private renderCard(node: OrgNode): string {

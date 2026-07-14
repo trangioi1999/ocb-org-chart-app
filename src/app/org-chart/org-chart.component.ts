@@ -23,6 +23,7 @@ export interface LegendItem {
 const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
   { tagClass: 'regular', label: 'Cơ quan quản trị / điều hành' },
   { tagClass: 'executive', label: 'Khối / Trung tâm / Phòng' },
+  { tagClass: 'independent', label: 'Đơn vị kinh doanh / Chi nhánh' },
 ];
 
 @Component({

@@ -115,7 +115,8 @@
     "parentId": "tgd",
     "name": "Các cơ quan trực thuộc TGĐ",
     "title": "",
-    "tag": "council"
+    "tag": "council",
+    "linkStyle": "functional"
   },
   {
     "id": "cqt-tgd-01",

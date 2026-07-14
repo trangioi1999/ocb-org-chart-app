@@ -21,9 +21,14 @@ export interface LegendItem {
 }
 
 const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
-  { tagClass: 'regular', label: 'Cơ quan quản trị / điều hành' },
-  { tagClass: 'executive', label: 'Khối / Trung tâm / Phòng' },
-  { tagClass: 'independent', label: 'Đơn vị kinh doanh / Chi nhánh' },
+  { tagClass: 'top', label: 'Cấp cao nhất (ĐHĐCĐ, HĐQT, TGĐ)' },
+  { tagClass: 'governance', label: 'Bộ máy quản trị (HĐQT)' },
+  { tagClass: 'control', label: 'Bộ máy kiểm soát' },
+  { tagClass: 'business', label: 'Khối kinh doanh' },
+  { tagClass: 'support', label: 'Khối hỗ trợ/vận hành' },
+  { tagClass: 'center', label: 'Trung tâm' },
+  { tagClass: 'council', label: 'Hội đồng' },
+  { tagClass: 'company', label: 'Công ty/Đơn vị sự nghiệp' },
 ];
 
 @Component({
@@ -247,11 +252,17 @@ export class OrgChartComponent implements OnDestroy {
           rect.setAttribute('stroke-width', highlighted ? '4' : '1');
         })
         // Tô đậm đường nối trên nhánh từ node được chọn về gốc và đưa
-        // nó lên trên các link khác để không bị che.
+        // nó lên trên các link khác để không bị che. Node có
+        // linkStyle 'functional' được vẽ nét đứt (quan hệ chức năng).
         .linkUpdate(function (d) {
           const highlighted = Boolean(d.data._upToTheRootHighlighted);
           this.setAttribute('stroke', highlighted ? '#c57622' : '#c3cdda');
           this.setAttribute('stroke-width', highlighted ? '3' : '1.5');
+          if (d.data.linkStyle === 'functional') {
+            this.setAttribute('stroke-dasharray', '6 4');
+          } else {
+            this.removeAttribute('stroke-dasharray');
+          }
           if (highlighted) {
             this.parentNode?.appendChild(this);
           }

@@ -101,7 +101,8 @@
 
 .org-chart-legend {
   display: flex;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 8px 18px;
   padding: 8px 16px;
   background: #f7f9fc;
   font-size: 12px;
@@ -132,6 +133,57 @@
 
   &--executive {
     background: #00793d;
+  }
+
+  &--top {
+    background: #ede7f6;
+    border: 2px solid #7e57c2;
+  }
+
+  &--governance {
+    background: #e8f5e9;
+    border: 2px solid #66bb6a;
+  }
+
+  &--control {
+    background: #fdecea;
+    border: 2px solid #e57373;
+  }
+
+  &--business {
+    background: #e3f2fd;
+    border: 2px solid #64b5f6;
+  }
+
+  &--support {
+    background: #fff8e1;
+    border: 2px solid #d6a800;
+  }
+
+  &--center {
+    background: #e2f3e5;
+    border: 2px solid #82b366;
+  }
+
+  &--council {
+    background: #ffe6cc;
+    border: 2px solid #d79b00;
+  }
+
+  &--company {
+    background: #e1d5e7;
+    border: 2px solid #9673a6;
+  }
+}
+
+.legend-line {
+  display: inline-block;
+  width: 22px;
+  height: 0;
+  border-top: 2px solid #8a97a8;
+
+  &--dashed {
+    border-top-style: dashed;
   }
 }
 
@@ -239,6 +291,49 @@
   .org-card__avatar {
     background: #c57622;
   }
+}
+
+/* ---- 8 nhóm màu phân loại đơn vị (theo chú thích chuẩn) ---- */
+@mixin org-card-variant($bg, $accent) {
+  background: $bg;
+  border-color: $accent;
+  border-left: 4px solid $accent;
+
+  .org-card__avatar {
+    background: $accent;
+  }
+}
+
+.org-card--top {
+  @include org-card-variant(#ede7f6, #7e57c2);
+}
+
+.org-card--governance {
+  @include org-card-variant(#e8f5e9, #57a05b);
+}
+
+.org-card--control {
+  @include org-card-variant(#fdecea, #d35d5d);
+}
+
+.org-card--business {
+  @include org-card-variant(#e3f2fd, #4a90cf);
+}
+
+.org-card--support {
+  @include org-card-variant(#fff8e1, #c29a00);
+}
+
+.org-card--center {
+  @include org-card-variant(#e2f3e5, #6d9c58);
+}
+
+.org-card--council {
+  @include org-card-variant(#ffe6cc, #d79b00);
+}
+
+.org-card--company {
+  @include org-card-variant(#e1d5e7, #9673a6);
 }
 
 .org-chart-error {

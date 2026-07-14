@@ -4,14 +4,14 @@
     "parentId": null,
     "name": "Đại hội đồng cổ đông",
     "title": "",
-    "tag": "regular"
+    "tag": "top"
   },
   {
     "id": "bks",
     "parentId": "dhdcd",
     "name": "Ban Kiểm soát",
     "title": "",
-    "tag": "regular",
+    "tag": "control",
     "members": [
       "Đặng Thị Thanh Huyền — Trưởng Ban Kiểm soát",
       "Đặng Thị Quý — Thành viên Ban Kiểm soát",
@@ -25,14 +25,14 @@
     "parentId": "bks",
     "name": "Kiểm toán nội bộ",
     "title": "",
-    "tag": "regular"
+    "tag": "control"
   },
   {
     "id": "hdqt",
     "parentId": "dhdcd",
     "name": "Hội đồng quản trị",
     "title": "",
-    "tag": "regular",
+    "tag": "top",
     "members": [
       "Trịnh Văn Tuấn — Chủ tịch Hội đồng quản trị",
       "Ngô Hà Bắc — Thành viên HĐQT",
@@ -49,63 +49,63 @@
     "parentId": "hdqt",
     "name": "Các cơ quan trực thuộc HĐQT",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "cqt-hdqt-01",
     "parentId": "cqt-hdqt",
     "name": "Ủy ban Nhân sự",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "cqt-hdqt-02",
     "parentId": "cqt-hdqt",
     "name": "Ủy ban Quản lý rủi ro",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "cqt-hdqt-03",
     "parentId": "cqt-hdqt",
     "name": "Ủy ban XLRR",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "cqt-hdqt-04",
     "parentId": "cqt-hdqt",
     "name": "Ban Chiến lược",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "cqt-hdqt-05",
     "parentId": "cqt-hdqt",
     "name": "Ban Hợp tác chiến lược",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "cqt-hdqt-06",
     "parentId": "cqt-hdqt",
     "name": "Ban PTBV",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "vp-hdqt",
     "parentId": "hdqt",
     "name": "Văn phòng HĐQT",
     "title": "",
-    "tag": "regular"
+    "tag": "governance"
   },
   {
     "id": "tgd",
     "parentId": "hdqt",
     "name": "Tổng Giám đốc",
     "title": "",
-    "tag": "regular",
+    "tag": "top",
     "members": [
       "Chris Shayan — Quyền Tổng Giám đốc"
     ]
@@ -115,189 +115,189 @@
     "parentId": "tgd",
     "name": "Các cơ quan trực thuộc TGĐ",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-01",
     "parentId": "cqt-tgd",
     "name": "Hội đồng xét duyệt sản phẩm",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-02",
     "parentId": "cqt-tgd",
     "name": "Hội đồng rủi ro",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-03",
     "parentId": "cqt-tgd",
     "name": "Hội đồng quản lý vốn",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-04",
     "parentId": "cqt-tgd",
     "name": "Hội đồng ALCO",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-05",
     "parentId": "cqt-tgd",
     "name": "Hội đồng tín dụng",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-06",
     "parentId": "cqt-tgd",
     "name": "Hội đồng cơ cấu nợ",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-07",
     "parentId": "cqt-tgd",
     "name": "Hội đồng mua bán nợ",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-08",
     "parentId": "cqt-tgd",
     "name": "Hội đồng nhân sự",
     "title": "",
-    "tag": "regular"
+    "tag": "council"
   },
   {
     "id": "cqt-tgd-09",
     "parentId": "cqt-tgd",
     "name": "Phòng Quản lý chuyển đổi",
     "title": "",
-    "tag": "regular"
+    "tag": "support"
   },
   {
     "id": "khoi-01",
     "parentId": "tgd",
     "name": "Khối Bán lẻ",
     "title": "",
-    "tag": "executive"
+    "tag": "business"
   },
   {
     "id": "khoi-02",
     "parentId": "tgd",
     "name": "Khối Khách hàng Doanh nghiệp",
     "title": "",
-    "tag": "executive"
+    "tag": "business"
   },
   {
     "id": "khoi-03",
     "parentId": "tgd",
     "name": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư",
     "title": "",
-    "tag": "executive"
+    "tag": "business"
   },
   {
     "id": "khoi-04",
     "parentId": "tgd",
     "name": "Khối Thị trường Tài chính",
     "title": "",
-    "tag": "executive"
+    "tag": "business"
   },
   {
     "id": "khoi-05",
     "parentId": "tgd",
     "name": "Trung tâm Quản lý Tài sản Nợ và Có",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-06",
     "parentId": "tgd",
     "name": "Trung tâm Ngân hàng số Liobank",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-07",
     "parentId": "tgd",
     "name": "Trung tâm Ngân hàng giao dịch",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-08",
     "parentId": "tgd",
     "name": "Khối Quản lý rủi ro",
     "title": "",
-    "tag": "executive"
+    "tag": "support"
   },
   {
     "id": "khoi-09",
     "parentId": "tgd",
     "name": "Khối Vận hành",
     "title": "",
-    "tag": "executive"
+    "tag": "support"
   },
   {
     "id": "khoi-10",
     "parentId": "tgd",
     "name": "Khối Công nghệ và Chuyển đổi số",
     "title": "",
-    "tag": "executive"
+    "tag": "support"
   },
   {
     "id": "khoi-11",
     "parentId": "tgd",
     "name": "Trung tâm Quản lý Tài chính",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-12",
     "parentId": "tgd",
     "name": "Trung tâm Nhân sự và Đào tạo",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-13",
     "parentId": "tgd",
     "name": "Trung tâm Pháp chế và Tuân thủ",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-14",
     "parentId": "tgd",
     "name": "Trung tâm Quản trị và Phân tích dữ liệu",
     "title": "",
-    "tag": "executive"
+    "tag": "center"
   },
   {
     "id": "khoi-15",
     "parentId": "tgd",
     "name": "Phòng Thương hiệu và Truyền thông",
     "title": "",
-    "tag": "executive"
+    "tag": "support"
   },
   {
     "id": "khoi-16",
     "parentId": "tgd",
     "name": "Phòng Phát triển bền vững",
     "title": "",
-    "tag": "executive"
+    "tag": "support"
   },
   {
     "id": "khoi-01-01",
     "parentId": "khoi-01",
     "name": "Trung tâm Bảo hiểm",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -305,7 +305,7 @@
     "parentId": "khoi-01",
     "name": "Trung tâm Giải pháp thanh toán",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -313,7 +313,7 @@
     "parentId": "khoi-01",
     "name": "Trung tâm Giải pháp số",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -321,7 +321,7 @@
     "parentId": "khoi-01",
     "name": "Trung tâm Vận hành kinh doanh",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -329,7 +329,7 @@
     "parentId": "khoi-01",
     "name": "Trung tâm Thu hồi nợ RB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -337,7 +337,7 @@
     "parentId": "khoi-01",
     "name": "Phòng Quản lý chất lượng dịch vụ",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -345,7 +345,7 @@
     "parentId": "khoi-01",
     "name": "Phòng Sản phẩm cho vay",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -353,7 +353,7 @@
     "parentId": "khoi-01",
     "name": "Phòng Giải pháp tiết kiệm và đầu tư",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -361,7 +361,7 @@
     "parentId": "khoi-01",
     "name": "Phòng Khách hàng ưu tiên",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -369,7 +369,7 @@
     "parentId": "khoi-01",
     "name": "Phòng Phát triển đối tác",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -377,7 +377,7 @@
     "parentId": "khoi-01",
     "name": "Bộ phận Marketing",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -385,7 +385,7 @@
     "parentId": "khoi-01",
     "name": "Phòng Xây dựng năng lực bán",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -393,7 +393,7 @@
     "parentId": "khoi-01",
     "name": "Kênh bán hàng trực tiếp và digital",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Bán lẻ"
   },
   {
@@ -401,7 +401,7 @@
     "parentId": "khoi-02",
     "name": "Phòng Phát triển sản phẩm và giải pháp - CMB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Khách hàng Doanh nghiệp"
   },
   {
@@ -409,7 +409,7 @@
     "parentId": "khoi-02",
     "name": "Phòng Quản lý nợ - CMB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Khách hàng Doanh nghiệp"
   },
   {
@@ -417,7 +417,7 @@
     "parentId": "khoi-02",
     "name": "Phòng Quản lý kinh doanh - CMB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Khách hàng Doanh nghiệp"
   },
   {
@@ -425,7 +425,7 @@
     "parentId": "khoi-03",
     "name": "Phòng Phát triển sản phẩm và giải pháp - CIB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư"
   },
   {
@@ -433,7 +433,7 @@
     "parentId": "khoi-03",
     "name": "Phòng Quản trị nợ - CIB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư"
   },
   {
@@ -441,7 +441,7 @@
     "parentId": "khoi-03",
     "name": "Phòng Quản lý kinh doanh - CIB",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư"
   },
   {
@@ -449,7 +449,7 @@
     "parentId": "khoi-04",
     "name": "Phòng Kinh doanh vốn",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Thị trường Tài chính"
   },
   {
@@ -457,7 +457,7 @@
     "parentId": "khoi-04",
     "name": "Phòng Kinh doanh ngoại hối",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Thị trường Tài chính"
   },
   {
@@ -465,7 +465,7 @@
     "parentId": "khoi-04",
     "name": "Trung tâm Bán sản phẩm thị trường tài chính",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Thị trường Tài chính"
   },
   {
@@ -473,7 +473,7 @@
     "parentId": "khoi-04",
     "name": "Phòng Phát triển sản phẩm và quản trị vận hành",
     "title": "",
-    "tag": "executive",
+    "tag": "business",
     "department": "Khối Thị trường Tài chính"
   },
   {
@@ -481,7 +481,7 @@
     "parentId": "khoi-05",
     "name": "Phòng Chiến lược quản lý tài sản nợ và có",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản lý Tài sản Nợ và Có"
   },
   {
@@ -489,7 +489,7 @@
     "parentId": "khoi-05",
     "name": "Phòng Phát hành và Đầu tư GTCG",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản lý Tài sản Nợ và Có"
   },
   {
@@ -497,7 +497,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Quản lý rủi ro tín dụng",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -505,7 +505,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Phát triển sản phẩm",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -513,7 +513,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Vận hành",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -521,7 +521,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Kinh doanh",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -529,7 +529,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Phát triển đối tác",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -537,7 +537,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Tài chính",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -545,7 +545,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Phân khúc khách hàng",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -553,7 +553,7 @@
     "parentId": "khoi-06",
     "name": "Phòng Quản lý dự án",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng số Liobank"
   },
   {
@@ -561,7 +561,7 @@
     "parentId": "khoi-07",
     "name": "Phòng Kinh doanh - TB",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng giao dịch"
   },
   {
@@ -569,7 +569,7 @@
     "parentId": "khoi-07",
     "name": "Phòng Phát triển sản phẩm - TB",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng giao dịch"
   },
   {
@@ -577,7 +577,7 @@
     "parentId": "khoi-07",
     "name": "Phòng Triển khai khách hàng - TB",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng giao dịch"
   },
   {
@@ -585,7 +585,7 @@
     "parentId": "khoi-07",
     "name": "Phòng Tác nghiệp tài trợ thương mại",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Ngân hàng giao dịch"
   },
   {
@@ -593,7 +593,7 @@
     "parentId": "khoi-08",
     "name": "Phòng QLRR thị trường và thanh khoản",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -601,7 +601,7 @@
     "parentId": "khoi-08",
     "name": "Phòng QLRR doanh nghiệp",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -609,7 +609,7 @@
     "parentId": "khoi-08",
     "name": "Phòng QLRR tín dụng",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -617,7 +617,7 @@
     "parentId": "khoi-08",
     "name": "Phòng QLRR hoạt động",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -625,7 +625,7 @@
     "parentId": "khoi-08",
     "name": "Phòng QLRR mô hình và phân tích chuyên sâu",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -633,7 +633,7 @@
     "parentId": "khoi-08",
     "name": "Trung tâm Quản lý tín dụng",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -641,7 +641,7 @@
     "parentId": "khoi-08",
     "name": "Trung tâm Xử lý nợ",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Quản lý rủi ro"
   },
   {
@@ -649,7 +649,7 @@
     "parentId": "khoi-09",
     "name": "Phòng Kho quỹ",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Vận hành"
   },
   {
@@ -657,7 +657,7 @@
     "parentId": "khoi-09",
     "name": "Phòng Thanh toán",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Vận hành"
   },
   {
@@ -665,7 +665,7 @@
     "parentId": "khoi-09",
     "name": "Phòng Tác nghiệp thị trường và đầu tư",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Vận hành"
   },
   {
@@ -673,7 +673,7 @@
     "parentId": "khoi-09",
     "name": "Trung tâm Xử lý giao dịch tín dụng",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Vận hành"
   },
   {
@@ -681,7 +681,7 @@
     "parentId": "khoi-09",
     "name": "Phòng Hành chính quản trị",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Vận hành"
   },
   {
@@ -689,7 +689,7 @@
     "parentId": "khoi-09",
     "name": "Phòng Định giá",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Vận hành"
   },
   {
@@ -697,7 +697,7 @@
     "parentId": "khoi-10",
     "name": "Trung tâm Ứng dụng công nghệ",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -705,7 +705,7 @@
     "parentId": "khoi-10",
     "name": "Phòng An toàn thông tin",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -713,7 +713,7 @@
     "parentId": "khoi-10",
     "name": "Phòng Vận hành công nghệ",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -721,7 +721,7 @@
     "parentId": "khoi-10",
     "name": "Phòng Quản trị công nghệ",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -729,7 +729,7 @@
     "parentId": "khoi-10",
     "name": "Phòng Tự động hóa quy trình",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -737,7 +737,7 @@
     "parentId": "khoi-10",
     "name": "Phòng Chuyển đổi kỹ thuật số",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -745,7 +745,7 @@
     "parentId": "khoi-10",
     "name": "Phòng Hạ tầng công nghệ",
     "title": "",
-    "tag": "executive",
+    "tag": "support",
     "department": "Khối Công nghệ và Chuyển đổi số"
   },
   {
@@ -753,7 +753,7 @@
     "parentId": "khoi-11",
     "name": "Phòng Kế toán",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản lý Tài chính"
   },
   {
@@ -761,7 +761,7 @@
     "parentId": "khoi-11",
     "name": "Phòng Tài chính kế hoạch",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản lý Tài chính"
   },
   {
@@ -769,7 +769,7 @@
     "parentId": "khoi-12",
     "name": "Phòng Tuyển dụng",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Nhân sự và Đào tạo"
   },
   {
@@ -777,7 +777,7 @@
     "parentId": "khoi-12",
     "name": "Phòng Đào tạo",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Nhân sự và Đào tạo"
   },
   {
@@ -785,7 +785,7 @@
     "parentId": "khoi-12",
     "name": "Phòng Quản lý nguồn nhân lực",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Nhân sự và Đào tạo"
   },
   {
@@ -793,7 +793,7 @@
     "parentId": "khoi-12",
     "name": "Phòng Phát triển nguồn nhân lực",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Nhân sự và Đào tạo"
   },
   {
@@ -801,7 +801,7 @@
     "parentId": "khoi-13",
     "name": "Phòng Pháp chế",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Pháp chế và Tuân thủ"
   },
   {
@@ -809,7 +809,7 @@
     "parentId": "khoi-13",
     "name": "Phòng Kiểm soát tuân thủ",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Pháp chế và Tuân thủ"
   },
   {
@@ -817,7 +817,7 @@
     "parentId": "khoi-14",
     "name": "Phòng Quản trị dữ liệu",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản trị và Phân tích dữ liệu"
   },
   {
@@ -825,7 +825,7 @@
     "parentId": "khoi-14",
     "name": "Phòng Khoa học dữ liệu",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản trị và Phân tích dữ liệu"
   },
   {
@@ -833,7 +833,7 @@
     "parentId": "khoi-14",
     "name": "Phòng Kiến trúc và nền tảng dữ liệu",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản trị và Phân tích dữ liệu"
   },
   {
@@ -841,7 +841,7 @@
     "parentId": "khoi-14",
     "name": "Phòng Phân tích dữ liệu",
     "title": "",
-    "tag": "executive",
+    "tag": "center",
     "department": "Trung tâm Quản trị và Phân tích dữ liệu"
   },
   {
@@ -849,7 +849,7 @@
     "parentId": "khoi-01",
     "name": "Trung tâm Bán chuyên trách",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh"
   },
   {
@@ -857,7 +857,7 @@
     "parentId": "khoi-01",
     "name": "Kênh Bán hàng",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh"
   },
   {
@@ -865,7 +865,7 @@
     "parentId": "tgd",
     "name": "Trung tâm Kinh doanh",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh"
   },
   {
@@ -873,7 +873,7 @@
     "parentId": "tgd",
     "name": "Khu vực Bán lẻ",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh"
   },
   {
@@ -881,7 +881,7 @@
     "parentId": "tgd",
     "name": "Vùng CMB",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh"
   },
   {
@@ -889,7 +889,7 @@
     "parentId": "tgd",
     "name": "Khách hàng doanh nghiệp FDI",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh"
   },
   {
@@ -897,7 +897,7 @@
     "parentId": "dvkd-kvbl",
     "name": "Trung tâm chuyên doanh RB",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   },
   {
@@ -905,7 +905,7 @@
     "parentId": "dvkd-vungcmb",
     "name": "Trung tâm chuyên doanh CMB",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   },
   {
@@ -913,7 +913,7 @@
     "parentId": "dvkd-fdi",
     "name": "Trung tâm chuyên doanh FDI",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   },
   {
@@ -921,7 +921,7 @@
     "parentId": "dvkd-fdi",
     "name": "Trung tâm chuyên doanh CIB",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   },
   {
@@ -929,7 +929,7 @@
     "parentId": "tgd",
     "name": "Chi nhánh / Phòng giao dịch",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Đơn vị kinh doanh",
     "note": "Hệ thống chi nhánh và phòng giao dịch trên toàn quốc; mỗi đơn vị gồm các bộ phận bên dưới."
   },
@@ -938,7 +938,7 @@
     "parentId": "cn-pgd",
     "name": "BP. Dịch vụ tín dụng",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   },
   {
@@ -946,7 +946,7 @@
     "parentId": "cn-pgd",
     "name": "BP. Kế toán - Hành chính",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   },
   {
@@ -954,7 +954,7 @@
     "parentId": "cn-pgd",
     "name": "BP. Kho quỹ",
     "title": "",
-    "tag": "independent",
+    "tag": "business",
     "department": "Chi nhánh/PGD"
   }
 ]

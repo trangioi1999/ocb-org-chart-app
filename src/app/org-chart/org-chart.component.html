@@ -25,6 +25,8 @@
       @for (item of legendItems(); track item.tagClass) {
         <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--{{ item.tagClass }}"></i>{{ item.label }}</span>
       }
+      <span class="legend-item legend-item--line" role="listitem"><i class="legend-line" aria-hidden="true"></i>Quan hệ trực thuộc</span>
+      <span class="legend-item legend-item--line" role="listitem"><i class="legend-line legend-line--dashed" aria-hidden="true"></i>Quan hệ chức năng</span>
     </div>
 
     <div class="org-chart-container">

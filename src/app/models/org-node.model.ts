@@ -1,4 +1,24 @@
-export type OrgNodeTag = 'independent' | 'executive' | 'regular';
+/**
+ * Nhóm màu phân loại đơn vị trên sơ đồ.
+ * 8 nhóm chính theo chú thích chuẩn: top (Cấp cao nhất), governance
+ * (Bộ máy quản trị HĐQT), control (Bộ máy kiểm soát), business (Khối
+ * kinh doanh), support (Khối hỗ trợ/vận hành), center (Trung tâm),
+ * council (Hội đồng), company (Công ty/Đơn vị sự nghiệp).
+ * 3 tag cũ (regular/executive/independent) giữ lại để tương thích với
+ * dữ liệu chưa migrate (VD: branch-org.json).
+ */
+export type OrgNodeTag =
+  | 'top'
+  | 'governance'
+  | 'control'
+  | 'business'
+  | 'support'
+  | 'center'
+  | 'council'
+  | 'company'
+  | 'independent'
+  | 'executive'
+  | 'regular';
 
 /**
  * Flat node shape consumed by d3-org-chart.
@@ -18,4 +38,6 @@ export interface OrgNode {
   members?: string[];
   /** Ghi chú dài (VD: danh sách các cơ quan trực thuộc), hiển thị ở detail panel. */
   note?: string;
+  /** 'functional' -> đường nối tới cấp trên vẽ nét đứt (quan hệ chức năng, không phải trực thuộc). */
+  linkStyle?: 'functional';
 }

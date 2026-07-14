@@ -70,9 +70,16 @@ describe('OrgChartComponent', () => {
       el.textContent?.trim()
     );
     expect(items).toEqual([
-      'Cơ quan quản trị / điều hành',
-      'Khối / Trung tâm / Phòng',
-      'Đơn vị kinh doanh / Chi nhánh',
+      'Cấp cao nhất (ĐHĐCĐ, HĐQT, TGĐ)',
+      'Bộ máy quản trị (HĐQT)',
+      'Bộ máy kiểm soát',
+      'Khối kinh doanh',
+      'Khối hỗ trợ/vận hành',
+      'Trung tâm',
+      'Hội đồng',
+      'Công ty/Đơn vị sự nghiệp',
+      'Quan hệ trực thuộc',
+      'Quan hệ chức năng',
     ]);
   });
 
@@ -89,7 +96,7 @@ describe('OrgChartComponent', () => {
     const items = Array.from(compiled.querySelectorAll('.legend-item')).map((el) =>
       el.textContent?.trim()
     );
-    expect(items).toEqual(['Quản lý', 'Nhân viên']);
+    expect(items).toEqual(['Quản lý', 'Nhân viên', 'Quan hệ trực thuộc', 'Quan hệ chức năng']);
   });
 
   it('highlight() filters matches from its own data() input', () => {

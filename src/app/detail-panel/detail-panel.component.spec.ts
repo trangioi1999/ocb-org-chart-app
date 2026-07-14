@@ -73,4 +73,30 @@ describe('DetailPanelComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.detail-panel__title')).toBeNull();
   });
+
+  it('renders the direct-children list when children input is non-empty', () => {
+    const node: OrgNode = { id: 'hdqt', parentId: 'dhdcd', name: 'Hội đồng quản trị', title: '' };
+    const kids: OrgNode[] = [
+      { id: 'cqt-hdqt', parentId: 'hdqt', name: 'Các cơ quan trực thuộc HĐQT', title: '' },
+      { id: 'vp-hdqt', parentId: 'hdqt', name: 'Văn phòng HĐQT', title: '' },
+    ];
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', node);
+    fixture.componentRef.setInput('children', kids);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const items = Array.from(compiled.querySelectorAll('.detail-panel__children li')).map((el) =>
+      el.textContent?.trim()
+    );
+    expect(items).toEqual(['Các cơ quan trực thuộc HĐQT', 'Văn phòng HĐQT']);
+  });
+
+  it('omits the children list when there are no children', () => {
+    const node: OrgNode = { id: 'khoi-01', parentId: 'tgd', name: 'Khối Bán lẻ', title: '' };
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', node);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.detail-panel__children')).toBeNull();
+  });
 });

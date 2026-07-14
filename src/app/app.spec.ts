@@ -73,4 +73,28 @@ describe('App', () => {
     fixture.detectChanges();
     expect(compiled.querySelector('.detail-panel')).toBeNull();
   });
+
+  it('computes selectedChildren as the direct children of the selected node', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    httpMock.expectOne('data/org-chart.json').flush([
+      { id: 'a', parentId: null, name: 'Alice', title: 'Chủ tịch', tag: 'regular' },
+      { id: 'b', parentId: 'a', name: 'Bob', title: 'Thành viên', tag: 'regular' },
+      { id: 'c', parentId: 'a', name: 'Carol', title: 'Thành viên', tag: 'regular' },
+    ]);
+    fixture.detectChanges();
+
+    fixture.componentInstance['onNodeClick']({
+      id: 'a',
+      parentId: null,
+      name: 'Alice',
+      title: 'Chủ tịch',
+      tag: 'regular',
+    });
+
+    expect(fixture.componentInstance['selectedChildren']().map((n) => n.name)).toEqual([
+      'Bob',
+      'Carol',
+    ]);
+  });
 });

@@ -49,8 +49,49 @@
     "parentId": "hdqt",
     "name": "Các cơ quan trực thuộc HĐQT",
     "title": "",
-    "tag": "regular",
-    "note": "Ủy ban Nhân sự, Ủy ban Quản lý rủi ro, Ủy ban XLRR, Ban Chiến lược, Ban Hợp tác chiến lược, Ban PTBV, các cơ quan khác do HĐQT thành lập."
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-hdqt-01",
+    "parentId": "cqt-hdqt",
+    "name": "Ủy ban Nhân sự",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-hdqt-02",
+    "parentId": "cqt-hdqt",
+    "name": "Ủy ban Quản lý rủi ro",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-hdqt-03",
+    "parentId": "cqt-hdqt",
+    "name": "Ủy ban XLRR",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-hdqt-04",
+    "parentId": "cqt-hdqt",
+    "name": "Ban Chiến lược",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-hdqt-05",
+    "parentId": "cqt-hdqt",
+    "name": "Ban Hợp tác chiến lược",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-hdqt-06",
+    "parentId": "cqt-hdqt",
+    "name": "Ban PTBV",
+    "title": "",
+    "tag": "regular"
   },
   {
     "id": "vp-hdqt",
@@ -72,8 +113,70 @@
     "parentId": "tgd",
     "name": "Các cơ quan trực thuộc TGĐ",
     "title": "",
-    "tag": "regular",
-    "note": "Hội đồng xét duyệt sản phẩm, Hội đồng rủi ro, Hội đồng quản lý vốn, Hội đồng ALCO, Hội đồng tín dụng, Hội đồng cơ cấu nợ, Hội đồng mua bán nợ, Hội đồng nhân sự, Phòng Quản lý chuyển đổi, các cơ quan khác do TGĐ thành lập."
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-01",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng xét duyệt sản phẩm",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-02",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng rủi ro",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-03",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng quản lý vốn",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-04",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng ALCO",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-05",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng tín dụng",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-06",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng cơ cấu nợ",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-07",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng mua bán nợ",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-08",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng nhân sự",
+    "title": "",
+    "tag": "regular"
+  },
+  {
+    "id": "cqt-tgd-09",
+    "parentId": "cqt-tgd",
+    "name": "Phòng Quản lý chuyển đổi",
+    "title": "",
+    "tag": "regular"
   },
   {
     "id": "khoi-01",

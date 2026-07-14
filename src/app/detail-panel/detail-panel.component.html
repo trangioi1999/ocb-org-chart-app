@@ -23,5 +23,13 @@
     @if (n.note) {
       <p class="detail-panel__note">{{ n.note }}</p>
     }
+    @if (children().length) {
+      <p class="detail-panel__children-heading">Đơn vị trực thuộc:</p>
+      <ul class="detail-panel__children">
+        @for (child of children(); track child.id) {
+          <li>{{ child.name }}</li>
+        }
+      </ul>
+    }
   </aside>
 }

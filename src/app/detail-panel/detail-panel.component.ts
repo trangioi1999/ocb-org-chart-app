@@ -9,6 +9,7 @@ import { OrgNode } from '../models/org-node.model';
 })
 export class DetailPanelComponent {
   readonly node = input<OrgNode | null>(null);
+  readonly children = input<OrgNode[]>([]);
   readonly closed = output<void>();
 
   protected close(): void {

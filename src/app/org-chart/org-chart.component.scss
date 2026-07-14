@@ -34,9 +34,9 @@
   width: 34px;
   height: 34px;
   padding: 0;
-  border: 1px solid #0b5fa5;
+  border: 1px solid #00793d;
   background: #fff;
-  color: #0b5fa5;
+  color: #00793d;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
@@ -48,12 +48,13 @@
   }
 
   &:hover {
-    background: #0b5fa5;
+    background: #c57622;
+    border-color: #c57622;
     color: #fff;
   }
 
   &:focus-visible {
-    outline: 2px solid #0b5fa5;
+    outline: 2px solid #00793d;
     outline-offset: 2px;
   }
 }
@@ -94,7 +95,7 @@
 
   &:focus {
     outline: none;
-    border-color: #0b5fa5;
+    border-color: #00793d;
   }
 }
 
@@ -122,15 +123,15 @@
 
   &--regular {
     background: #ffffff;
-    border: 2px solid #0b5fa5;
+    border: 2px solid #00793d;
   }
 
   &--independent {
-    background: #f5a623;
+    background: #c57622;
   }
 
   &--executive {
-    background: #0b3d68;
+    background: #00793d;
   }
 }
 
@@ -180,7 +181,7 @@
   font-weight: 600;
   font-size: 14px;
   color: #ffffff;
-  background: #0b5fa5;
+  background: #00793d;
 }
 
 .org-card__body {
@@ -218,10 +219,10 @@
 }
 
 .org-card--independent {
-  border-left: 4px solid #f5a623;
+  border-left: 4px solid #c57622;
 
   .org-card__avatar {
-    background: #f5a623;
+    background: #c57622;
   }
 }
 
@@ -236,12 +237,12 @@
 }
 
 .org-card--executive {
-  background: #0b3d68;
-  border-color: #0b3d68;
+  background: #00793d;
+  border-color: #00793d;
 
   .org-card__avatar {
     background: #ffffff;
-    color: #0b3d68;
+    color: #00793d;
   }
 
   .org-card__name {
@@ -250,7 +251,7 @@
 
   .org-card__title,
   .org-card__dept {
-    color: #cfe0f2;
+    color: #d7f2e2;
   }
 }
 

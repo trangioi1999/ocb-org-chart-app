@@ -10,21 +10,31 @@
 }
 
 .app-header {
-  padding: 14px 20px;
-  background: #0b3d68;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #00793d 0%, #045c2e 100%);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 63, 33, 0.25);
 
   h1 {
     margin: 0;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.2px;
   }
 }
 
+.app-header__chevron {
+  color: #c57622;
+  font-weight: 700;
+}
+
 .app-subtitle {
-  margin: 4px 0 0;
+  margin: 4px 0 0 26px;
   font-size: 12px;
-  color: #cfe0f2;
+  color: #d7f2e2;
 }
 
 .app-main {
@@ -46,12 +56,17 @@
   }
 
   button {
-    border: 1px solid #0b5fa5;
+    border: 1px solid #00793d;
     background: #fff;
-    color: #0b5fa5;
+    color: #00793d;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
+
+    &:hover {
+      background: #00793d;
+      color: #fff;
+    }
   }
 }
 

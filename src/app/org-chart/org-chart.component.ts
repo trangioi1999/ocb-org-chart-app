@@ -90,10 +90,11 @@ export class OrgChartComponent implements OnDestroy {
       }
     });
 
-    // Highlight node được chọn + đường nối về gốc. Đọc cả data() để
-    // gắn lại cờ highlight sau khi node bị thay object mới (sửa/xóa) —
-    // effect này chạy SAU effect data ở trên (cùng thứ tự khai báo)
-    // nên chart đã có dữ liệu mới trước khi highlight.
+    // Highlight node được chọn + đường nối về gốc, đồng thời ẩn tạm
+    // các nhánh không liên quan (focus mode). Đọc cả data() để gắn lại
+    // cờ highlight sau khi node bị thay object mới (sửa/xóa) — effect
+    // này chạy SAU effect data ở trên (cùng thứ tự khai báo) nên chart
+    // đã có dữ liệu mới trước khi highlight.
     effect(() => {
       const id = this.selectedNodeId();
       const nodes = this.data();
@@ -103,8 +104,12 @@ export class OrgChartComponent implements OnDestroy {
       this.zone.runOutsideAngular(() => {
         try {
           this.chart!.clearHighlighting();
-          if (id && nodes.some((n) => n.id === id)) {
-            this.chart!.setUpToTheRootHighlighted(id);
+          const selected = id && nodes.some((n) => n.id === id) ? id : null;
+          // Node "liên quan" = tổ tiên + chính nó + toàn bộ con cháu;
+          // nodeUpdate/linkUpdate đọc set này để ẩn phần còn lại.
+          this.focusedIds = selected ? this.computeRelatedIds(selected, nodes) : null;
+          if (selected) {
+            this.chart!.setUpToTheRootHighlighted(selected);
           }
           this.chart!.render();
         } catch (err) {
@@ -112,6 +117,45 @@ export class OrgChartComponent implements OnDestroy {
         }
       });
     });
+  }
+
+  /**
+   * Focus mode: tập id của node được chọn + tổ tiên + con cháu.
+   * null = không focus (hiện tất cả).
+   */
+  private focusedIds: Set<string> | null = null;
+
+  private computeRelatedIds(id: string, nodes: OrgNode[]): Set<string> {
+    const byId = new Map(nodes.map((n) => [n.id, n]));
+    const byParent = new Map<string, OrgNode[]>();
+    for (const n of nodes) {
+      if (n.parentId) {
+        const siblings = byParent.get(n.parentId);
+        if (siblings) {
+          siblings.push(n);
+        } else {
+          byParent.set(n.parentId, [n]);
+        }
+      }
+    }
+    const related = new Set<string>();
+    // Tổ tiên (đường về gốc) + chính node
+    let current = byId.get(id);
+    while (current) {
+      related.add(current.id);
+      current = current.parentId ? byId.get(current.parentId) : undefined;
+    }
+    // Toàn bộ con cháu
+    const queue = [id];
+    while (queue.length) {
+      for (const child of byParent.get(queue.shift()!) ?? []) {
+        if (!related.has(child.id)) {
+          related.add(child.id);
+          queue.push(child.id);
+        }
+      }
+    }
+    return related;
   }
 
   expandAll(): void {
@@ -247,8 +291,13 @@ export class OrgChartComponent implements OnDestroy {
         // Ghi đè mặc định của d3-org-chart (viền hồng #E27396) bằng màu
         // cam thương hiệu; node nằm trên đường đi tới node được chọn /
         // kết quả tìm kiếm sẽ có viền cam quanh card.
-        .nodeUpdate(function (d) {
-          const rect = this.querySelector<SVGRectElement>('.node-rect');
+        .nodeUpdate((d, i, arr) => {
+          const el = arr[i];
+          // Focus mode: ẩn tạm node không liên quan tới node đang chọn.
+          const hidden = this.focusedIds !== null && !this.focusedIds.has(d.data.id);
+          el.classList.toggle('chart-hidden', hidden);
+
+          const rect = el.querySelector<SVGRectElement>('.node-rect');
           if (!rect) {
             return;
           }
@@ -260,17 +309,22 @@ export class OrgChartComponent implements OnDestroy {
         // Tô đậm đường nối trên nhánh từ node được chọn về gốc và đưa
         // nó lên trên các link khác để không bị che. Node có
         // linkStyle 'functional' được vẽ nét đứt (quan hệ chức năng).
-        .linkUpdate(function (d) {
+        .linkUpdate((d, i, arr) => {
+          const el = arr[i];
+          // Link "thuộc về" node con d -> ẩn cùng node khi ngoài vùng focus.
+          const hidden = this.focusedIds !== null && !this.focusedIds.has(d.data.id);
+          el.classList.toggle('chart-hidden', hidden);
+
           const highlighted = Boolean(d.data._upToTheRootHighlighted);
-          this.setAttribute('stroke', highlighted ? '#c57622' : '#c3cdda');
-          this.setAttribute('stroke-width', highlighted ? '3' : '1.5');
+          el.setAttribute('stroke', highlighted ? '#c57622' : '#c3cdda');
+          el.setAttribute('stroke-width', highlighted ? '3' : '1.5');
           if (d.data.linkStyle === 'functional') {
-            this.setAttribute('stroke-dasharray', '6 4');
+            el.setAttribute('stroke-dasharray', '6 4');
           } else {
-            this.removeAttribute('stroke-dasharray');
+            el.removeAttribute('stroke-dasharray');
           }
           if (highlighted) {
-            this.parentNode?.appendChild(this);
+            el.parentNode?.appendChild(el);
           }
         })
         .onNodeClick((d) => {

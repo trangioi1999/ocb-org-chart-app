@@ -42,6 +42,9 @@ export class OrgChartComponent implements OnDestroy {
   /** Chú giải màu sắc hiển thị dưới toolbar; mặc định là legend của OCB. */
   readonly legendItems = input<LegendItem[]>(DEFAULT_LEGEND_ITEMS);
 
+  /** Node đang được chọn: highlight card + đường nối về gốc. */
+  readonly selectedNodeId = input<string | null>(null);
+
   /** Bắn ra khi người dùng click 1 node trên chart. */
   readonly nodeClick = output<OrgNode>();
 
@@ -80,6 +83,29 @@ export class OrgChartComponent implements OnDestroy {
         });
       }
     });
+
+    // Highlight node được chọn + đường nối về gốc. Đọc cả data() để
+    // gắn lại cờ highlight sau khi node bị thay object mới (sửa/xóa) —
+    // effect này chạy SAU effect data ở trên (cùng thứ tự khai báo)
+    // nên chart đã có dữ liệu mới trước khi highlight.
+    effect(() => {
+      const id = this.selectedNodeId();
+      const nodes = this.data();
+      if (!this.chart) {
+        return;
+      }
+      this.zone.runOutsideAngular(() => {
+        try {
+          this.chart!.clearHighlighting();
+          if (id && nodes.some((n) => n.id === id)) {
+            this.chart!.setUpToTheRootHighlighted(id);
+          }
+          this.chart!.render();
+        } catch (err) {
+          console.error('Không thể highlight node được chọn:', err);
+        }
+      });
+    });
   }
 
   expandAll(): void {
@@ -92,6 +118,15 @@ export class OrgChartComponent implements OnDestroy {
 
   fit(): void {
     this.zone.runOutsideAngular(() => this.chart?.fit());
+  }
+
+  /**
+   * Mở nhánh + căn giữa 1 node (dùng khi vừa thêm cấp dưới để node mới
+   * hiện ra trong khung nhìn). Chỉ gắn cờ, không render — lần render kế
+   * tiếp (effect data đổi) sẽ áp dụng, nên chỉ gọi ngay trước khi data đổi.
+   */
+  revealNode(id: string): void {
+    this.zone.runOutsideAngular(() => this.chart?.setCentered(id));
   }
 
   zoomIn(): void {
@@ -197,6 +232,29 @@ export class OrgChartComponent implements OnDestroy {
         .childrenMargin(() => 50)
         .siblingsMargin(() => 30)
         .nodeContent((d) => this.renderCard(d.data))
+        // Ghi đè mặc định của d3-org-chart (viền hồng #E27396) bằng màu
+        // cam thương hiệu; node nằm trên đường đi tới node được chọn /
+        // kết quả tìm kiếm sẽ có viền cam quanh card.
+        .nodeUpdate(function (d) {
+          const rect = this.querySelector<SVGRectElement>('.node-rect');
+          if (!rect) {
+            return;
+          }
+          const highlighted = Boolean(d.data._highlighted || d.data._upToTheRootHighlighted);
+          rect.setAttribute('rx', '10');
+          rect.setAttribute('stroke', highlighted ? '#c57622' : 'none');
+          rect.setAttribute('stroke-width', highlighted ? '4' : '1');
+        })
+        // Tô đậm đường nối trên nhánh từ node được chọn về gốc và đưa
+        // nó lên trên các link khác để không bị che.
+        .linkUpdate(function (d) {
+          const highlighted = Boolean(d.data._upToTheRootHighlighted);
+          this.setAttribute('stroke', highlighted ? '#c57622' : '#c3cdda');
+          this.setAttribute('stroke-width', highlighted ? '3' : '1.5');
+          if (highlighted) {
+            this.parentNode?.appendChild(this);
+          }
+        })
         .onNodeClick((d) => {
           const node: OrgNode = 'data' in d ? d.data : d;
           this.zone.run(() => this.nodeClick.emit(node));
@@ -221,10 +279,11 @@ export class OrgChartComponent implements OnDestroy {
     const badgeMatch = node.id.match(/^khoi-(\d+)$/);
     const avatarContent = badgeMatch ? String(parseInt(badgeMatch[1], 10)) : this.initials(node.name);
     const tagClass = `org-card--${node.tag ?? 'regular'}`;
+    const selectedClass = node.id === this.selectedNodeId() ? ' org-card--selected' : '';
     const ariaLabel = node.title ? `${this.escape(node.name)}, ${this.escape(node.title)}` : this.escape(node.name);
 
     return `
-      <div class="org-card ${tagClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${ariaLabel}">
+      <div class="org-card ${tagClass}${selectedClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${ariaLabel}">
         <div class="org-card__avatar">${avatarContent}</div>
         <div class="org-card__body">
           <div class="org-card__name">${this.escape(node.name)}${

@@ -4,8 +4,18 @@
  * TS7016 (Could not find a declaration file) khi build.
  */
 declare module 'd3-org-chart' {
+  /**
+   * Cờ trạng thái d3-org-chart tự gắn lên từng phần tử data
+   * (setHighlighted / setUpToTheRootHighlighted / setExpanded).
+   */
+  export interface D3OrgChartStateFlags {
+    _highlighted?: boolean;
+    _upToTheRootHighlighted?: boolean;
+    _expanded?: boolean;
+  }
+
   export interface D3OrgChartHierarchyNode<T> {
-    data: T;
+    data: T & D3OrgChartStateFlags;
     children?: D3OrgChartHierarchyNode<T>[];
     parent?: D3OrgChartHierarchyNode<T> | null;
     depth: number;
@@ -29,6 +39,14 @@ declare module 'd3-org-chart' {
     layout(value: 'top' | 'bottom' | 'left' | 'right'): this;
     nodeContent(fn: (d: D3OrgChartHierarchyNode<T>) => string): this;
     onNodeClick(fn: (d: D3OrgChartHierarchyNode<T> | T) => void): this;
+    /** Được gọi qua selection.each() -> `this` là phần tử <g> của node. */
+    nodeUpdate(
+      fn: (this: SVGGraphicsElement, d: D3OrgChartHierarchyNode<T>, i: number, arr: ArrayLike<SVGGraphicsElement>) => void
+    ): this;
+    /** Được gọi qua selection.each() -> `this` là phần tử <path> của link. */
+    linkUpdate(
+      fn: (this: SVGPathElement, d: D3OrgChartHierarchyNode<T>, i: number, arr: ArrayLike<SVGPathElement>) => void
+    ): this;
     initialExpandLevel(value: number): this;
 
     render(): this;
@@ -36,6 +54,7 @@ declare module 'd3-org-chart' {
     expandAll(): this;
     collapseAll(): this;
     setExpanded(id: string, expandedFlag?: boolean): this;
+    setCentered(id: string): this;
     setHighlighted(id: string): this;
     setUpToTheRootHighlighted(id: string): this;
     clearHighlighting(): this;

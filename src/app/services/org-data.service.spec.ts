@@ -47,4 +47,42 @@ describe('OrgDataService', () => {
     expect(service.hasError()).toBe(true);
     expect(service.data()).toEqual([]);
   });
+  it('addNode() appends a node to the data', () => {
+    service.setData(SAMPLE);
+    const child: OrgNode = { id: 'c', parentId: 'b', name: 'Chi Le', title: 'Trưởng phòng' };
+    service.addNode(child);
+    expect(service.data()).toHaveLength(3);
+    expect(service.data()[2]).toEqual(child);
+  });
+
+  it('updateNode() replaces name/title/department and returns the updated node', () => {
+    service.setData(SAMPLE);
+    const updated = service.updateNode('b', {
+      name: 'Bob Tran',
+      title: 'Giám đốc Vận hành',
+      department: 'Khối Vận hành',
+    });
+    expect(updated?.title).toBe('Giám đốc Vận hành');
+    expect(service.data().find((n) => n.id === 'b')?.department).toBe('Khối Vận hành');
+    // Giữ nguyên các field không nằm trong changes
+    expect(service.data().find((n) => n.id === 'b')?.tag).toBe('executive');
+  });
+
+  it('updateNode() returns undefined for an unknown id', () => {
+    service.setData(SAMPLE);
+    expect(service.updateNode('missing', { name: 'X', title: 'Y' })).toBeUndefined();
+    expect(service.data()).toEqual(SAMPLE);
+  });
+
+  it('removeNode() removes the node and all of its descendants', () => {
+    const tree: OrgNode[] = [
+      ...SAMPLE,
+      { id: 'c', parentId: 'b', name: 'Chi Le', title: 'Trưởng phòng' },
+      { id: 'd', parentId: 'c', name: 'Dung Pham', title: 'Chuyên viên' },
+      { id: 'e', parentId: 'a', name: 'Em Vo', title: 'Kiểm soát viên' },
+    ];
+    service.setData(tree);
+    service.removeNode('b');
+    expect(service.data().map((n) => n.id)).toEqual(['a', 'e']);
+  });
 });

@@ -34,6 +34,28 @@
         </ul>
       }
 
+      @if (children().length > 1) {
+        <div class="detail-panel__layout" role="group" aria-label="Hướng xếp cấp dưới">
+          <span class="detail-panel__layout-label">Xếp cấp dưới:</span>
+          <button
+            type="button"
+            class="layout-btn"
+            [class.layout-btn--active]="(n.childrenLayout ?? 'row') === 'row'"
+            (click)="childrenLayoutChanged.emit({ id: n.id, layout: 'row' })"
+          >
+            ▭ Ngang
+          </button>
+          <button
+            type="button"
+            class="layout-btn"
+            [class.layout-btn--active]="n.childrenLayout === 'column'"
+            (click)="childrenLayoutChanged.emit({ id: n.id, layout: 'column' })"
+          >
+            ▯ Dọc
+          </button>
+        </div>
+      }
+
       <div class="detail-panel__actions" role="group" aria-label="Thao tác với đơn vị">
         <button type="button" class="panel-btn panel-btn--primary" (click)="startAdd()">
           ＋ Thêm cấp dưới

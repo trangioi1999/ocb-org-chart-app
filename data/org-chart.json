@@ -186,112 +186,128 @@
     "parentId": "tgd",
     "name": "Khối Bán lẻ",
     "title": "",
-    "tag": "business"
+    "tag": "business",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-02",
     "parentId": "tgd",
     "name": "Khối Khách hàng Doanh nghiệp",
     "title": "",
-    "tag": "business"
+    "tag": "business",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-03",
     "parentId": "tgd",
     "name": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư",
     "title": "",
-    "tag": "business"
+    "tag": "business",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-04",
     "parentId": "tgd",
     "name": "Khối Thị trường Tài chính",
     "title": "",
-    "tag": "business"
+    "tag": "business",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-05",
     "parentId": "tgd",
     "name": "Trung tâm Quản lý Tài sản Nợ và Có",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-06",
     "parentId": "tgd",
     "name": "Trung tâm Ngân hàng số Liobank",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-07",
     "parentId": "tgd",
     "name": "Trung tâm Ngân hàng giao dịch",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-08",
     "parentId": "tgd",
     "name": "Khối Quản lý rủi ro",
     "title": "",
-    "tag": "support"
+    "tag": "support",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-09",
     "parentId": "tgd",
     "name": "Khối Vận hành",
     "title": "",
-    "tag": "support"
+    "tag": "support",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-10",
     "parentId": "tgd",
     "name": "Khối Công nghệ và Chuyển đổi số",
     "title": "",
-    "tag": "support"
+    "tag": "support",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-11",
     "parentId": "tgd",
     "name": "Trung tâm Quản lý Tài chính",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-12",
     "parentId": "tgd",
     "name": "Trung tâm Nhân sự và Đào tạo",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-13",
     "parentId": "tgd",
     "name": "Trung tâm Pháp chế và Tuân thủ",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-14",
     "parentId": "tgd",
     "name": "Trung tâm Quản trị và Phân tích dữ liệu",
     "title": "",
-    "tag": "center"
+    "tag": "center",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-15",
     "parentId": "tgd",
     "name": "Phòng Thương hiệu và Truyền thông",
     "title": "",
-    "tag": "support"
+    "tag": "support",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-16",
     "parentId": "tgd",
     "name": "Phòng Phát triển bền vững",
     "title": "",
-    "tag": "support"
+    "tag": "support",
+    "childrenLayout": "column"
   },
   {
     "id": "khoi-01-01",

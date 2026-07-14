@@ -69,7 +69,11 @@ describe('OrgChartComponent', () => {
     const items = Array.from(compiled.querySelectorAll('.legend-item')).map((el) =>
       el.textContent?.trim()
     );
-    expect(items).toEqual(['Cơ quan quản trị / điều hành', 'Khối / Trung tâm / Phòng']);
+    expect(items).toEqual([
+      'Cơ quan quản trị / điều hành',
+      'Khối / Trung tâm / Phòng',
+      'Đơn vị kinh doanh / Chi nhánh',
+    ]);
   });
 
   it('renders custom legend items from the legendItems input', () => {

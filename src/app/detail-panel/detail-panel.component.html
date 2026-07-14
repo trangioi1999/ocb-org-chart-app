@@ -23,13 +23,76 @@
     @if (n.note) {
       <p class="detail-panel__note">{{ n.note }}</p>
     }
-    @if (children().length) {
-      <p class="detail-panel__children-heading">Đơn vị trực thuộc:</p>
-      <ul class="detail-panel__children">
-        @for (child of children(); track child.id) {
-          <li>{{ child.name }}</li>
-        }
-      </ul>
+
+    @if (mode() === 'view') {
+      @if (children().length) {
+        <p class="detail-panel__children-heading">Đơn vị trực thuộc:</p>
+        <ul class="detail-panel__children">
+          @for (child of children(); track child.id) {
+            <li>{{ child.name }}</li>
+          }
+        </ul>
+      }
+
+      <div class="detail-panel__actions" role="group" aria-label="Thao tác với đơn vị">
+        <button type="button" class="panel-btn panel-btn--primary" (click)="startAdd()">
+          ＋ Thêm cấp dưới
+        </button>
+        <button type="button" class="panel-btn" (click)="startEdit(n)">✎ Sửa</button>
+        <button
+          type="button"
+          class="panel-btn panel-btn--danger"
+          [disabled]="n.parentId === null"
+          [title]="n.parentId === null ? 'Không thể xóa node gốc' : 'Xóa node này và toàn bộ cấp dưới'"
+          (click)="mode.set('delete')"
+        >
+          🗑 Xóa
+        </button>
+      </div>
+    }
+
+    @if (mode() === 'add' || mode() === 'edit') {
+      <form class="detail-panel__form" (ngSubmit)="submitForm(n)">
+        <h3 class="detail-panel__form-title">
+          {{ mode() === 'add' ? 'Thêm cấp dưới cho ' + n.name : 'Sửa thông tin' }}
+        </h3>
+        <label class="detail-panel__field">
+          Tên
+          <input type="text" name="name" required [(ngModel)]="draft.name" />
+        </label>
+        <label class="detail-panel__field">
+          Chức danh / mô tả
+          <input type="text" name="title" [(ngModel)]="draft.title" />
+        </label>
+        <label class="detail-panel__field">
+          Phòng ban
+          <input type="text" name="department" [(ngModel)]="draft.department" />
+        </label>
+        <div class="detail-panel__form-actions">
+          <button
+            type="submit"
+            class="panel-btn panel-btn--primary"
+            [disabled]="!draft.name.trim()"
+          >
+            Lưu
+          </button>
+          <button type="button" class="panel-btn" (click)="cancel()">Hủy</button>
+        </div>
+      </form>
+    }
+
+    @if (mode() === 'delete') {
+      <div class="detail-panel__confirm" role="alertdialog" aria-label="Xác nhận xóa">
+        <p>
+          Xóa <strong>{{ n.name }}</strong> và toàn bộ cấp dưới của node này?
+        </p>
+        <div class="detail-panel__form-actions">
+          <button type="button" class="panel-btn panel-btn--danger" (click)="confirmDelete(n)">
+            Xóa
+          </button>
+          <button type="button" class="panel-btn" (click)="cancel()">Hủy</button>
+        </div>
+      </div>
     }
   </aside>
 }

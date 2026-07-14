@@ -41,4 +41,44 @@ export class OrgDataService {
     this._data.set(nodes);
     this._status.set('loaded');
   }
+
+  /** Thêm 1 node mới (in-memory; dữ liệu gốc là JSON tĩnh nên không persist). */
+  addNode(node: OrgNode): void {
+    this._data.update((nodes) => [...nodes, node]);
+  }
+
+  /** Cập nhật tên/chức danh/phòng ban của 1 node. Trả về node sau khi sửa. */
+  updateNode(
+    id: string,
+    changes: Pick<OrgNode, 'name' | 'title' | 'department'>
+  ): OrgNode | undefined {
+    const nodes = this._data();
+    const index = nodes.findIndex((n) => n.id === id);
+    if (index === -1) {
+      return undefined;
+    }
+    const updated: OrgNode = { ...nodes[index], ...changes };
+    const next = [...nodes];
+    next[index] = updated;
+    this._data.set(next);
+    return updated;
+  }
+
+  /** Xóa 1 node cùng toàn bộ cấp dưới của nó. */
+  removeNode(id: string): void {
+    this._data.update((nodes) => {
+      const doomed = new Set([id]);
+      let grew = true;
+      while (grew) {
+        grew = false;
+        for (const node of nodes) {
+          if (node.parentId && doomed.has(node.parentId) && !doomed.has(node.id)) {
+            doomed.add(node.id);
+            grew = true;
+          }
+        }
+      }
+      return nodes.filter((node) => !doomed.has(node.id));
+    });
+  }
 }

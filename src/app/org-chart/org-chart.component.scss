@@ -218,6 +218,21 @@
   margin-top: 2px;
 }
 
+.org-card:focus-visible {
+  outline: 2px solid #00793d;
+  outline-offset: 2px;
+}
+
+/* Node đang được chọn (click / Enter): viền + quầng sáng cam nổi bật hơn
+   các node tổ tiên trên đường highlight về gốc. Double-class để thắng
+   border-color của .org-card--executive khai báo phía dưới. */
+.org-card.org-card--selected {
+  border-color: #c57622;
+  box-shadow:
+    0 0 0 3px rgba(197, 118, 34, 0.35),
+    0 4px 12px rgba(15, 23, 42, 0.18);
+}
+
 .org-card--independent {
   border-left: 4px solid #c57622;
 

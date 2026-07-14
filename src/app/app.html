@@ -16,11 +16,18 @@
       </div>
     } @else {
       <div class="app-main__content">
-        <app-org-chart [data]="orgData()" (nodeClick)="onNodeClick($event)" />
+        <app-org-chart
+          [data]="orgData()"
+          [selectedNodeId]="selectedNode()?.id ?? null"
+          (nodeClick)="onNodeClick($event)"
+        />
         <app-detail-panel
           [node]="selectedNode()"
           [children]="selectedChildren()"
           (closed)="selectedNode.set(null)"
+          (createChild)="onCreateChild($event)"
+          (updated)="onUpdateNode($event)"
+          (deleted)="onDeleteNode($event)"
         />
       </div>
     }

@@ -32,6 +32,100 @@ describe('DetailPanelComponent', () => {
     expect(compiled.querySelector('.detail-panel__dummy')).toBeTruthy();
   });
 
+  it('shows CRUD actions in view mode and disables delete for the root node', () => {
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', { ...NODE, parentId: null });
+    fixture.detectChanges();
+
+    const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>(
+      '.detail-panel__actions .panel-btn'
+    );
+    expect(buttons).toHaveLength(3);
+    expect(buttons[2].disabled).toBe(true);
+  });
+
+  it('emits createChild with the form values when adding a subordinate', async () => {
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', NODE);
+    fixture.detectChanges();
+
+    const emitted: unknown[] = [];
+    fixture.componentInstance.createChild.subscribe((p) => emitted.push(p));
+
+    const el = fixture.nativeElement as HTMLElement;
+    el.querySelectorAll<HTMLButtonElement>('.detail-panel__actions .panel-btn')[0].click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const setField = (name: string, value: string) => {
+      const input = el.querySelector<HTMLInputElement>(`input[name="${name}"]`)!;
+      input.value = value;
+      input.dispatchEvent(new Event('input'));
+    };
+    setField('name', 'Trần Thị B');
+    setField('title', 'Giám đốc Khối');
+    setField('department', 'Khối Bán lẻ');
+    fixture.detectChanges();
+
+    el.querySelector<HTMLFormElement>('form.detail-panel__form')!.dispatchEvent(
+      new Event('submit')
+    );
+
+    expect(emitted).toEqual([
+      { parentId: 'ceo', name: 'Trần Thị B', title: 'Giám đốc Khối', department: 'Khối Bán lẻ' },
+    ]);
+  });
+
+  it('emits updated with the edited values', async () => {
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', NODE);
+    fixture.detectChanges();
+
+    const emitted: unknown[] = [];
+    fixture.componentInstance.updated.subscribe((p) => emitted.push(p));
+
+    const el = fixture.nativeElement as HTMLElement;
+    el.querySelectorAll<HTMLButtonElement>('.detail-panel__actions .panel-btn')[1].click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const nameInput = el.querySelector<HTMLInputElement>('input[name="name"]')!;
+    expect(nameInput.value).toBe('Nguyễn Văn A');
+    nameInput.value = 'Nguyễn Văn A Sửa';
+    nameInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    el.querySelector<HTMLFormElement>('form.detail-panel__form')!.dispatchEvent(
+      new Event('submit')
+    );
+
+    expect(emitted).toEqual([
+      {
+        id: 'ceo',
+        name: 'Nguyễn Văn A Sửa',
+        title: 'Tổng Giám đốc',
+        department: 'Ban điều hành',
+      },
+    ]);
+  });
+
+  it('emits deleted only after the user confirms', () => {
+    const fixture = TestBed.createComponent(DetailPanelComponent);
+    fixture.componentRef.setInput('node', NODE);
+    fixture.detectChanges();
+
+    const emitted: string[] = [];
+    fixture.componentInstance.deleted.subscribe((id) => emitted.push(id));
+
+    const el = fixture.nativeElement as HTMLElement;
+    el.querySelectorAll<HTMLButtonElement>('.detail-panel__actions .panel-btn')[2].click();
+    fixture.detectChanges();
+    expect(emitted).toEqual([]);
+
+    el.querySelector<HTMLButtonElement>('.detail-panel__confirm .panel-btn--danger')!.click();
+    expect(emitted).toEqual(['ceo']);
+  });
+
   it('emits closed when the close button is clicked', () => {
     const fixture = TestBed.createComponent(DetailPanelComponent);
     fixture.componentRef.setInput('node', NODE);

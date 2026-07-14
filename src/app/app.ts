@@ -71,6 +71,15 @@ export class App implements OnInit {
     this.selectedNode.set(null);
   }
 
+  protected onChildrenLayoutChanged(payload: { id: string; layout: 'row' | 'column' }): void {
+    const updated = this.orgDataService.updateNode(payload.id, {
+      childrenLayout: payload.layout,
+    });
+    if (updated) {
+      this.selectedNode.set(updated);
+    }
+  }
+
   private generateId(): string {
     return typeof crypto !== 'undefined' && 'randomUUID' in crypto
       ? crypto.randomUUID()

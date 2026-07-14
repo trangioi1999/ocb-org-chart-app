@@ -40,4 +40,9 @@ export interface OrgNode {
   note?: string;
   /** 'functional' -> đường nối tới cấp trên vẽ nét đứt (quan hệ chức năng, không phải trực thuộc). */
   linkStyle?: 'functional';
+  /**
+   * Hướng xếp các node CON LÁ của node này ở layout dọc:
+   * 'row' (mặc định) = dàn hàng ngang, 'column' = xếp 1 cột dọc.
+   */
+  childrenLayout?: 'row' | 'column';
 }

@@ -297,8 +297,10 @@ export class OrgChartComponent implements OnDestroy {
   /**
    * d3-org-chart chỉ hỗ trợ compact 2 cột (hard-code i % 2 trong
    * calculateCompactFlexDimensions/Positions). Ghi đè 2 hàm layout đó
-   * trên instance để các node lá xếp thành 1 CỘT DỌC, và chỉnh đường
-   * nối chạy theo rail bên trái cột — giống sơ đồ tổ chức truyền thống.
+   * trên instance để: node nào có data.childrenLayout === 'column' thì
+   * các con LÁ của nó xếp thành 1 CỘT DỌC (đường nối chạy theo rail
+   * bên trái cột — giống sơ đồ tổ chức truyền thống); các node còn lại
+   * giữ nguyên dàn hàng ngang. Nhờ vậy có thể trộn ngang/dọc tùy node.
    */
   private applySingleColumnCompact(chart: OrgChart<OrgNode>): void {
     interface FlexNode {
@@ -312,6 +314,7 @@ export class OrgChartComponent implements OnDestroy {
       flexCompactDim: [number, number] | null;
       firstCompactNode: FlexNode | null;
       children?: FlexNode[];
+      data?: OrgNode;
     }
     interface FlexRoot {
       eachBefore(cb: (n: FlexNode) => void): void;
@@ -349,6 +352,10 @@ export class OrgChartComponent implements OnDestroy {
       });
       root.eachBefore((node) => {
         if (!node.children || node.children.length <= 1) {
+          return;
+        }
+        // Chỉ xếp cột khi node được đánh dấu 'column'; mặc định dàn ngang.
+        if (node.data?.childrenLayout !== 'column') {
           return;
         }
         const leaves = node.children.filter((d) => !d.children);

@@ -304,7 +304,7 @@ export class OrgChartComponent implements OnDestroy {
           const node: OrgNode = 'data' in d ? d.data : d;
           this.zone.run(() => this.nodeClick.emit(node));
         });
-      this.applySingleColumnCompact(this.chart);
+      this.applyGridCompact(this.chart);
       this.chart.render();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
       this.listenerAttached = true;
@@ -322,14 +322,13 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   /**
-   * d3-org-chart chỉ hỗ trợ compact 2 cột (hard-code i % 2 trong
+   * d3-org-chart chỉ hỗ trợ compact 2 cột cứng (hard-code i % 2 trong
    * calculateCompactFlexDimensions/Positions). Ghi đè 2 hàm layout đó
-   * trên instance để: node nào có data.childrenLayout === 'column' thì
-   * các con LÁ của nó xếp thành 1 CỘT DỌC (đường nối chạy theo rail
-   * bên trái cột — giống sơ đồ tổ chức truyền thống); các node còn lại
-   * giữ nguyên dàn hàng ngang. Nhờ vậy có thể trộn ngang/dọc tùy node.
+   * trên instance để: nhóm node con LÁ nào có số lượng > GRID_GROUP_THRESHOLD
+   * thì tự động xếp thành lưới nhiều cột gần-vuông (computeGridColumns);
+   * nhóm nhỏ hơn giữ nguyên dàn hàng ngang mặc định (không compact).
    */
-  private applySingleColumnCompact(chart: OrgChart<OrgNode>): void {
+  private applyGridCompact(chart: OrgChart<OrgNode>): void {
     interface FlexNode {
       x: number;
       y: number;
@@ -341,7 +340,6 @@ export class OrgChartComponent implements OnDestroy {
       flexCompactDim: [number, number] | null;
       firstCompactNode: FlexNode | null;
       children?: FlexNode[];
-      data?: OrgNode;
     }
     interface FlexRoot {
       eachBefore(cb: (n: FlexNode) => void): void;
@@ -381,34 +379,33 @@ export class OrgChartComponent implements OnDestroy {
         if (!node.children || node.children.length <= 1) {
           return;
         }
-        // Chỉ xếp cột khi node được đánh dấu 'column'; mặc định dàn ngang.
-        if (node.data?.childrenLayout !== 'column') {
-          return;
-        }
         const leaves = node.children.filter((d) => !d.children);
-        if (leaves.length < 2) {
+        if (!shouldGridPack(leaves.length)) {
           return;
         }
+        const columns = computeGridColumns(leaves.length);
+        const rowsPerColumn = Math.ceil(leaves.length / columns);
         leaves.forEach((child, i) => {
           child.firstCompact = i === 0;
           // false -> linkCompactXStart xuất phát từ mép TRÁI card.
           child.compactEven = false;
-          child.row = i;
+          child.row = i % rowsPerColumn;
         });
-        const columnSize = Math.max(...leaves.map((d) => dim.sizeColumn(d)));
-        const rowSize = leaves.reduce(
-          (sum, d) => sum + dim.sizeRow(d) + attrs.compactMarginBetween(d),
-          0
-        );
+        const columnWidth =
+          Math.max(...leaves.map((d) => dim.sizeColumn(d))) + attrs.compactMarginPair(leaves[0]);
+        const columnHeights: number[] = [];
+        for (let c = 0; c < columns; c++) {
+          const columnLeaves = leaves.slice(c * rowsPerColumn, (c + 1) * rowsPerColumn);
+          columnHeights.push(
+            columnLeaves.reduce((sum, d) => sum + dim.sizeRow(d) + attrs.compactMarginBetween(d), 0)
+          );
+        }
         leaves.forEach((child) => {
           child.firstCompactNode = leaves[0];
-          // Node đầu giữ kích thước slot của cả cột (flextree dùng nó để
+          // Node đầu giữ kích thước slot của cả lưới (flextree dùng nó để
           // chừa chỗ), các node sau [0,0] để xếp chồng vào cùng slot.
           child.flexCompactDim = child.firstCompact
-            ? [
-                columnSize + attrs.compactMarginPair(child),
-                rowSize - attrs.compactMarginBetween(child),
-              ]
+            ? [columns * columnWidth, Math.max(...columnHeights) - attrs.compactMarginBetween(leaves[0])]
             : [0, 0];
         });
         node.flexCompactDim = null;
@@ -427,20 +424,27 @@ export class OrgChartComponent implements OnDestroy {
         if (!first) {
           return;
         }
-        // Tâm cột = tâm slot flextree đã cấp; dịch cả cột về thẳng dưới
-        // node cha khi chỉ lệch nhẹ (giữ hành vi của bản gốc).
+        const columns = computeGridColumns(leaves.length);
+        const rowsPerColumn = Math.ceil(leaves.length / columns);
+        const columnWidth =
+          Math.max(...leaves.map((d) => dim.sizeColumn(d))) + attrs.compactMarginPair(first);
+        const groupWidth = columns * columnWidth;
+        // Tâm cột đầu = tâm slot flextree đã cấp; dịch cả lưới về thẳng
+        // dưới node cha khi chỉ lệch nhẹ (giữ hành vi của bản gốc).
         const centerX = first.x;
         const offsetX = Math.abs(node.x - centerX) < 10 ? node.x - centerX : 0;
-        let y = first.y;
-        leaves.forEach((child) => {
-          child.x = centerX + offsetX;
-          child.y = y;
-          y += dim.sizeRow(child) + attrs.compactMarginBetween(child);
+        const leftEdge = centerX - groupWidth / 2 + columnWidth / 2 + offsetX;
+        const columnY = new Array(columns).fill(first.y);
+        leaves.forEach((child, i) => {
+          const c = Math.floor(i / rowsPerColumn);
+          child.x = leftEdge + c * columnWidth;
+          child.y = columnY[c];
+          columnY[c] += dim.sizeRow(child) + attrs.compactMarginBetween(child);
         });
       });
     };
 
-    // Rail dọc của cụm compact nằm bên TRÁI cột (mặc định nằm giữa 2 cột).
+    // Rail dọc của cụm compact nằm bên TRÁI cột đầu tiên (mặc định nằm giữa 2 cột).
     patched.getChartState().layoutBindings['top'].compactLinkMidX = (node, state) => {
       const first = node.firstCompactNode!;
       return first.x - first.width / 2 - state.compactMarginPair(node) / 4;

@@ -32,6 +32,18 @@ const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
   { tagClass: 'company', label: 'Công ty/Đơn vị sự nghiệp' },
 ];
 
+/**
+ * d3-org-chart không expose transform/zoom hiện tại qua API công khai
+ * (chỉ có trong getChartState() nội bộ) — dùng để đọc scale sau khi
+ * fit() và chỉnh lại nếu bị zoom-out quá mức đọc được.
+ */
+interface ZoomFitState {
+  lastTransform: { k: number };
+  svg: { transition(): { duration(ms: number): unknown } };
+  zoomBehavior: { scaleBy: (target: unknown, k: number) => void };
+  duration: number;
+}
+
 @Component({
   selector: 'app-org-chart',
   standalone: true,
@@ -69,6 +81,9 @@ export class OrgChartComponent implements OnDestroy {
   private listenerAttached = false;
   private resizeObserver: ResizeObserver | null = null;
 
+  /** fit() không bao giờ zoom-out quá mức này, để chữ trên card luôn đọc được. */
+  private readonly MIN_FIT_SCALE = 0.55;
+
   constructor(private readonly zone: NgZone) {
     // d3-org-chart thao tác DOM trực tiếp (không qua Angular renderer),
     // nên phải khởi tạo sau khi view đã render xong.
@@ -97,7 +112,8 @@ export class OrgChartComponent implements OnDestroy {
           if (selected) {
             this.chart!.setUpToTheRootHighlighted(selected);
           }
-          this.chart!.render().fit();
+          this.chart!.render();
+          this.fitWithZoomFloor();
         } catch (err) {
           console.error('Không thể cập nhật sơ đồ tổ chức:', err);
           this.zone.run(() => this.initError.set(true));
@@ -140,15 +156,21 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   expandAll(): void {
-    this.zone.runOutsideAngular(() => this.chart?.expandAll());
+    this.zone.runOutsideAngular(() => {
+      this.chart?.expandAll();
+      this.fitWithZoomFloor();
+    });
   }
 
   collapseAll(): void {
-    this.zone.runOutsideAngular(() => this.chart?.collapseAll());
+    this.zone.runOutsideAngular(() => {
+      this.chart?.collapseAll();
+      this.fitWithZoomFloor();
+    });
   }
 
   fit(): void {
-    this.zone.runOutsideAngular(() => this.chart?.fit());
+    this.zone.runOutsideAngular(() => this.fitWithZoomFloor());
   }
 
   /**
@@ -174,6 +196,7 @@ export class OrgChartComponent implements OnDestroy {
     this.zone.runOutsideAngular(() => {
       // Layout ngang tự thân đã xếp con theo cột dọc nên tắt compact.
       this.chart?.layout(next).compact(next === 'top').render();
+      this.fitWithZoomFloor();
     });
   }
 
@@ -198,6 +221,7 @@ export class OrgChartComponent implements OnDestroy {
     }
     this.matchIndex.set((this.matchIndex() + 1) % total);
     this.highlightCurrentMatch();
+    this.fitWithZoomFloor();
   }
 
   prevMatch(): void {
@@ -207,10 +231,28 @@ export class OrgChartComponent implements OnDestroy {
     }
     this.matchIndex.set((this.matchIndex() - 1 + total) % total);
     this.highlightCurrentMatch();
+    this.fitWithZoomFloor();
   }
 
   exportImage(): void {
     this.zone.runOutsideAngular(() => this.chart?.exportImg({ save: true }));
+  }
+
+  private getZoomState(): ZoomFitState {
+    return (this.chart as unknown as { getChartState(): ZoomFitState }).getChartState();
+  }
+
+  /** fit() có giới hạn zoom-out tối thiểu — dùng cho mọi thao tác toàn cục. */
+  private fitWithZoomFloor(): void {
+    this.chart?.fit({
+      onCompleted: () => {
+        const state = this.getZoomState();
+        if (state.lastTransform.k < this.MIN_FIT_SCALE) {
+          const factor = this.MIN_FIT_SCALE / state.lastTransform.k;
+          state.zoomBehavior.scaleBy(state.svg.transition().duration(state.duration), factor);
+        }
+      },
+    });
   }
 
   private highlightCurrentMatch(): void {
@@ -264,6 +306,7 @@ export class OrgChartComponent implements OnDestroy {
         .compactMarginPair(() => 64)
         .layout(this.layoutDirection())
         .initialExpandLevel(2)
+        .setActiveNodeCentered(false)
         .nodeWidth(() => 288)
         .nodeHeight((d) => estimateCardHeight(d.data))
         .childrenMargin(() => 50)

@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { OrgChart } from 'd3-org-chart';
 import { OrgNode, OrgNodeTag } from '../models/org-node.model';
+import { computeGridColumns, estimateCardHeight, shouldGridPack } from './chart-layout.utils';
 
 export interface LegendItem {
   tagClass: OrgNodeTag;
@@ -263,8 +264,8 @@ export class OrgChartComponent implements OnDestroy {
         .compactMarginPair(() => 64)
         .layout(this.layoutDirection())
         .initialExpandLevel(2)
-        .nodeWidth(() => 260)
-        .nodeHeight(() => 118)
+        .nodeWidth(() => 288)
+        .nodeHeight((d) => estimateCardHeight(d.data))
         .childrenMargin(() => 50)
         .siblingsMargin(() => 30)
         .nodeContent((d) => this.renderCard(d.data))
@@ -447,15 +448,12 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   private renderCard(node: OrgNode): string {
-    const badgeMatch = node.id.match(/^khoi-(\d+)$/);
-    const avatarContent = badgeMatch ? String(parseInt(badgeMatch[1], 10)) : this.initials(node.name);
     const tagClass = `org-card--${node.tag ?? 'regular'}`;
     const selectedClass = node.id === this.selectedNodeId() ? ' org-card--selected' : '';
     const ariaLabel = node.title ? `${this.escape(node.name)}, ${this.escape(node.title)}` : this.escape(node.name);
 
     return `
       <div class="org-card ${tagClass}${selectedClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${ariaLabel}">
-        <div class="org-card__avatar">${avatarContent}</div>
         <div class="org-card__body">
           <div class="org-card__name">${this.escape(node.name)}${
       node.isDummy ? ' <span class="org-card__dummy">(dummy)</span>' : ''
@@ -469,16 +467,6 @@ export class OrgChartComponent implements OnDestroy {
         </div>
       </div>
     `;
-  }
-
-  private initials(name: string): string {
-    return name
-      .split(' ')
-      .filter(Boolean)
-      .slice(-2)
-      .map((part) => part[0])
-      .join('')
-      .toUpperCase();
   }
 
   private escape(text: string): string {

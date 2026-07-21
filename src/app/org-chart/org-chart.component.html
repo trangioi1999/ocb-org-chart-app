@@ -4,33 +4,70 @@
       Không thể hiển thị sơ đồ tổ chức. Vui lòng tải lại trang.
     </div>
   } @else {
-    <div class="org-chart-toolbar" role="toolbar" aria-label="Điều khiển sơ đồ tổ chức">
-      <label class="sr-only" for="org-chart-search">Tìm theo tên hoặc chức danh</label>
-      <input
-        id="org-chart-search"
-        type="text"
-        class="org-chart-search"
-        placeholder="Tìm theo tên hoặc chức danh..."
-        aria-label="Tìm theo tên hoặc chức danh"
-        (input)="onSearchInput($event)"
-      />
-      @if (matchCount() > 0) {
-        <span class="org-chart-match-counter" aria-live="polite">{{ matchPosition() }}/{{ matchCount() }}</span>
-        <button type="button" class="icon-btn icon-btn--ghost" (click)="prevMatch()" aria-label="Kết quả trước" title="Kết quả trước">‹</button>
-        <button type="button" class="icon-btn icon-btn--ghost" (click)="nextMatch()" aria-label="Kết quả tiếp theo" title="Kết quả tiếp theo">›</button>
-      }
-    </div>
-
-    <div class="org-chart-legend" role="list" aria-label="Chú giải màu sắc">
-      @for (item of legendItems(); track item.tagClass) {
-        <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--{{ item.tagClass }}"></i>{{ item.label }}</span>
-      }
-      <span class="legend-item legend-item--line" role="listitem"><i class="legend-line" aria-hidden="true"></i>Quan hệ trực thuộc</span>
-      <span class="legend-item legend-item--line" role="listitem"><i class="legend-line legend-line--dashed" aria-hidden="true"></i>Quan hệ chức năng</span>
-    </div>
-
     <div class="org-chart-container">
       <div #chartContainer class="org-chart-canvas"></div>
+
+      <div class="org-chart-topright" role="group" aria-label="Chú giải và tìm kiếm">
+        <button
+          type="button"
+          class="icon-btn"
+          [class.icon-btn--active]="legendOpen()"
+          (click)="toggleLegend()"
+          [attr.aria-expanded]="legendOpen()"
+          aria-label="Chú giải màu sắc"
+          title="Chú giải"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h10" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="icon-btn"
+          [class.icon-btn--active]="searchOpen()"
+          (click)="toggleSearch()"
+          [attr.aria-expanded]="searchOpen()"
+          aria-label="Tìm theo tên hoặc chức danh"
+          title="Tìm kiếm"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+        </button>
+      </div>
+
+      @if (legendOpen()) {
+        <div class="org-chart-legend" role="list" aria-label="Chú giải màu sắc">
+          @for (item of legendItems(); track item.tagClass) {
+            <span class="legend-item" role="listitem"><i class="legend-dot legend-dot--{{ item.tagClass }}"></i>{{ item.label }}</span>
+          }
+          <span class="legend-item legend-item--line" role="listitem"><i class="legend-line" aria-hidden="true"></i>Quan hệ trực thuộc</span>
+          <span class="legend-item legend-item--line" role="listitem"><i class="legend-line legend-line--dashed" aria-hidden="true"></i>Quan hệ chức năng</span>
+        </div>
+      }
+
+      @if (searchOpen()) {
+        <div class="org-chart-search-overlay" role="search">
+          <label class="sr-only" for="org-chart-search">Tìm theo tên hoặc chức danh</label>
+          <input
+            id="org-chart-search"
+            type="text"
+            class="org-chart-search"
+            placeholder="Tìm theo tên hoặc chức danh..."
+            aria-label="Tìm theo tên hoặc chức danh"
+            autofocus
+            (input)="onSearchInput($event)"
+            (keydown.escape)="closeSearch()"
+          />
+          @if (matchCount() > 0) {
+            <span class="org-chart-match-counter" aria-live="polite">{{ matchPosition() }}/{{ matchCount() }}</span>
+            <button type="button" class="icon-btn icon-btn--ghost" (click)="prevMatch()" aria-label="Kết quả trước" title="Kết quả trước">‹</button>
+            <button type="button" class="icon-btn icon-btn--ghost" (click)="nextMatch()" aria-label="Kết quả tiếp theo" title="Kết quả tiếp theo">›</button>
+          }
+          <button type="button" class="icon-btn icon-btn--ghost" (click)="closeSearch()" aria-label="Đóng tìm kiếm" title="Đóng">✕</button>
+        </div>
+      }
 
       <div class="org-chart-actions" role="group" aria-label="Thao tác sơ đồ">
         <button type="button" class="icon-btn" (click)="expandAll()" aria-label="Mở rộng tất cả các nhánh" title="Mở rộng tất cả">

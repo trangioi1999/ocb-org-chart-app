@@ -1,6 +1,8 @@
 .detail-panel {
   position: absolute;
-  top: 16px;
+  /* Chừa chỗ cho 2 icon chú giải/tìm kiếm nổi ở góc trên-phải (top:16px,
+     34px cao) để 2 khối không đè lên nhau. */
+  top: 64px;
   right: 16px;
   bottom: 16px;
   width: 320px;

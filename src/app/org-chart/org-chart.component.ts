@@ -76,6 +76,8 @@ export class OrgChartComponent implements OnDestroy {
   readonly matchPosition = computed(() => (this.matches().length ? this.matchIndex() + 1 : 0));
   protected readonly initError = signal(false);
   readonly layoutDirection = signal<'top' | 'left'>('top');
+  protected readonly legendOpen = signal(false);
+  protected readonly searchOpen = signal(false);
 
   private chart: OrgChart<OrgNode> | null = null;
   private listenerAttached = false;
@@ -272,6 +274,22 @@ export class OrgChartComponent implements OnDestroy {
   onSearchInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.highlight(value);
+  }
+
+  toggleLegend(): void {
+    this.legendOpen.update((open) => !open);
+  }
+
+  toggleSearch(): void {
+    this.searchOpen.update((open) => !open);
+    if (!this.searchOpen()) {
+      this.closeSearch();
+    }
+  }
+
+  closeSearch(): void {
+    this.searchOpen.set(false);
+    this.highlight('');
   }
 
   private readonly handleCardKeydown = (event: KeyboardEvent): void => {

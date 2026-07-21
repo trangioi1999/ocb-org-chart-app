@@ -29,8 +29,6 @@ export class DetailPanelComponent {
   readonly updated = output<OrgNodeFormValue & { id: string }>();
   /** Yêu cầu xóa node đang chọn (kèm toàn bộ cấp dưới). */
   readonly deleted = output<string>();
-  /** Yêu cầu đổi hướng xếp cấp dưới (ngang/dọc) của node đang chọn. */
-  readonly childrenLayoutChanged = output<{ id: string; layout: 'row' | 'column' }>();
 
   protected readonly mode = signal<PanelMode>('view');
   protected draft = { name: '', title: '', department: '' };

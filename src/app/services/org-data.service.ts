@@ -50,7 +50,7 @@ export class OrgDataService {
   /** Cập nhật 1 phần thông tin của node (tên/chức danh/phòng ban/hướng xếp con). */
   updateNode(
     id: string,
-    changes: Partial<Pick<OrgNode, 'name' | 'title' | 'department' | 'childrenLayout'>>
+    changes: Partial<Pick<OrgNode, 'name' | 'title' | 'department'>>
   ): OrgNode | undefined {
     const nodes = this._data();
     const index = nodes.findIndex((n) => n.id === id);

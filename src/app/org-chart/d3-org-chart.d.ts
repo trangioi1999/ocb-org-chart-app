@@ -52,7 +52,8 @@ declare module 'd3-org-chart' {
     initialExpandLevel(value: number): this;
 
     render(): this;
-    fit(): this;
+    fit(options?: { animate?: boolean; scale?: boolean; onCompleted?: () => void }): this;
+    setActiveNodeCentered(value: boolean): this;
     expandAll(): this;
     collapseAll(): this;
     setExpanded(id: string, expandedFlag?: boolean): this;

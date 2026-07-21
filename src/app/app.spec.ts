@@ -21,11 +21,11 @@ describe('App', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should render the OCB header', () => {
+  it('renders full-screen with no header', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('OCB');
+    expect(compiled.querySelector('header')).toBeNull();
     httpMock.expectOne('data/org-chart.json').flush([]);
   });
 

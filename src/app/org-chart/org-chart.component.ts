@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { OrgChart } from 'd3-org-chart';
 import { OrgNode, OrgNodeTag } from '../models/org-node.model';
+import { computeGridColumns, estimateCardHeight, shouldGridPack } from './chart-layout.utils';
 
 export interface LegendItem {
   tagClass: OrgNodeTag;
@@ -30,6 +31,18 @@ const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
   { tagClass: 'council', label: 'Hội đồng' },
   { tagClass: 'company', label: 'Công ty/Đơn vị sự nghiệp' },
 ];
+
+/**
+ * d3-org-chart không expose transform/zoom hiện tại qua API công khai
+ * (chỉ có trong getChartState() nội bộ) — dùng để đọc scale sau khi
+ * fit() và chỉnh lại nếu bị zoom-out quá mức đọc được.
+ */
+interface ZoomFitState {
+  lastTransform: { k: number };
+  svg: { transition(): { duration(ms: number): unknown } };
+  zoomBehavior: { scaleBy: (target: unknown, k: number) => void };
+  duration: number;
+}
 
 @Component({
   selector: 'app-org-chart',
@@ -63,10 +76,15 @@ export class OrgChartComponent implements OnDestroy {
   readonly matchPosition = computed(() => (this.matches().length ? this.matchIndex() + 1 : 0));
   protected readonly initError = signal(false);
   readonly layoutDirection = signal<'top' | 'left'>('top');
+  protected readonly legendOpen = signal(false);
+  protected readonly searchOpen = signal(false);
 
   private chart: OrgChart<OrgNode> | null = null;
   private listenerAttached = false;
   private resizeObserver: ResizeObserver | null = null;
+
+  /** fit() không bao giờ zoom-out quá mức này, để chữ trên card luôn đọc được. */
+  private readonly MIN_FIT_SCALE = 0.55;
 
   constructor(private readonly zone: NgZone) {
     // d3-org-chart thao tác DOM trực tiếp (không qua Angular renderer),
@@ -96,7 +114,8 @@ export class OrgChartComponent implements OnDestroy {
           if (selected) {
             this.chart!.setUpToTheRootHighlighted(selected);
           }
-          this.chart!.render().fit();
+          this.chart!.render();
+          this.fitWithZoomFloor();
         } catch (err) {
           console.error('Không thể cập nhật sơ đồ tổ chức:', err);
           this.zone.run(() => this.initError.set(true));
@@ -139,15 +158,21 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   expandAll(): void {
-    this.zone.runOutsideAngular(() => this.chart?.expandAll());
+    this.zone.runOutsideAngular(() => {
+      this.chart?.expandAll();
+      this.fitWithZoomFloor();
+    });
   }
 
   collapseAll(): void {
-    this.zone.runOutsideAngular(() => this.chart?.collapseAll());
+    this.zone.runOutsideAngular(() => {
+      this.chart?.collapseAll();
+      this.fitWithZoomFloor();
+    });
   }
 
   fit(): void {
-    this.zone.runOutsideAngular(() => this.chart?.fit());
+    this.zone.runOutsideAngular(() => this.fitWithZoomFloor());
   }
 
   /**
@@ -173,6 +198,7 @@ export class OrgChartComponent implements OnDestroy {
     this.zone.runOutsideAngular(() => {
       // Layout ngang tự thân đã xếp con theo cột dọc nên tắt compact.
       this.chart?.layout(next).compact(next === 'top').render();
+      this.fitWithZoomFloor();
     });
   }
 
@@ -197,6 +223,7 @@ export class OrgChartComponent implements OnDestroy {
     }
     this.matchIndex.set((this.matchIndex() + 1) % total);
     this.highlightCurrentMatch();
+    this.fitWithZoomFloor();
   }
 
   prevMatch(): void {
@@ -206,10 +233,28 @@ export class OrgChartComponent implements OnDestroy {
     }
     this.matchIndex.set((this.matchIndex() - 1 + total) % total);
     this.highlightCurrentMatch();
+    this.fitWithZoomFloor();
   }
 
   exportImage(): void {
     this.zone.runOutsideAngular(() => this.chart?.exportImg({ save: true }));
+  }
+
+  private getZoomState(): ZoomFitState {
+    return (this.chart as unknown as { getChartState(): ZoomFitState }).getChartState();
+  }
+
+  /** fit() có giới hạn zoom-out tối thiểu — dùng cho mọi thao tác toàn cục. */
+  private fitWithZoomFloor(): void {
+    this.chart?.fit({
+      onCompleted: () => {
+        const state = this.getZoomState();
+        if (state.lastTransform.k < this.MIN_FIT_SCALE) {
+          const factor = this.MIN_FIT_SCALE / state.lastTransform.k;
+          state.zoomBehavior.scaleBy(state.svg.transition().duration(state.duration), factor);
+        }
+      },
+    });
   }
 
   private highlightCurrentMatch(): void {
@@ -229,6 +274,22 @@ export class OrgChartComponent implements OnDestroy {
   onSearchInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.highlight(value);
+  }
+
+  toggleLegend(): void {
+    this.legendOpen.update((open) => !open);
+  }
+
+  toggleSearch(): void {
+    this.searchOpen.update((open) => !open);
+    if (!this.searchOpen()) {
+      this.closeSearch();
+    }
+  }
+
+  closeSearch(): void {
+    this.searchOpen.set(false);
+    this.highlight('');
   }
 
   private readonly handleCardKeydown = (event: KeyboardEvent): void => {
@@ -263,8 +324,9 @@ export class OrgChartComponent implements OnDestroy {
         .compactMarginPair(() => 64)
         .layout(this.layoutDirection())
         .initialExpandLevel(2)
-        .nodeWidth(() => 260)
-        .nodeHeight(() => 118)
+        .setActiveNodeCentered(false)
+        .nodeWidth(() => 288)
+        .nodeHeight((d) => estimateCardHeight(d.data))
         .childrenMargin(() => 50)
         .siblingsMargin(() => 30)
         .nodeContent((d) => this.renderCard(d.data))
@@ -303,7 +365,7 @@ export class OrgChartComponent implements OnDestroy {
           const node: OrgNode = 'data' in d ? d.data : d;
           this.zone.run(() => this.nodeClick.emit(node));
         });
-      this.applySingleColumnCompact(this.chart);
+      this.applyGridCompact(this.chart);
       this.chart.render();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
       this.listenerAttached = true;
@@ -321,14 +383,13 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   /**
-   * d3-org-chart chỉ hỗ trợ compact 2 cột (hard-code i % 2 trong
+   * d3-org-chart chỉ hỗ trợ compact 2 cột cứng (hard-code i % 2 trong
    * calculateCompactFlexDimensions/Positions). Ghi đè 2 hàm layout đó
-   * trên instance để: node nào có data.childrenLayout === 'column' thì
-   * các con LÁ của nó xếp thành 1 CỘT DỌC (đường nối chạy theo rail
-   * bên trái cột — giống sơ đồ tổ chức truyền thống); các node còn lại
-   * giữ nguyên dàn hàng ngang. Nhờ vậy có thể trộn ngang/dọc tùy node.
+   * trên instance để: nhóm node con LÁ nào có số lượng > GRID_GROUP_THRESHOLD
+   * thì tự động xếp thành lưới nhiều cột gần-vuông (computeGridColumns);
+   * nhóm nhỏ hơn giữ nguyên dàn hàng ngang mặc định (không compact).
    */
-  private applySingleColumnCompact(chart: OrgChart<OrgNode>): void {
+  private applyGridCompact(chart: OrgChart<OrgNode>): void {
     interface FlexNode {
       x: number;
       y: number;
@@ -340,7 +401,6 @@ export class OrgChartComponent implements OnDestroy {
       flexCompactDim: [number, number] | null;
       firstCompactNode: FlexNode | null;
       children?: FlexNode[];
-      data?: OrgNode;
     }
     interface FlexRoot {
       eachBefore(cb: (n: FlexNode) => void): void;
@@ -380,34 +440,33 @@ export class OrgChartComponent implements OnDestroy {
         if (!node.children || node.children.length <= 1) {
           return;
         }
-        // Chỉ xếp cột khi node được đánh dấu 'column'; mặc định dàn ngang.
-        if (node.data?.childrenLayout !== 'column') {
-          return;
-        }
         const leaves = node.children.filter((d) => !d.children);
-        if (leaves.length < 2) {
+        if (!shouldGridPack(leaves.length)) {
           return;
         }
+        const columns = computeGridColumns(leaves.length);
+        const rowsPerColumn = Math.ceil(leaves.length / columns);
         leaves.forEach((child, i) => {
           child.firstCompact = i === 0;
           // false -> linkCompactXStart xuất phát từ mép TRÁI card.
           child.compactEven = false;
-          child.row = i;
+          child.row = i % rowsPerColumn;
         });
-        const columnSize = Math.max(...leaves.map((d) => dim.sizeColumn(d)));
-        const rowSize = leaves.reduce(
-          (sum, d) => sum + dim.sizeRow(d) + attrs.compactMarginBetween(d),
-          0
-        );
+        const columnWidth =
+          Math.max(...leaves.map((d) => dim.sizeColumn(d))) + attrs.compactMarginPair(leaves[0]);
+        const columnHeights: number[] = [];
+        for (let c = 0; c < columns; c++) {
+          const columnLeaves = leaves.slice(c * rowsPerColumn, (c + 1) * rowsPerColumn);
+          columnHeights.push(
+            columnLeaves.reduce((sum, d) => sum + dim.sizeRow(d) + attrs.compactMarginBetween(d), 0)
+          );
+        }
         leaves.forEach((child) => {
           child.firstCompactNode = leaves[0];
-          // Node đầu giữ kích thước slot của cả cột (flextree dùng nó để
+          // Node đầu giữ kích thước slot của cả lưới (flextree dùng nó để
           // chừa chỗ), các node sau [0,0] để xếp chồng vào cùng slot.
           child.flexCompactDim = child.firstCompact
-            ? [
-                columnSize + attrs.compactMarginPair(child),
-                rowSize - attrs.compactMarginBetween(child),
-              ]
+            ? [columns * columnWidth, Math.max(...columnHeights) - attrs.compactMarginBetween(leaves[0])]
             : [0, 0];
         });
         node.flexCompactDim = null;
@@ -426,20 +485,27 @@ export class OrgChartComponent implements OnDestroy {
         if (!first) {
           return;
         }
-        // Tâm cột = tâm slot flextree đã cấp; dịch cả cột về thẳng dưới
-        // node cha khi chỉ lệch nhẹ (giữ hành vi của bản gốc).
+        const columns = computeGridColumns(leaves.length);
+        const rowsPerColumn = Math.ceil(leaves.length / columns);
+        const columnWidth =
+          Math.max(...leaves.map((d) => dim.sizeColumn(d))) + attrs.compactMarginPair(first);
+        const groupWidth = columns * columnWidth;
+        // Tâm cột đầu = tâm slot flextree đã cấp; dịch cả lưới về thẳng
+        // dưới node cha khi chỉ lệch nhẹ (giữ hành vi của bản gốc).
         const centerX = first.x;
         const offsetX = Math.abs(node.x - centerX) < 10 ? node.x - centerX : 0;
-        let y = first.y;
-        leaves.forEach((child) => {
-          child.x = centerX + offsetX;
-          child.y = y;
-          y += dim.sizeRow(child) + attrs.compactMarginBetween(child);
+        const leftEdge = centerX - groupWidth / 2 + columnWidth / 2 + offsetX;
+        const columnY = new Array(columns).fill(first.y);
+        leaves.forEach((child, i) => {
+          const c = Math.floor(i / rowsPerColumn);
+          child.x = leftEdge + c * columnWidth;
+          child.y = columnY[c];
+          columnY[c] += dim.sizeRow(child) + attrs.compactMarginBetween(child);
         });
       });
     };
 
-    // Rail dọc của cụm compact nằm bên TRÁI cột (mặc định nằm giữa 2 cột).
+    // Rail dọc của cụm compact nằm bên TRÁI cột đầu tiên (mặc định nằm giữa 2 cột).
     patched.getChartState().layoutBindings['top'].compactLinkMidX = (node, state) => {
       const first = node.firstCompactNode!;
       return first.x - first.width / 2 - state.compactMarginPair(node) / 4;
@@ -447,15 +513,12 @@ export class OrgChartComponent implements OnDestroy {
   }
 
   private renderCard(node: OrgNode): string {
-    const badgeMatch = node.id.match(/^khoi-(\d+)$/);
-    const avatarContent = badgeMatch ? String(parseInt(badgeMatch[1], 10)) : this.initials(node.name);
     const tagClass = `org-card--${node.tag ?? 'regular'}`;
     const selectedClass = node.id === this.selectedNodeId() ? ' org-card--selected' : '';
     const ariaLabel = node.title ? `${this.escape(node.name)}, ${this.escape(node.title)}` : this.escape(node.name);
 
     return `
       <div class="org-card ${tagClass}${selectedClass}" tabindex="0" role="button" data-node-id="${node.id}" aria-label="${ariaLabel}">
-        <div class="org-card__avatar">${avatarContent}</div>
         <div class="org-card__body">
           <div class="org-card__name">${this.escape(node.name)}${
       node.isDummy ? ' <span class="org-card__dummy">(dummy)</span>' : ''
@@ -469,16 +532,6 @@ export class OrgChartComponent implements OnDestroy {
         </div>
       </div>
     `;
-  }
-
-  private initials(name: string): string {
-    return name
-      .split(' ')
-      .filter(Boolean)
-      .slice(-2)
-      .map((part) => part[0])
-      .join('')
-      .toUpperCase();
   }
 
   private escape(text: string): string {

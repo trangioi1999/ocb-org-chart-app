@@ -1,11 +1,4 @@
 <div class="app-shell">
-  <header class="app-header">
-    <h1><span class="app-header__chevron" aria-hidden="true">»</span>Sơ đồ tổ chức — Ngân hàng OCB</h1>
-    <p class="app-subtitle">
-      Cơ cấu tổ chức từ Đại hội đồng cổ đông đến các khối/trung tâm/phòng, lấy từ ocb.com.vn
-    </p>
-  </header>
-
   <main class="app-main">
     @if (isLoading()) {
       <div class="app-status" role="status">Đang tải dữ liệu sơ đồ tổ chức...</div>
@@ -28,7 +21,6 @@
           (createChild)="onCreateChild($event)"
           (updated)="onUpdateNode($event)"
           (deleted)="onDeleteNode($event)"
-          (childrenLayoutChanged)="onChildrenLayoutChanged($event)"
         />
       </div>
     }

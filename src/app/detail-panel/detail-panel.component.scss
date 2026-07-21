@@ -1,11 +1,19 @@
 .detail-panel {
-  position: relative;
-  width: 280px;
-  flex: 0 0 280px;
+  position: absolute;
+  /* Chừa chỗ cho 2 icon chú giải/tìm kiếm nổi ở góc trên-phải (top:16px,
+     34px cao) để 2 khối không đè lên nhau. */
+  top: 64px;
+  right: 16px;
+  bottom: 16px;
+  width: 320px;
   padding: 20px;
   background: #fff;
-  border-left: 1px solid #e2e6ed;
+  border-radius: 12px;
+  border: 1px solid #e2e6ed;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
   box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 4;
 }
 
 .detail-panel__close {
@@ -77,48 +85,6 @@
 
   li {
     margin-bottom: 4px;
-  }
-}
-
-.detail-panel__layout {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 14px;
-}
-
-.detail-panel__layout-label {
-  font-size: 12px;
-  color: #4a5568;
-}
-
-.layout-btn {
-  padding: 4px 10px;
-  border: 1px solid #d3d9e2;
-  border-radius: 6px;
-  background: #fff;
-  color: #4a5568;
-  font-size: 12px;
-  cursor: pointer;
-
-  &:hover {
-    border-color: #00793d;
-    color: #00793d;
-  }
-
-  &:focus-visible {
-    outline: 2px solid #00793d;
-    outline-offset: 2px;
-  }
-}
-
-.layout-btn--active {
-  background: #00793d;
-  border-color: #00793d;
-  color: #fff;
-
-  &:hover {
-    color: #fff;
   }
 }
 
@@ -236,8 +202,10 @@
   .detail-panel {
     position: fixed;
     inset: auto 0 0 0;
+    top: auto;
+    bottom: 0;
     width: auto;
-    border-left: none;
-    border-top: 1px solid #e2e6ed;
+    border-radius: 12px 12px 0 0;
+    max-height: 70vh;
   }
 }

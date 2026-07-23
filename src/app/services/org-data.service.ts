@@ -18,11 +18,18 @@ export class OrgDataService {
   readonly isLoading = computed(() => this._status() === 'loading');
   readonly hasError = computed(() => this._status() === 'error');
 
-  /** Tải dữ liệu từ file JSON tĩnh (public/data/org-chart.json). */
+  /**
+   * Tải dữ liệu từ file JSON tĩnh (public/data/org-chart.json). Thêm
+   * ?demo=1 trên URL để tải bản demo (org-chart.demo.json, có vài
+   * quan hệ chéo dummy) thay vì data thật — chỉ để xem thử tính năng
+   * connections, không ảnh hưởng tới data production.
+   */
   load(): void {
     this._status.set('loading');
+    const isDemo = new URLSearchParams(window.location.search).get('demo') === '1';
+    const file = isDemo ? 'data/org-chart.demo.json' : 'data/org-chart.json';
     this.http
-      .get<OrgNode[]>('data/org-chart.json')
+      .get<OrgNode[]>(file)
       .pipe(
         tap((nodes) => {
           this._data.set(nodes);

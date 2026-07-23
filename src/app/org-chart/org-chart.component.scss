@@ -266,6 +266,10 @@
   white-space: normal;
   overflow-wrap: break-word;
   line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .org-card__dummy {
@@ -282,15 +286,6 @@
   white-space: normal;
   overflow-wrap: break-word;
   line-height: 17px;
-}
-
-.org-card__dept {
-  font-size: 12px;
-  color: #94a3b8;
-  margin-top: 4px;
-  white-space: normal;
-  overflow-wrap: break-word;
-  line-height: 15px;
 }
 
 .org-card:focus-visible {
@@ -369,8 +364,7 @@
     color: #ffffff;
   }
 
-  .org-card__title,
-  .org-card__dept {
+  .org-card__title {
     color: #d7f2e2;
   }
 }

@@ -14,8 +14,6 @@ import {
 } from '@angular/core';
 import { OrgChart } from 'd3-org-chart';
 import { OrgNode, OrgNodeTag } from '../models/org-node.model';
-import { estimateCardHeight } from './chart-layout.utils';
-
 export interface LegendItem {
   tagClass: OrgNodeTag;
   label: string;
@@ -31,6 +29,14 @@ const DEFAULT_LEGEND_ITEMS: LegendItem[] = [
   { tagClass: 'council', label: 'Hội đồng' },
   { tagClass: 'company', label: 'Công ty/Đơn vị sự nghiệp' },
 ];
+
+/**
+ * Chiều cao cố định cho mọi card (px) — tất cả node cùng 1 chiều cao
+ * thay vì co giãn theo nội dung, để các card thẳng hàng nhau. Đủ chỗ
+ * cho tên dài nhất hiện có (tối đa 3 dòng ở card rộng 288px); tên dài
+ * hơn nữa sẽ bị line-clamp (xem .org-card__name trong file scss).
+ */
+const CARD_HEIGHT = 84;
 
 /**
  * d3-org-chart không expose transform/zoom hiện tại qua API công khai
@@ -325,7 +331,7 @@ export class OrgChartComponent implements OnDestroy {
         .initialExpandLevel(2)
         .setActiveNodeCentered(false)
         .nodeWidth(() => 288)
-        .nodeHeight((d) => estimateCardHeight(d.data))
+        .nodeHeight(() => CARD_HEIGHT)
         .childrenMargin(() => 50)
         .siblingsMargin(() => 30)
         .nodeContent((d) => this.renderCard(d.data))
@@ -392,11 +398,6 @@ export class OrgChartComponent implements OnDestroy {
       node.isDummy ? ' <span class="org-card__dummy">(dummy)</span>' : ''
     }</div>
           ${node.title ? `<div class="org-card__title">${this.escape(node.title)}</div>` : ''}
-          ${
-            node.department
-              ? `<div class="org-card__dept">${this.escape(node.department)}</div>`
-              : ''
-          }
         </div>
       </div>
     `;

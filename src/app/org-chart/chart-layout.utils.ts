@@ -30,19 +30,3 @@ export function estimateCardHeight(node: { name: string; title?: string; departm
   }
   return height;
 }
-
-/** Số node con lá tối thiểu để bắt đầu xếp thành lưới nhiều cột thay vì 1 hàng ngang. */
-export const GRID_GROUP_THRESHOLD = 4;
-
-/** true nếu nhóm node con lá này nên xếp lưới thay vì dàn hàng ngang mặc định. */
-export function shouldGridPack(leafCount: number): boolean {
-  return leafCount > GRID_GROUP_THRESHOLD;
-}
-
-/** Số cột lưới gần-vuông cho 1 nhóm node con lá, giới hạn bởi maxColumns. */
-export function computeGridColumns(leafCount: number, maxColumns = 4): number {
-  if (leafCount <= 0) {
-    return 1;
-  }
-  return Math.min(maxColumns, Math.ceil(Math.sqrt(leafCount)));
-}

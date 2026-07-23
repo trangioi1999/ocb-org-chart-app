@@ -196,7 +196,8 @@ export class OrgChartComponent implements OnDestroy {
     const next = this.layoutDirection() === 'top' ? 'left' : 'top';
     this.layoutDirection.set(next);
     this.zone.runOutsideAngular(() => {
-      this.chart?.layout(next).render();
+      // Layout ngang tự thân đã xếp con theo cột dọc nên tắt compact.
+      this.chart?.layout(next).compact(next === 'top').render();
       this.fitWithZoomFloor();
     });
   }
@@ -315,10 +316,11 @@ export class OrgChartComponent implements OnDestroy {
         .data(this.data())
         .nodeId((d) => d.id)
         .parentNodeId((d) => d.parentId ?? undefined)
-        // Luôn dàn hàng ngang chuẩn (không compact) để các nhóm nhiều
-        // phòng ban cũng fan-out thành 1 hàng như sơ đồ tổ chức cổ điển,
-        // thay vì bị xếp cột.
-        .compact(false)
+        // Bật compact mặc định của d3-org-chart: các node con xếp thành
+        // 2 cột cạnh nhau dưới 1 đường thẳng từ node cha (giống sơ đồ tổ
+        // chức cổ điển), chỉ bật ở layout dọc; layout ngang tự thân đã
+        // xếp dọc nên không cần compact.
+        .compact(this.layoutDirection() === 'top')
         .layout(this.layoutDirection())
         .initialExpandLevel(2)
         .setActiveNodeCentered(false)

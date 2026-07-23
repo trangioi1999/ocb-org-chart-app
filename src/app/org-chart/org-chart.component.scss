@@ -56,6 +56,14 @@
   line-height: 1;
 }
 
+.icon-btn--info {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+}
+
 .icon-btn--rotated svg {
   transform: rotate(90deg);
 }
@@ -242,7 +250,8 @@
 
 .org-card {
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   box-sizing: border-box;
   padding: 12px;
@@ -256,6 +265,7 @@
 .org-card__body {
   min-width: 0;
   width: 100%;
+  text-align: center;
 }
 
 .org-card__name {

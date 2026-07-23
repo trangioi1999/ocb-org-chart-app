@@ -45,4 +45,11 @@ export interface OrgNode {
    * 'row' (mặc định) = dàn hàng ngang, 'column' = xếp 1 cột dọc.
    */
   childrenLayout?: 'row' | 'column';
+  /**
+   * Quan hệ chéo tới các node KHÁC ngoài cây cha/con (VD: phối hợp,
+   * kiêm nhiệm) — vẽ thành 1 đường cong mũi tên riêng, độc lập với vị
+   * trí node trong cây. Chỉ hiện khi cả 2 node đang cùng hiển thị trên
+   * sơ đồ (không bị thu gọn).
+   */
+  connections?: { toId: string; label?: string }[];
 }

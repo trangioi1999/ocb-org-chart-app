@@ -50,6 +50,17 @@ declare module 'd3-org-chart' {
       fn: (this: SVGPathElement, d: D3OrgChartHierarchyNode<T>, i: number, arr: ArrayLike<SVGPathElement>) => void
     ): this;
     initialExpandLevel(value: number): this;
+    /** Quan hệ chéo ngoài cây cha/con, vẽ mũi tên cong riêng (chỉ hiện khi cả 2 node đang visible). */
+    connections(data: { from: string; to: string; label?: string }[]): this;
+    /** Được gọi qua selection.each() -> `this` là phần tử <path> của connection. */
+    connectionsUpdate(
+      fn: (
+        this: SVGPathElement,
+        d: { from: string; to: string; label?: string },
+        i: number,
+        arr: ArrayLike<SVGPathElement>
+      ) => void
+    ): this;
 
     render(): this;
     fit(options?: { animate?: boolean; scale?: boolean; onCompleted?: () => void }): this;

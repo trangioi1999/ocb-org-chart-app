@@ -1,0 +1,1001 @@
+[
+  {
+    "id": "dhdcd",
+    "parentId": null,
+    "name": "Đại hội đồng cổ đông",
+    "title": "",
+    "tag": "top"
+  },
+  {
+    "id": "bks",
+    "parentId": "dhdcd",
+    "name": "Ban Kiểm soát",
+    "title": "",
+    "tag": "control",
+    "members": [
+      "Đặng Thị Thanh Huyền — Trưởng Ban Kiểm soát",
+      "Đặng Thị Quý — Thành viên Ban Kiểm soát",
+      "Nguyễn Văn Hải — Thành viên Ban Kiểm soát",
+      "Nguyễn Trọng Hải — Thành viên Ban Kiểm soát",
+      "Phạm Quang Vinh — Thành viên Ban Kiểm soát"
+    ]
+  },
+  {
+    "id": "ktnb",
+    "parentId": "bks",
+    "name": "Kiểm toán nội bộ",
+    "title": "",
+    "tag": "control"
+  },
+  {
+    "id": "hdqt",
+    "parentId": "dhdcd",
+    "name": "Hội đồng quản trị",
+    "title": "",
+    "tag": "top",
+    "members": [
+      "Trịnh Văn Tuấn — Chủ tịch Hội đồng quản trị",
+      "Ngô Hà Bắc — Thành viên HĐQT",
+      "Trịnh Thị Mai Anh — Thành viên HĐQT",
+      "Yoshizawa Toshiki — Thành viên HĐQT",
+      "Segawa Mitsuhiro — Thành viên HĐQT",
+      "Phan Trung — Thành viên HĐQT",
+      "Dương Kỳ Hiệp — Thành viên độc lập HĐQT",
+      "Lê Xuân Nghĩa — Thành viên độc lập HĐQT"
+    ]
+  },
+  {
+    "id": "cqt-hdqt",
+    "parentId": "hdqt",
+    "name": "Các cơ quan trực thuộc HĐQT",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "cqt-hdqt-01",
+    "parentId": "cqt-hdqt",
+    "name": "Ủy ban Nhân sự",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "cqt-hdqt-02",
+    "parentId": "cqt-hdqt",
+    "name": "Ủy ban Quản lý rủi ro",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "cqt-hdqt-03",
+    "parentId": "cqt-hdqt",
+    "name": "Ủy ban XLRR",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "cqt-hdqt-04",
+    "parentId": "cqt-hdqt",
+    "name": "Ban Chiến lược",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "cqt-hdqt-05",
+    "parentId": "cqt-hdqt",
+    "name": "Ban Hợp tác chiến lược",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "cqt-hdqt-06",
+    "parentId": "cqt-hdqt",
+    "name": "Ban PTBV",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "vp-hdqt",
+    "parentId": "hdqt",
+    "name": "Văn phòng HĐQT",
+    "title": "",
+    "tag": "governance"
+  },
+  {
+    "id": "tgd",
+    "parentId": "hdqt",
+    "name": "Tổng Giám đốc",
+    "title": "",
+    "tag": "top",
+    "members": [
+      "Chris Shayan — Quyền Tổng Giám đốc"
+    ]
+  },
+  {
+    "id": "cqt-tgd",
+    "parentId": "tgd",
+    "name": "Các cơ quan trực thuộc TGĐ",
+    "title": "",
+    "tag": "council",
+    "linkStyle": "functional"
+  },
+  {
+    "id": "cqt-tgd-01",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng xét duyệt sản phẩm",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-02",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng rủi ro",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-03",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng quản lý vốn",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-04",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng ALCO",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-05",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng tín dụng",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-06",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng cơ cấu nợ",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-07",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng mua bán nợ",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-08",
+    "parentId": "cqt-tgd",
+    "name": "Hội đồng nhân sự",
+    "title": "",
+    "tag": "council"
+  },
+  {
+    "id": "cqt-tgd-09",
+    "parentId": "cqt-tgd",
+    "name": "Phòng Quản lý chuyển đổi",
+    "title": "",
+    "tag": "support"
+  },
+  {
+    "id": "khoi-01",
+    "parentId": "tgd",
+    "name": "Khối Bán lẻ",
+    "title": "",
+    "tag": "business",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-02",
+    "parentId": "tgd",
+    "name": "Khối Khách hàng Doanh nghiệp",
+    "title": "",
+    "tag": "business",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-03",
+    "parentId": "tgd",
+    "name": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư",
+    "title": "",
+    "tag": "business",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-04",
+    "parentId": "tgd",
+    "name": "Khối Thị trường Tài chính",
+    "title": "",
+    "tag": "business",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-05",
+    "parentId": "tgd",
+    "name": "Trung tâm Quản lý Tài sản Nợ và Có",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-06",
+    "parentId": "tgd",
+    "name": "Trung tâm Ngân hàng số Liobank",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column",
+    "connections": [
+      {
+        "toId": "khoi-10",
+        "label": "Phối hợp (demo)"
+      }
+    ]
+  },
+  {
+    "id": "khoi-07",
+    "parentId": "tgd",
+    "name": "Trung tâm Ngân hàng giao dịch",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-08",
+    "parentId": "tgd",
+    "name": "Khối Quản lý rủi ro",
+    "title": "",
+    "tag": "support",
+    "childrenLayout": "column",
+    "connections": [
+      {
+        "toId": "khoi-01",
+        "label": "Chia sẻ dữ liệu rủi ro (demo)"
+      }
+    ]
+  },
+  {
+    "id": "khoi-09",
+    "parentId": "tgd",
+    "name": "Khối Vận hành",
+    "title": "",
+    "tag": "support",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-10",
+    "parentId": "tgd",
+    "name": "Khối Công nghệ và Chuyển đổi số",
+    "title": "",
+    "tag": "support",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-11",
+    "parentId": "tgd",
+    "name": "Trung tâm Quản lý Tài chính",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-12",
+    "parentId": "tgd",
+    "name": "Trung tâm Nhân sự và Đào tạo",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column",
+    "connections": [
+      {
+        "toId": "khoi-14",
+        "label": "Phối hợp đào tạo & phân tích (demo)"
+      }
+    ]
+  },
+  {
+    "id": "khoi-13",
+    "parentId": "tgd",
+    "name": "Trung tâm Pháp chế và Tuân thủ",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-14",
+    "parentId": "tgd",
+    "name": "Trung tâm Quản trị và Phân tích dữ liệu",
+    "title": "",
+    "tag": "center",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-15",
+    "parentId": "tgd",
+    "name": "Phòng Thương hiệu và Truyền thông",
+    "title": "",
+    "tag": "support",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-16",
+    "parentId": "tgd",
+    "name": "Phòng Phát triển bền vững",
+    "title": "",
+    "tag": "support",
+    "childrenLayout": "column"
+  },
+  {
+    "id": "khoi-01-01",
+    "parentId": "khoi-01",
+    "name": "Trung tâm Bảo hiểm",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-02",
+    "parentId": "khoi-01",
+    "name": "Trung tâm Giải pháp thanh toán",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-03",
+    "parentId": "khoi-01",
+    "name": "Trung tâm Giải pháp số",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-04",
+    "parentId": "khoi-01",
+    "name": "Trung tâm Vận hành kinh doanh",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-05",
+    "parentId": "khoi-01",
+    "name": "Trung tâm Thu hồi nợ RB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-06",
+    "parentId": "khoi-01",
+    "name": "Phòng Quản lý chất lượng dịch vụ",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-07",
+    "parentId": "khoi-01",
+    "name": "Phòng Sản phẩm cho vay",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-08",
+    "parentId": "khoi-01",
+    "name": "Phòng Giải pháp tiết kiệm và đầu tư",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-09",
+    "parentId": "khoi-01",
+    "name": "Phòng Khách hàng ưu tiên",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-10",
+    "parentId": "khoi-01",
+    "name": "Phòng Phát triển đối tác",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-11",
+    "parentId": "khoi-01",
+    "name": "Bộ phận Marketing",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-12",
+    "parentId": "khoi-01",
+    "name": "Phòng Xây dựng năng lực bán",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-01-13",
+    "parentId": "khoi-01",
+    "name": "Kênh bán hàng trực tiếp và digital",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Bán lẻ"
+  },
+  {
+    "id": "khoi-02-01",
+    "parentId": "khoi-02",
+    "name": "Phòng Phát triển sản phẩm và giải pháp - CMB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Khách hàng Doanh nghiệp"
+  },
+  {
+    "id": "khoi-02-02",
+    "parentId": "khoi-02",
+    "name": "Phòng Quản lý nợ - CMB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Khách hàng Doanh nghiệp"
+  },
+  {
+    "id": "khoi-02-03",
+    "parentId": "khoi-02",
+    "name": "Phòng Quản lý kinh doanh - CMB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Khách hàng Doanh nghiệp"
+  },
+  {
+    "id": "khoi-03-01",
+    "parentId": "khoi-03",
+    "name": "Phòng Phát triển sản phẩm và giải pháp - CIB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư"
+  },
+  {
+    "id": "khoi-03-02",
+    "parentId": "khoi-03",
+    "name": "Phòng Quản trị nợ - CIB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư"
+  },
+  {
+    "id": "khoi-03-03",
+    "parentId": "khoi-03",
+    "name": "Phòng Quản lý kinh doanh - CIB",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Khách hàng Doanh nghiệp lớn và Dịch vụ Ngân hàng đầu tư"
+  },
+  {
+    "id": "khoi-04-01",
+    "parentId": "khoi-04",
+    "name": "Phòng Kinh doanh vốn",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Thị trường Tài chính"
+  },
+  {
+    "id": "khoi-04-02",
+    "parentId": "khoi-04",
+    "name": "Phòng Kinh doanh ngoại hối",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Thị trường Tài chính"
+  },
+  {
+    "id": "khoi-04-03",
+    "parentId": "khoi-04",
+    "name": "Trung tâm Bán sản phẩm thị trường tài chính",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Thị trường Tài chính"
+  },
+  {
+    "id": "khoi-04-04",
+    "parentId": "khoi-04",
+    "name": "Phòng Phát triển sản phẩm và quản trị vận hành",
+    "title": "",
+    "tag": "business",
+    "department": "Khối Thị trường Tài chính"
+  },
+  {
+    "id": "khoi-05-01",
+    "parentId": "khoi-05",
+    "name": "Phòng Chiến lược quản lý tài sản nợ và có",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản lý Tài sản Nợ và Có"
+  },
+  {
+    "id": "khoi-05-02",
+    "parentId": "khoi-05",
+    "name": "Phòng Phát hành và Đầu tư GTCG",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản lý Tài sản Nợ và Có"
+  },
+  {
+    "id": "khoi-06-01",
+    "parentId": "khoi-06",
+    "name": "Phòng Quản lý rủi ro tín dụng",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-02",
+    "parentId": "khoi-06",
+    "name": "Phòng Phát triển sản phẩm",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-03",
+    "parentId": "khoi-06",
+    "name": "Phòng Vận hành",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-04",
+    "parentId": "khoi-06",
+    "name": "Phòng Kinh doanh",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-05",
+    "parentId": "khoi-06",
+    "name": "Phòng Phát triển đối tác",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-06",
+    "parentId": "khoi-06",
+    "name": "Phòng Tài chính",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-07",
+    "parentId": "khoi-06",
+    "name": "Phòng Phân khúc khách hàng",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-06-08",
+    "parentId": "khoi-06",
+    "name": "Phòng Quản lý dự án",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng số Liobank"
+  },
+  {
+    "id": "khoi-07-01",
+    "parentId": "khoi-07",
+    "name": "Phòng Kinh doanh - TB",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng giao dịch"
+  },
+  {
+    "id": "khoi-07-02",
+    "parentId": "khoi-07",
+    "name": "Phòng Phát triển sản phẩm - TB",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng giao dịch"
+  },
+  {
+    "id": "khoi-07-03",
+    "parentId": "khoi-07",
+    "name": "Phòng Triển khai khách hàng - TB",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng giao dịch"
+  },
+  {
+    "id": "khoi-07-04",
+    "parentId": "khoi-07",
+    "name": "Phòng Tác nghiệp tài trợ thương mại",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Ngân hàng giao dịch"
+  },
+  {
+    "id": "khoi-08-01",
+    "parentId": "khoi-08",
+    "name": "Phòng QLRR thị trường và thanh khoản",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-08-02",
+    "parentId": "khoi-08",
+    "name": "Phòng QLRR doanh nghiệp",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-08-03",
+    "parentId": "khoi-08",
+    "name": "Phòng QLRR tín dụng",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-08-04",
+    "parentId": "khoi-08",
+    "name": "Phòng QLRR hoạt động",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-08-05",
+    "parentId": "khoi-08",
+    "name": "Phòng QLRR mô hình và phân tích chuyên sâu",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-08-06",
+    "parentId": "khoi-08",
+    "name": "Trung tâm Quản lý tín dụng",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-08-07",
+    "parentId": "khoi-08",
+    "name": "Trung tâm Xử lý nợ",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Quản lý rủi ro"
+  },
+  {
+    "id": "khoi-09-01",
+    "parentId": "khoi-09",
+    "name": "Phòng Kho quỹ",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Vận hành"
+  },
+  {
+    "id": "khoi-09-02",
+    "parentId": "khoi-09",
+    "name": "Phòng Thanh toán",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Vận hành"
+  },
+  {
+    "id": "khoi-09-03",
+    "parentId": "khoi-09",
+    "name": "Phòng Tác nghiệp thị trường và đầu tư",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Vận hành"
+  },
+  {
+    "id": "khoi-09-04",
+    "parentId": "khoi-09",
+    "name": "Trung tâm Xử lý giao dịch tín dụng",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Vận hành"
+  },
+  {
+    "id": "khoi-09-05",
+    "parentId": "khoi-09",
+    "name": "Phòng Hành chính quản trị",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Vận hành"
+  },
+  {
+    "id": "khoi-09-06",
+    "parentId": "khoi-09",
+    "name": "Phòng Định giá",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Vận hành"
+  },
+  {
+    "id": "khoi-10-01",
+    "parentId": "khoi-10",
+    "name": "Trung tâm Ứng dụng công nghệ",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-10-02",
+    "parentId": "khoi-10",
+    "name": "Phòng An toàn thông tin",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-10-03",
+    "parentId": "khoi-10",
+    "name": "Phòng Vận hành công nghệ",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-10-04",
+    "parentId": "khoi-10",
+    "name": "Phòng Quản trị công nghệ",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-10-05",
+    "parentId": "khoi-10",
+    "name": "Phòng Tự động hóa quy trình",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-10-06",
+    "parentId": "khoi-10",
+    "name": "Phòng Chuyển đổi kỹ thuật số",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-10-07",
+    "parentId": "khoi-10",
+    "name": "Phòng Hạ tầng công nghệ",
+    "title": "",
+    "tag": "support",
+    "department": "Khối Công nghệ và Chuyển đổi số"
+  },
+  {
+    "id": "khoi-11-01",
+    "parentId": "khoi-11",
+    "name": "Phòng Kế toán",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản lý Tài chính"
+  },
+  {
+    "id": "khoi-11-02",
+    "parentId": "khoi-11",
+    "name": "Phòng Tài chính kế hoạch",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản lý Tài chính"
+  },
+  {
+    "id": "khoi-12-01",
+    "parentId": "khoi-12",
+    "name": "Phòng Tuyển dụng",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Nhân sự và Đào tạo"
+  },
+  {
+    "id": "khoi-12-02",
+    "parentId": "khoi-12",
+    "name": "Phòng Đào tạo",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Nhân sự và Đào tạo"
+  },
+  {
+    "id": "khoi-12-03",
+    "parentId": "khoi-12",
+    "name": "Phòng Quản lý nguồn nhân lực",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Nhân sự và Đào tạo"
+  },
+  {
+    "id": "khoi-12-04",
+    "parentId": "khoi-12",
+    "name": "Phòng Phát triển nguồn nhân lực",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Nhân sự và Đào tạo"
+  },
+  {
+    "id": "khoi-13-01",
+    "parentId": "khoi-13",
+    "name": "Phòng Pháp chế",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Pháp chế và Tuân thủ"
+  },
+  {
+    "id": "khoi-13-02",
+    "parentId": "khoi-13",
+    "name": "Phòng Kiểm soát tuân thủ",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Pháp chế và Tuân thủ"
+  },
+  {
+    "id": "khoi-14-01",
+    "parentId": "khoi-14",
+    "name": "Phòng Quản trị dữ liệu",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản trị và Phân tích dữ liệu"
+  },
+  {
+    "id": "khoi-14-02",
+    "parentId": "khoi-14",
+    "name": "Phòng Khoa học dữ liệu",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản trị và Phân tích dữ liệu"
+  },
+  {
+    "id": "khoi-14-03",
+    "parentId": "khoi-14",
+    "name": "Phòng Kiến trúc và nền tảng dữ liệu",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản trị và Phân tích dữ liệu"
+  },
+  {
+    "id": "khoi-14-04",
+    "parentId": "khoi-14",
+    "name": "Phòng Phân tích dữ liệu",
+    "title": "",
+    "tag": "center",
+    "department": "Trung tâm Quản trị và Phân tích dữ liệu"
+  },
+  {
+    "id": "dvkd-ttbct",
+    "parentId": "khoi-01",
+    "name": "Trung tâm Bán chuyên trách",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh"
+  },
+  {
+    "id": "dvkd-kbh",
+    "parentId": "khoi-01",
+    "name": "Kênh Bán hàng",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh"
+  },
+  {
+    "id": "dvkd-ttkd",
+    "parentId": "tgd",
+    "name": "Trung tâm Kinh doanh",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh",
+    "connections": [
+      {
+        "toId": "dvkd-kvbl",
+        "label": "Hỗ trợ kinh doanh (demo)"
+      }
+    ]
+  },
+  {
+    "id": "dvkd-kvbl",
+    "parentId": "tgd",
+    "name": "Khu vực Bán lẻ",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh"
+  },
+  {
+    "id": "dvkd-vungcmb",
+    "parentId": "tgd",
+    "name": "Vùng CMB",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh"
+  },
+  {
+    "id": "dvkd-fdi",
+    "parentId": "tgd",
+    "name": "Khách hàng doanh nghiệp FDI",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh"
+  },
+  {
+    "id": "ttcd-rb",
+    "parentId": "dvkd-kvbl",
+    "name": "Trung tâm chuyên doanh RB",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  },
+  {
+    "id": "ttcd-cmb",
+    "parentId": "dvkd-vungcmb",
+    "name": "Trung tâm chuyên doanh CMB",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  },
+  {
+    "id": "ttcd-fdi",
+    "parentId": "dvkd-fdi",
+    "name": "Trung tâm chuyên doanh FDI",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  },
+  {
+    "id": "ttcd-cib",
+    "parentId": "dvkd-fdi",
+    "name": "Trung tâm chuyên doanh CIB",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  },
+  {
+    "id": "cn-pgd",
+    "parentId": "tgd",
+    "name": "Chi nhánh / Phòng giao dịch",
+    "title": "",
+    "tag": "business",
+    "department": "Đơn vị kinh doanh",
+    "note": "Hệ thống chi nhánh và phòng giao dịch trên toàn quốc; mỗi đơn vị gồm các bộ phận bên dưới."
+  },
+  {
+    "id": "cn-pgd-01",
+    "parentId": "cn-pgd",
+    "name": "BP. Dịch vụ tín dụng",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  },
+  {
+    "id": "cn-pgd-02",
+    "parentId": "cn-pgd",
+    "name": "BP. Kế toán - Hành chính",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  },
+  {
+    "id": "cn-pgd-03",
+    "parentId": "cn-pgd",
+    "name": "BP. Kho quỹ",
+    "title": "",
+    "tag": "business",
+    "department": "Chi nhánh/PGD"
+  }
+]

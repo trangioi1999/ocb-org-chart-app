@@ -359,7 +359,10 @@ export class OrgChartComponent implements OnDestroy {
         .onNodeClick((d) => {
           const node: OrgNode = 'data' in d ? d.data : d;
           this.zone.run(() => this.nodeClick.emit(node));
-        });
+        })
+        // Bấm nút mở/thu gọn con của 1 node bất kỳ cũng tự fit khung nhìn,
+        // để phần con vừa hiện ra/thu lại luôn nằm gọn trong màn hình.
+        .onExpandOrCollapse(() => this.fitChart());
       this.chart.render();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
       this.listenerAttached = true;

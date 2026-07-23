@@ -239,7 +239,20 @@ export class OrgChartComponent implements OnDestroy {
     this.zone.runOutsideAngular(() => this.chart?.exportImg({ save: true }));
   }
 
+  /**
+   * d3-org-chart tự đo lại svgWidth từ container mỗi lần render, nhưng
+   * svgHeight thì KHÔNG — nó giữ nguyên giá trị mặc định
+   * `window.innerHeight - 100` được tính 1 lần lúc khởi tạo chart. Nếu
+   * chiều cao container thực tế khác con số đó (gần như luôn luôn khác,
+   * vì app full-screen), fit() sẽ tính scale dựa trên chiều cao sai
+   * lệch, khiến 1 phần cây bị tràn ra ngoài khung nhìn phía dưới. Đồng
+   * bộ lại đúng chiều cao thật của container trước mỗi lần fit().
+   */
   private fitChart(): void {
+    const container = this.containerRef().nativeElement;
+    if (container.clientHeight > 0) {
+      this.chart?.svgHeight(container.clientHeight);
+    }
     this.chart?.fit();
   }
 
@@ -364,12 +377,13 @@ export class OrgChartComponent implements OnDestroy {
         // để phần con vừa hiện ra/thu lại luôn nằm gọn trong màn hình.
         .onExpandOrCollapse(() => this.fitChart());
       this.chart.render();
+      this.fitChart();
       this.containerRef().nativeElement.addEventListener('keydown', this.handleCardKeydown);
       this.listenerAttached = true;
 
       if (typeof ResizeObserver !== 'undefined') {
         this.resizeObserver = new ResizeObserver(() => {
-          this.zone.runOutsideAngular(() => this.chart?.fit());
+          this.zone.runOutsideAngular(() => this.fitChart());
         });
         this.resizeObserver.observe(this.containerRef().nativeElement);
       }
